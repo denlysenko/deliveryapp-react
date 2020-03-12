@@ -1,5 +1,5 @@
 {
-  "npmScope": "deliveryapp-react",
+  "npmScope": "deliveryapp",
   "implicitDependencies": {
     "workspace.json": "*",
     "package.json": {
@@ -17,6 +17,9 @@
     "desktop-e2e": {
       "tags": [],
       "implicitDependencies": ["desktop"]
+    },
+    "core": {
+      "tags": []
     }
   }
 }

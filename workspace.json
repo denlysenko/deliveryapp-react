@@ -110,6 +110,23 @@
           }
         }
       }
+    },
+    "core": {
+      "root": "libs/core",
+      "sourceRoot": "libs/core/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:lint",
+          "options": {
+            "linter": "eslint",
+            "config": "libs/core/.eslintrc",
+            "tsConfig": ["libs/core/tsconfig.lib.json"],
+            "exclude": ["**/node_modules/**", "!libs/core/**"]
+          }
+        }
+      }
     }
   },
   "cli": {
