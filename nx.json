@@ -1,0 +1,22 @@
+{
+  "npmScope": "deliveryapp-react",
+  "implicitDependencies": {
+    "workspace.json": "*",
+    "package.json": {
+      "dependencies": "*",
+      "devDependencies": "*"
+    },
+    "tsconfig.json": "*",
+    "tslint.json": "*",
+    "nx.json": "*"
+  },
+  "projects": {
+    "desktop": {
+      "tags": []
+    },
+    "desktop-e2e": {
+      "tags": [],
+      "implicitDependencies": ["desktop"]
+    }
+  }
+}
