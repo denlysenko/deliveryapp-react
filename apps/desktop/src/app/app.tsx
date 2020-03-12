@@ -2,8 +2,7 @@ import React from 'react';
 
 import styled from 'styled-components';
 
-import { ReactComponent as Logo } from './logo.svg';
-import star from './star.svg';
+import { Button } from 'primereact/button';
 
 const StyledApp = styled.div`
   /*
@@ -147,7 +146,6 @@ export const App = () => {
   return (
     <StyledApp>
       <header className="flex">
-        <Logo width="75" height="75" />
         <h1>Welcome to desktop!</h1>
       </header>
       <main>
@@ -161,10 +159,7 @@ export const App = () => {
           >
             {' '}
             If you like Nx, please give it a star:
-            <div className="github-star-badge">
-              <img src={star} className="material-icons" alt="" />
-              Star
-            </div>
+            <div className="github-star-badge">Star</div>
           </a>
         </div>
         <p>Here are some links to help you get started.</p>
@@ -204,7 +199,7 @@ export const App = () => {
             </a>
           </li>
         </ul>
-        <h2>Next Steps</h2>
+        <Button>Next Steps</Button>
         <p>Here are some things you can do with Nx.</p>
         <details open>
           <summary>Add UI library</summary>

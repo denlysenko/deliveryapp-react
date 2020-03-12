@@ -15,11 +15,12 @@
             "main": "apps/desktop/src/main.tsx",
             "polyfills": "apps/desktop/src/polyfills.ts",
             "tsConfig": "apps/desktop/tsconfig.app.json",
-            "assets": [
-              "apps/desktop/src/favicon.ico",
-              "apps/desktop/src/assets"
+            "assets": ["apps/desktop/src/assets"],
+            "styles": [
+              "apps/desktop/src/theme.css",
+              "node_modules/primereact/resources/primereact.min.css",
+              "node_modules/primeicons/primeicons.css"
             ],
-            "styles": [],
             "scripts": [],
             "webpackConfig": "@nrwl/react/plugins/webpack"
           },
