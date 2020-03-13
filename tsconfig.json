@@ -16,7 +16,8 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@deliveryapp/core": ["libs/core/src/index.ts"]
+      "@deliveryapp/core": ["libs/core/src/index.ts"],
+      "@deliveryapp/data-access": ["libs/data-access/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

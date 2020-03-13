@@ -20,6 +20,9 @@
     },
     "core": {
       "tags": []
+    },
+    "data-access": {
+      "tags": []
     }
   }
 }
