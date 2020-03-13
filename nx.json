@@ -23,6 +23,9 @@
     },
     "data-access": {
       "tags": []
+    },
+    "testing": {
+      "tags": []
     }
   }
 }

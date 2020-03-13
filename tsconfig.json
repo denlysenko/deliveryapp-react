@@ -17,7 +17,8 @@
     "baseUrl": ".",
     "paths": {
       "@deliveryapp/core": ["libs/core/src/index.ts"],
-      "@deliveryapp/data-access": ["libs/data-access/src/index.ts"]
+      "@deliveryapp/data-access": ["libs/data-access/src/index.ts"],
+      "@deliveryapp/testing": ["libs/testing/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

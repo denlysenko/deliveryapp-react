@@ -3,3 +3,7 @@ export * from './lib/api/users/users';
 
 export * from './lib/models/auth';
 export * from './lib/models/user';
+
+export * from './lib/context/auth';
+
+export * from './lib/hooks/auth/useAuth';

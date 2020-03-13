@@ -1,6 +1,6 @@
 import { apiService } from '@deliveryapp/core';
 
-import { AuthPayload, AuthCredentials } from '../../models/auth';
+import { AuthCredentials, AuthPayload } from '../../models/auth';
 import { login, register } from './auth';
 
 const authPayload: AuthPayload = {

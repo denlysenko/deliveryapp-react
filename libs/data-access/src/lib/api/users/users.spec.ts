@@ -1,19 +1,7 @@
 import { apiService } from '@deliveryapp/core';
+import { user } from '@deliveryapp/testing';
 
 import { me } from './users';
-import { User } from '../../models/user';
-
-const user: User = {
-  id: 1,
-  email: 'test@test.com',
-  firstName: 'Test',
-  lastName: 'Test',
-  company: 'company',
-  phone: '1234567',
-  role: 1,
-  address: null,
-  bankDetails: null
-};
 
 jest.mock('@deliveryapp/core', () => ({
   apiService: {
