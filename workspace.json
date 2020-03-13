@@ -18,6 +18,7 @@
             "assets": ["apps/desktop/src/assets"],
             "styles": [
               "apps/desktop/src/theme.css",
+              "node_modules/font-awesome/css/font-awesome.min.css",
               "node_modules/primereact/resources/primereact.min.css",
               "node_modules/primeicons/primeicons.css"
             ],
@@ -169,6 +170,34 @@
             "config": "libs/testing/.eslintrc",
             "tsConfig": ["libs/testing/tsconfig.lib.json"],
             "exclude": ["**/node_modules/**", "!libs/testing/**"]
+          }
+        }
+      }
+    },
+    "pages-auth": {
+      "root": "libs/pages/auth",
+      "sourceRoot": "libs/pages/auth/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:lint",
+          "options": {
+            "linter": "eslint",
+            "config": "libs/pages/auth/.eslintrc",
+            "tsConfig": [
+              "libs/pages/auth/tsconfig.lib.json",
+              "libs/pages/auth/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/pages/auth/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/pages/auth/jest.config.js",
+            "tsConfig": "libs/pages/auth/tsconfig.spec.json",
+            "passWithNoTests": true
           }
         }
       }

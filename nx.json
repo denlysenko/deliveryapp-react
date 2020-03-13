@@ -26,6 +26,9 @@
     },
     "testing": {
       "tags": []
+    },
+    "pages-auth": {
+      "tags": []
     }
   }
 }

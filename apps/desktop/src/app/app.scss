@@ -1,0 +1,84 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto;
+  font-size: 13px;
+  font-weight: 300;
+  color: #757575;
+  background-color: #f2f8fa;
+}
+
+.ui-inputtext,
+.ui-float-label label {
+  font-weight: 300;
+}
+
+.ui-message {
+  margin: 0.1em 0;
+}
+
+.card {
+  background: #ffffff;
+  padding: 16px;
+  margin-bottom: 16px;
+}
+
+.ui-table .ui-table-data tr td {
+  text-align: center;
+}
+
+.ui-dropdown .ui-dropdown-label,
+.ui-dropdown-panel .ui-dropdown-item {
+  font-weight: 300;
+}
+
+.ui-table {
+  .ui-table-wrapper {
+    overflow-y: auto;
+  }
+
+  table {
+    min-width: 960px;
+  }
+
+  .ui-sortable-column {
+    outline: none;
+  }
+}
+
+.center {
+  text-align: center;
+}
+
+.input-wrapper {
+  position: relative;
+
+  .float-label {
+    position: absolute;
+    pointer-events: none;
+    left: 0.25em;
+    top: -0.75em;
+    font-size: 12px;
+    margin-top: -0.5em;
+    transition: 0.3s ease all;
+    color: #898989;
+    line-height: 1;
+  }
+}
+
+.ng-dirty.ng-invalid:not(form) .ui-spinner-input,
+.ng-dirty.ng-invalid:not(form) .ui-inputtext {
+  border-color: #e17576;
+}
+
+.user-view {
+  width: 90%;
+
+  @media (min-width: 641px) {
+    width: 50%;
+    height: 480px;
+  }
+}
