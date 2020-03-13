@@ -8,7 +8,7 @@ class ApiService {
     this.setupDefaults();
   }
 
-  get<T>(url: string, query: unknown): Promise<T> {
+  get<T>(url: string, query?: unknown): Promise<T> {
     return this.httpClient.get(url, {
       params: query
     });
