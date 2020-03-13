@@ -1,14 +1,17 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 
-import { AuthCredentials } from '@deliveryapp/data-access';
+import { AuthCredentials, login, register } from '@deliveryapp/data-access';
 
 import { AuthForm } from './AuthForm/AuthForm';
 import { StyledAuth } from './StyledAuth';
 
 export const Auth = () => {
+  const history = useHistory();
+
   const [isLoggingIn, setIsLoggingIn] = useState(true);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState({});
 
   const toggleMode = (
     event: React.MouseEvent<HTMLAnchorElement, MouseEvent>
@@ -18,7 +21,19 @@ export const Auth = () => {
   };
 
   const handleSubmit = (data: AuthCredentials) => {
-    console.log(data);
+    const request = isLoggingIn ? login(data) : register(data);
+    setLoading(true);
+    request
+      .then(data => {
+        console.log(data);
+        setLoading(false);
+        // localStorage.setItem('accessToken', data.token)
+        history.push('/');
+      })
+      .catch(err => {
+        setLoading(false);
+        setError(err.response.data);
+      });
   };
 
   return (

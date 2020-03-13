@@ -1,8 +1,9 @@
 import React from 'react';
 import { useFormik } from 'formik';
-import { InputText } from 'primereact/inputtext';
-import { InputMask } from 'primereact/inputmask';
 import { Button } from 'primereact/button';
+import { InputMask } from 'primereact/inputmask';
+import { InputText } from 'primereact/inputtext';
+import * as Yup from 'yup';
 
 import { AuthCredentials } from '@deliveryapp/data-access';
 
@@ -12,11 +13,18 @@ export interface AuthFormProps {
   isLoggingIn: boolean;
   loading: boolean;
   error: unknown;
-  onFormSubmit: (body: AuthCredentials) => void;
+  onFormSubmit: (body: Partial<AuthCredentials>) => void;
 }
 
+const ValidationSchema = Yup.object().shape({
+  email: Yup.string()
+    .email('Invalid email')
+    .required('Required field'),
+  password: Yup.string().required('Required field')
+});
+
 export const AuthForm = (props: AuthFormProps) => {
-  const { isLoggingIn, loading } = props;
+  const { isLoggingIn, loading, error, onFormSubmit } = props;
 
   const formik = useFormik({
     initialValues: {
@@ -25,11 +33,16 @@ export const AuthForm = (props: AuthFormProps) => {
       email: '',
       company: '',
       phone: '',
-      password: '',
-      confirmPassword: ''
+      password: ''
     },
+    validationSchema: ValidationSchema,
     onSubmit: values => {
-      alert(JSON.stringify(values, null, 2));
+      if (isLoggingIn) {
+        const { email, password } = values;
+        onFormSubmit({ email, password });
+      } else {
+        onFormSubmit(values);
+      }
     }
   });
 
@@ -76,7 +89,9 @@ export const AuthForm = (props: AuthFormProps) => {
                 <InputMask
                   id="phone"
                   mask="(999) 999-9999"
+                  unmask
                   value={formik.values.phone}
+                  onChange={e => formik.setFieldValue('phone', e.value)}
                 />
                 <label htmlFor="phone">Phone</label>
                 <i className="fa fa-phone"></i>
@@ -88,57 +103,47 @@ export const AuthForm = (props: AuthFormProps) => {
           <div className="input-wrapper p-float-label">
             <InputText
               id="email"
+              className={
+                formik.touched.email && formik.errors.email ? 'invalid' : ''
+              }
               value={formik.values.email}
               onChange={formik.handleChange}
             />
             <label htmlFor="email">Email</label>
             <i className="fa fa-user-circle-o"></i>
           </div>
-          {/* <div 
-         class="ui-message ui-message-error ui-corner-all">
-      <i class="fa fa-close"></i>
-      <span >Required field</span>
-      <span>Invalid email</span>
-      <span>{ error['email'] }</span>
-    </div> */}
+          {formik.touched.email && formik.errors.email && (
+            <div className="ui-message ui-message-error ui-corner-all">
+              <i className="fa fa-close"></i>
+              <span>{formik.errors.email}</span>
+              <span>{error['email']}</span>
+            </div>
+          )}
         </div>
         <div className="ui-g-12">
           <div className="input-wrapper p-float-label">
             <InputText
               type="password"
               id="password"
+              className={
+                formik.touched.password && formik.errors.password
+                  ? 'invalid'
+                  : ''
+              }
               value={formik.values.password}
               onChange={formik.handleChange}
             />
             <label htmlFor="password">Password</label>
             <i className="fa fa-lock"></i>
           </div>
-          {/* <div
-         class="ui-message ui-message-error ui-corner-all">
-      <i class="fa fa-close"></i>
-      <span>Required field</span>
-      <span>{ errors['password'] }</span>
-    </div> */}
-        </div>
-        {!isLoggingIn && (
-          <div className="ui-g-12">
-            <div className="input-wrapper p-float-label">
-              <InputText
-                type="password"
-                id="confirmPassword"
-                value={formik.values.confirmPassword}
-                onChange={formik.handleChange}
-              />
-              <label htmlFor="confirmPassword">Confirm Password</label>
-              <i className="fa fa-lock"></i>
+          {formik.touched.password && formik.errors.password && (
+            <div className="ui-message ui-message-error ui-corner-all">
+              <i className="fa fa-close"></i>
+              <span>{formik.errors.password}</span>
+              <span>{error['password']}</span>
             </div>
-            {/* <div 
-           class="ui-message ui-message-error ui-corner-all">
-        <i class="fa fa-close"></i>
-        <span >Passwords do not match</span>
-      </div> */}
-          </div>
-        )}
+          )}
+        </div>
         <div className="ui-g-12 button-container">
           <Button
             type="submit"
