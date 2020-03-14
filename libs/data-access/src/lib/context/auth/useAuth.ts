@@ -1,11 +1,8 @@
 import * as React from 'react';
 
-import { AuthDispatch } from '../../context/auth/auth.actions';
-import {
-  AuthDispatchContext,
-  AuthStateContext
-} from '../../context/auth/auth.context';
-import { AuthState } from '../../context/auth/auth.reducer';
+import { AuthDispatch } from './auth.actions';
+import { AuthDispatchContext, AuthStateContext } from './auth.context';
+import { AuthState } from './auth.reducer';
 
 function useAuthState(): AuthState {
   const context = React.useContext(AuthStateContext);
