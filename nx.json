@@ -29,6 +29,9 @@
     },
     "pages-auth": {
       "tags": []
+    },
+    "common": {
+      "tags": []
     }
   }
 }

@@ -9,8 +9,8 @@ const authPayload: AuthPayload = {
 
 jest.mock('@deliveryapp/core', () => ({
   apiService: {
-    get: jest.fn(() => Promise.resolve(authPayload)),
-    post: jest.fn(() => Promise.resolve(authPayload))
+    get: jest.fn(() => Promise.resolve({ data: authPayload })),
+    post: jest.fn(() => Promise.resolve({ data: authPayload }))
   }
 }));
 
@@ -35,7 +35,7 @@ describe('API Auth', () => {
     });
 
     it('should return auth token', async () => {
-      expect(await login(loginCredentials)).toEqual(authPayload);
+      expect(await login(loginCredentials)).toEqual({ data: authPayload });
     });
   });
 
@@ -62,7 +62,9 @@ describe('API Auth', () => {
     });
 
     it('should return auth token', async () => {
-      expect(await register(registerCredentials)).toEqual(authPayload);
+      expect(await register(registerCredentials)).toEqual({
+        data: authPayload
+      });
     });
   });
 });

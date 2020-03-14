@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
+import { ACCESS_TOKEN } from '@deliveryapp/common';
 import { AuthCredentials, login, register } from '@deliveryapp/data-access';
 
 import { AuthForm } from './AuthForm/AuthForm';
@@ -11,29 +12,31 @@ export const Auth = () => {
 
   const [isLoggingIn, setIsLoggingIn] = useState(true);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState({});
+  const [error, setError] = useState(null);
 
   const toggleMode = (
     event: React.MouseEvent<HTMLAnchorElement, MouseEvent>
   ) => {
     event.preventDefault();
     setIsLoggingIn(loggingIn => !loggingIn);
+    setError(null);
   };
 
-  const handleSubmit = (data: AuthCredentials) => {
-    const request = isLoggingIn ? login(data) : register(data);
+  const handleSubmit = async (credentials: AuthCredentials) => {
     setLoading(true);
-    request
-      .then(data => {
-        console.log(data);
-        setLoading(false);
-        // localStorage.setItem('accessToken', data.token)
-        history.push('/');
-      })
-      .catch(err => {
-        setLoading(false);
-        setError(err.response.data);
-      });
+
+    try {
+      const { data } = isLoggingIn
+        ? await login(credentials)
+        : await register(credentials);
+
+      localStorage.setItem(ACCESS_TOKEN, data.token);
+      history.push('/');
+    } catch (err) {
+      setError(err.response.data);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (

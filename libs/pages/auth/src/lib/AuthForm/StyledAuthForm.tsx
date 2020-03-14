@@ -9,6 +9,10 @@ export const StyledAuthForm = styled.div`
     }
   }
 
+  .error-message {
+    padding: 0 100px;
+  }
+
   .input-wrapper {
     position: relative;
 
