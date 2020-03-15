@@ -1,6 +1,6 @@
 {
   "name": "deliveryapp-react",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "license": "MIT",
   "scripts": {
     "nx": "nx",
@@ -23,7 +23,9 @@
     "update": "nx migrate latest",
     "workspace-schematic": "nx workspace-schematic",
     "dep-graph": "nx dep-graph",
-    "help": "nx help"
+    "help": "nx help",
+    "seed:db": "sequelize db:seed:all",
+    "clear:db": "sequelize db:seed:undo:all"
   },
   "private": true,
   "dependencies": {
@@ -70,7 +72,10 @@
     "eslint-plugin-react": "7.17.0",
     "eslint-plugin-react-hooks": "2.3.0",
     "jest": "24.9.0",
+    "pg": "^7.18.2",
     "prettier": "1.19.1",
+    "sequelize": "^5.21.5",
+    "sequelize-cli": "^5.5.1",
     "ts-jest": "24.0.0",
     "ts-node": "~7.0.0",
     "tslint": "~6.0.0",

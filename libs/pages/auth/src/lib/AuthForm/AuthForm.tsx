@@ -89,6 +89,7 @@ export const AuthForm: React.FC<AuthFormProps> = ({
               <div className="input-wrapper p-float-label">
                 <InputText
                   id="firstName"
+                  data-testid="firstName"
                   value={formik.values.firstName}
                   onChange={formik.handleChange}
                 />
@@ -100,6 +101,7 @@ export const AuthForm: React.FC<AuthFormProps> = ({
               <div className="input-wrapper p-float-label">
                 <InputText
                   id="lastName"
+                  data-testid="lastName"
                   value={formik.values.lastName}
                   onChange={formik.handleChange}
                 />
@@ -111,6 +113,7 @@ export const AuthForm: React.FC<AuthFormProps> = ({
               <div className="input-wrapper p-float-label">
                 <InputText
                   id="company"
+                  data-testid="company"
                   value={formik.values.company}
                   onChange={formik.handleChange}
                 />

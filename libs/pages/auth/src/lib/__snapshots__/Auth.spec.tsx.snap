@@ -169,6 +169,7 @@ exports[`Auth Page Register should render register form 1`] = `
                 >
                   <input
                     class="p-inputtext p-component"
+                    data-testid="firstName"
                     id="firstName"
                     value=""
                   />
@@ -190,6 +191,7 @@ exports[`Auth Page Register should render register form 1`] = `
                 >
                   <input
                     class="p-inputtext p-component"
+                    data-testid="lastName"
                     id="lastName"
                     value=""
                   />
@@ -211,6 +213,7 @@ exports[`Auth Page Register should render register form 1`] = `
                 >
                   <input
                     class="p-inputtext p-component"
+                    data-testid="company"
                     id="company"
                     value=""
                   />

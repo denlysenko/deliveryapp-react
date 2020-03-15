@@ -5,6 +5,8 @@ module.exports = {
   },
   resolver: '@nrwl/jest/plugins/resolver',
   moduleFileExtensions: ['ts', 'js', 'html'],
-  transformIgnorePatterns: ['<rootDir>/node_modules/(?!lodash-es/.*)'],
+  moduleNameMapper: {
+    '^lodash-es$': 'lodash'
+  },
   coverageReporters: ['html']
 };

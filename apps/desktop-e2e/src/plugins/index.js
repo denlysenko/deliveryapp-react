@@ -11,6 +11,7 @@
 // This function is called when a project is opened or re-opened (e.g. due to
 // the project's config changing)
 
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const { preprocessTypescript } = require('@nrwl/cypress/plugins/preprocessor');
 
 module.exports = (on, config) => {
