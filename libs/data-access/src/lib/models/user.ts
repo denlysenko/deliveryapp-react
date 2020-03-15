@@ -6,8 +6,8 @@ export interface User {
   company: string;
   phone: string;
   role: number;
-  address?: Address;
-  bankDetails?: BankDetails;
+  address: Address | null;
+  bankDetails: BankDetails | null;
 }
 
 export interface Address {

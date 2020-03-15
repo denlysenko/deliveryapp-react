@@ -3,7 +3,7 @@ import { apiService } from '@deliveryapp/core';
 import { AuthCredentials, AuthPayload } from '../../models/auth';
 
 export function login(
-  credentials: Partial<AuthCredentials>
+  credentials: Pick<AuthCredentials, 'email' | 'password'>
 ): Promise<{ data: AuthPayload }> {
   return apiService.post<{ data: AuthPayload }>('/auth/login', credentials);
 }

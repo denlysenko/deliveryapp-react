@@ -8,4 +8,4 @@ export const AuthStateContext = React.createContext<AuthState | undefined>(
 );
 export const AuthDispatchContext = React.createContext<
   AuthDispatch | undefined
->(null);
+>(undefined);

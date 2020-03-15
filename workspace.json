@@ -197,7 +197,8 @@
           "options": {
             "jestConfig": "libs/pages/auth/jest.config.js",
             "tsConfig": "libs/pages/auth/tsconfig.spec.json",
-            "passWithNoTests": true
+            "passWithNoTests": true,
+            "setupFile": "libs/pages/auth/src/test-setup.ts"
           }
         }
       }

@@ -1,7 +1,12 @@
 import React, { useEffect, useRef } from 'react';
 import { useFormik } from 'formik';
 
-import { AuthCredentials, ValidationError } from '@deliveryapp/data-access';
+import { ERRORS } from '@deliveryapp/common';
+import {
+  AuthCredentials,
+  LoginError,
+  ValidationError
+} from '@deliveryapp/data-access';
 
 import { Button } from 'primereact/button';
 import { InputMask } from 'primereact/inputmask';
@@ -14,27 +19,27 @@ import { isNil } from 'lodash-es';
 
 import { StyledAuthForm } from './StyledAuthForm';
 
-interface LoginError {
-  message: string;
-}
-
 export interface AuthFormProps {
   isLoggingIn: boolean;
   loading: boolean;
   error: LoginError | ValidationError | null;
-  onFormSubmit: (body: Partial<AuthCredentials>) => void;
+  onFormSubmit: (body: AuthCredentials) => void;
 }
 
 const ValidationSchema = Yup.object().shape({
   email: Yup.string()
-    .email('Invalid email')
-    .required('Required field'),
-  password: Yup.string().required('Required field')
+    .email(ERRORS.INVALID_EMAIL)
+    .required(ERRORS.REQUIRED_FIELD),
+  password: Yup.string().required(ERRORS.REQUIRED_FIELD)
 });
 
-export const AuthForm = (props: AuthFormProps) => {
-  const { isLoggingIn, loading, error, onFormSubmit } = props;
-  const messages = useRef(null);
+export const AuthForm: React.FC<AuthFormProps> = ({
+  isLoggingIn,
+  loading,
+  error,
+  onFormSubmit
+}) => {
+  const messages = useRef<Messages>(null);
 
   const formik = useFormik({
     initialValues: {
@@ -47,12 +52,7 @@ export const AuthForm = (props: AuthFormProps) => {
     },
     validationSchema: ValidationSchema,
     onSubmit: values => {
-      if (isLoggingIn) {
-        const { email, password } = values;
-        onFormSubmit({ email, password });
-      } else {
-        onFormSubmit(values);
-      }
+      onFormSubmit(values);
     }
   });
 
@@ -64,15 +64,16 @@ export const AuthForm = (props: AuthFormProps) => {
   useEffect(() => {
     if (!isNil(error)) {
       if ('errors' in error) {
-        error.errors.forEach(err => {
-          formik.setFieldError(err.path, err.message);
+        error.errors.forEach(({ path, message }) => {
+          formik.setFieldError(path, message);
         });
       } else {
-        messages.current.show({
-          severity: 'error',
-          summary: error.message,
-          closable: false
-        });
+        !isNil(messages.current) &&
+          messages.current.show({
+            severity: 'error',
+            summary: error.message,
+            closable: false
+          });
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -81,7 +82,7 @@ export const AuthForm = (props: AuthFormProps) => {
   return (
     <StyledAuthForm>
       <form onSubmit={formik.handleSubmit} autoComplete="off" noValidate>
-        <Messages className="error-message" ref={messages} />
+        <Messages id="error-message" className="error-message" ref={messages} />
         {!isLoggingIn && (
           <>
             <div className="ui-g-12">
@@ -140,12 +141,17 @@ export const AuthForm = (props: AuthFormProps) => {
               }
               value={formik.values.email}
               onChange={formik.handleChange}
+              data-testid="email"
             />
             <label htmlFor="email">Email</label>
             <i className="fa fa-user-circle-o"></i>
           </div>
           {formik.touched.email && formik.errors.email && (
-            <Message severity="error" text={formik.errors.email}></Message>
+            <Message
+              id="email-error"
+              severity="error"
+              text={formik.errors.email}
+            ></Message>
           )}
         </div>
         <div className="ui-g-12">
@@ -160,16 +166,22 @@ export const AuthForm = (props: AuthFormProps) => {
               }
               value={formik.values.password}
               onChange={formik.handleChange}
+              data-testid="password"
             />
             <label htmlFor="password">Password</label>
             <i className="fa fa-lock"></i>
           </div>
           {formik.touched.password && formik.errors.password && (
-            <Message severity="error" text={formik.errors.password}></Message>
+            <Message
+              id="password-error"
+              severity="error"
+              text={formik.errors.password}
+            ></Message>
           )}
         </div>
         <div className="ui-g-12 button-container">
           <Button
+            data-testid="submit"
             type="submit"
             label={isLoggingIn ? 'Login' : 'Register'}
             className="p-button-raised"

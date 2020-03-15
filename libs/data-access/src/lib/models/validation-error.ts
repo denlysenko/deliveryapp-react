@@ -13,3 +13,7 @@ export interface ValidationErrorItem {
   validatorName: string;
   validatorArgs: string[];
 }
+
+export interface LoginError {
+  message: string;
+}

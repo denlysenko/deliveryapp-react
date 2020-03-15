@@ -1,11 +1,8 @@
 import { apiService } from '@deliveryapp/core';
+import { authPayload } from '@deliveryapp/testing';
 
-import { AuthCredentials, AuthPayload } from '../../models/auth';
+import { AuthCredentials } from '../../models/auth';
 import { login, register } from './auth';
-
-const authPayload: AuthPayload = {
-  token: 'token'
-};
 
 jest.mock('@deliveryapp/core', () => ({
   apiService: {
@@ -20,7 +17,7 @@ describe('API Auth', () => {
   });
 
   describe('login', () => {
-    let loginCredentials: Partial<AuthCredentials>;
+    let loginCredentials: Pick<AuthCredentials, 'email' | 'password'>;
 
     beforeEach(() => {
       loginCredentials = {

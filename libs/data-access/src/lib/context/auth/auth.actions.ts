@@ -6,10 +6,16 @@ export enum AuthActionTypes {
   LOGOUT = '[Auth] Logout'
 }
 
-export interface AuthAction {
-  readonly type: AuthActionTypes;
-  payload?: User;
+interface UserLoadedAction {
+  type: AuthActionTypes.USER_LOADED;
+  payload: User | null;
 }
+
+interface LogoutAction {
+  type: AuthActionTypes.LOGOUT;
+}
+
+export type AuthAction = UserLoadedAction | LogoutAction;
 
 export type AuthDispatch = (action: AuthAction) => void;
 

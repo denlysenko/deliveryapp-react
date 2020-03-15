@@ -1,0 +1,315 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Auth Page Login should render login form 1`] = `
+<body>
+  <div>
+    <div
+      class="sc-AykKD AhzHh"
+    >
+      <div
+        class="login-panel ui-fluid"
+      >
+        <div
+          class="ui-g"
+        >
+          <div
+            class="ui-g-12 logo-container"
+          >
+            <i
+              class="fa fa-shield"
+            />
+            <i
+              class="fa fa-sign-in"
+            />
+            <h2
+              data-testid="title"
+            >
+              Login
+              <a
+                data-testid="mode-toggler"
+                href="/"
+              >
+                Register
+              </a>
+            </h2>
+          </div>
+          <div
+            class="sc-AykKC doiYMD"
+          >
+            <form
+              autocomplete="off"
+              novalidate=""
+            >
+              <div
+                class="error-message"
+                id="error-message"
+              >
+                <div />
+              </div>
+              <div
+                class="ui-g-12"
+              >
+                <div
+                  class="input-wrapper p-float-label"
+                >
+                  <input
+                    class="p-inputtext p-component"
+                    data-testid="email"
+                    id="email"
+                    value=""
+                  />
+                  <label
+                    for="email"
+                  >
+                    Email
+                  </label>
+                  <i
+                    class="fa fa-user-circle-o"
+                  />
+                </div>
+              </div>
+              <div
+                class="ui-g-12"
+              >
+                <div
+                  class="input-wrapper p-float-label"
+                >
+                  <input
+                    class="p-inputtext p-component"
+                    data-testid="password"
+                    id="password"
+                    type="password"
+                    value=""
+                  />
+                  <label
+                    for="password"
+                  >
+                    Password
+                  </label>
+                  <i
+                    class="fa fa-lock"
+                  />
+                </div>
+              </div>
+              <div
+                class="ui-g-12 button-container"
+              >
+                <button
+                  class="p-button p-component p-button-raised p-button-text-only"
+                  data-testid="submit"
+                  type="submit"
+                >
+                  <span
+                    class="p-button-text p-c"
+                  >
+                    Login
+                  </span>
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+`;
+
+exports[`Auth Page Register should render register form 1`] = `
+<body>
+  <div>
+    <div
+      class="sc-AykKD AhzHh"
+    >
+      <div
+        class="login-panel ui-fluid"
+      >
+        <div
+          class="ui-g"
+        >
+          <div
+            class="ui-g-12 logo-container"
+          >
+            <i
+              class="fa fa-shield"
+            />
+            <i
+              class="fa fa-sign-in"
+            />
+            <h2
+              data-testid="title"
+            >
+              Register
+              <a
+                data-testid="mode-toggler"
+                href="/"
+              >
+                Login
+              </a>
+            </h2>
+          </div>
+          <div
+            class="sc-AykKC doiYMD"
+          >
+            <form
+              autocomplete="off"
+              novalidate=""
+            >
+              <div
+                class="error-message"
+                id="error-message"
+              >
+                <div />
+              </div>
+              <div
+                class="ui-g-12"
+              >
+                <div
+                  class="input-wrapper p-float-label"
+                >
+                  <input
+                    class="p-inputtext p-component"
+                    id="firstName"
+                    value=""
+                  />
+                  <label
+                    for="firstName"
+                  >
+                    First Name
+                  </label>
+                  <i
+                    class="fa fa-user-circle-o"
+                  />
+                </div>
+              </div>
+              <div
+                class="ui-g-12"
+              >
+                <div
+                  class="input-wrapper p-float-label"
+                >
+                  <input
+                    class="p-inputtext p-component"
+                    id="lastName"
+                    value=""
+                  />
+                  <label
+                    for="lastName"
+                  >
+                    Last Name
+                  </label>
+                  <i
+                    class="fa fa-user-circle-o"
+                  />
+                </div>
+              </div>
+              <div
+                class="ui-g-12"
+              >
+                <div
+                  class="input-wrapper p-float-label"
+                >
+                  <input
+                    class="p-inputtext p-component"
+                    id="company"
+                    value=""
+                  />
+                  <label
+                    for="company"
+                  >
+                    Company
+                  </label>
+                  <i
+                    class="fa fa-building-o"
+                  />
+                </div>
+              </div>
+              <div
+                class="ui-g-12"
+              >
+                <div
+                  class="input-wrapper p-float-label"
+                >
+                  <input
+                    class="p-inputtext p-component"
+                    id="phone"
+                    type="text"
+                  />
+                  <label
+                    for="phone"
+                  >
+                    Phone
+                  </label>
+                  <i
+                    class="fa fa-phone"
+                  />
+                </div>
+              </div>
+              <div
+                class="ui-g-12"
+              >
+                <div
+                  class="input-wrapper p-float-label"
+                >
+                  <input
+                    class="p-inputtext p-component"
+                    data-testid="email"
+                    id="email"
+                    value=""
+                  />
+                  <label
+                    for="email"
+                  >
+                    Email
+                  </label>
+                  <i
+                    class="fa fa-user-circle-o"
+                  />
+                </div>
+              </div>
+              <div
+                class="ui-g-12"
+              >
+                <div
+                  class="input-wrapper p-float-label"
+                >
+                  <input
+                    class="p-inputtext p-component"
+                    data-testid="password"
+                    id="password"
+                    type="password"
+                    value=""
+                  />
+                  <label
+                    for="password"
+                  >
+                    Password
+                  </label>
+                  <i
+                    class="fa fa-lock"
+                  />
+                </div>
+              </div>
+              <div
+                class="ui-g-12 button-container"
+              >
+                <button
+                  class="p-button p-component p-button-raised p-button-text-only"
+                  data-testid="submit"
+                  type="submit"
+                >
+                  <span
+                    class="p-button-text p-c"
+                  >
+                    Register
+                  </span>
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+`;
