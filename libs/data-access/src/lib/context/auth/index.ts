@@ -1,3 +1,3 @@
 export * from './AuthProvider';
-export { AuthActionTypes, loadSelf } from './auth.actions';
+export { AuthActionTypes, loadSelf, logout } from './auth.actions';
 export { useAuth } from './useAuth';

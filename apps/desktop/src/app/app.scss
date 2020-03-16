@@ -101,3 +101,17 @@ body .p-messages.p-messages-error {
     height: 480px;
   }
 }
+
+.menu-wrapper {
+  @media (max-width: 640px) {
+    padding-top: 15px;
+    left: -75px;
+    z-index: 100;
+  }
+}
+
+.layout-menu-active {
+  .menu-wrapper {
+    left: 0;
+  }
+}
