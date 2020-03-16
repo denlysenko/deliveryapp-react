@@ -1,3 +1,6 @@
+import { apiService } from '@deliveryapp/core';
+import { ACCESS_TOKEN } from '@deliveryapp/common';
+
 import { me } from '../../api/users/users';
 import { User } from '../../models/user';
 
@@ -5,6 +8,10 @@ export enum AuthActionTypes {
   USER_LOADED = '[Auth] User Loaded',
   LOGOUT = '[Auth] Logout'
 }
+
+type History = {
+  push: (path: string) => void;
+};
 
 interface UserLoadedAction {
   type: AuthActionTypes.USER_LOADED;
@@ -19,16 +26,23 @@ export type AuthAction = UserLoadedAction | LogoutAction;
 
 export type AuthDispatch = (action: AuthAction) => void;
 
-export const loadMe = async (dispatch: AuthDispatch) => {
+export const logout = (dispatch: AuthDispatch, history: History) => {
+  dispatch({
+    type: AuthActionTypes.LOGOUT
+  });
+  localStorage.removeItem(ACCESS_TOKEN);
+  apiService.removeAuthHeader();
+  history.push('/auth');
+};
+
+export const loadSelf = async (dispatch: AuthDispatch, history: History) => {
   try {
-    const user = await me();
+    const { data } = await me();
     dispatch({
       type: AuthActionTypes.USER_LOADED,
-      payload: user
+      payload: data
     });
   } catch {
-    dispatch({
-      type: AuthActionTypes.LOGOUT
-    });
+    logout(dispatch, history);
   }
 };

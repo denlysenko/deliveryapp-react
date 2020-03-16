@@ -42,9 +42,8 @@ export const Auth: React.FC = () => {
       localStorage.setItem(ACCESS_TOKEN, data.token);
       history.push('/');
     } catch (err) {
-      setError(err.response.data);
-    } finally {
       setLoading(false);
+      setError(err.response.data);
     }
   };
 
