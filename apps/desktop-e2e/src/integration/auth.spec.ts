@@ -75,6 +75,9 @@ describe('Auth page', () => {
         cy.get(emailField).type('client@test.com');
         cy.get(passwordField).type('password{enter}');
         cy.url().should('include', '/');
+        cy.get('[data-testid=menu]')
+          .find('.username')
+          .should('contain.text', 'JohnDoe');
       });
     });
   });
@@ -131,7 +134,28 @@ describe('Auth page', () => {
         cy.get(passwordField).type('password{enter}');
 
         cy.url().should('include', '/');
+        cy.get('[data-testid=menu]')
+          .find('.username')
+          .should('contain.text', 'JackSlack');
       });
+    });
+  });
+
+  describe('Logout', () => {
+    beforeEach(() => {
+      cy.exec('npm run seed:db');
+    });
+
+    afterEach(() => {
+      cy.exec('npm run clear:db');
+    });
+
+    it('should logout and redirect to auth page', () => {
+      cy.get(emailField).type('client@test.com');
+      cy.get(passwordField).type('password{enter}');
+      cy.get('[data-testid=menu]').click();
+      cy.contains('Logout').click();
+      cy.url().should('include', '/auth');
     });
   });
 });
