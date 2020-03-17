@@ -17,10 +17,10 @@ export const App = () => {
     <AuthProvider>
       <BrowserRouter>
         <Switch>
-          <AnonymousGuard path="/auth">
+          <AnonymousGuard exact path="/auth">
             <Auth />
           </AnonymousGuard>
-          <AuthGuard path="/" exact>
+          <AuthGuard path="/">
             <Main />
           </AuthGuard>
         </Switch>

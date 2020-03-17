@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
+import { Switch, Route } from 'react-router-dom';
 
 import { Sidebar } from 'primereact/sidebar';
+
+import { Profile } from '@deliveryapp/pages/profile';
 
 import { StyledMain } from './StyledMain';
 import { AppMenu } from './AppMenu/AppMenu';
@@ -14,7 +17,13 @@ export const Main = () => {
       <div className="layout">
         <AppMenu />
         <TopBar showMessages={() => setShowMessages(true)} />
-        <div className="content">routes goes here</div>
+        <div className="content">
+          <Switch>
+            <Route exact path="/profile">
+              <Profile />
+            </Route>
+          </Switch>
+        </div>
       </div>
       <Sidebar
         visible={showMessages}

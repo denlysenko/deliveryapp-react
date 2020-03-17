@@ -23,7 +23,8 @@
       "@deliveryapp/pages/auth": ["libs/pages/auth/src/index.ts"],
       "@deliveryapp/common": ["libs/common/src/index.ts"],
       "@deliveryapp/pages/main": ["libs/pages/main/src/index.ts"],
-      "@deliveryapp/guards": ["libs/guards/src/index.ts"]
+      "@deliveryapp/guards": ["libs/guards/src/index.ts"],
+      "@deliveryapp/pages/profile": ["libs/pages/profile/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

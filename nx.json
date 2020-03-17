@@ -38,6 +38,9 @@
     },
     "guards": {
       "tags": []
+    },
+    "pages-profile": {
+      "tags": []
     }
   }
 }
