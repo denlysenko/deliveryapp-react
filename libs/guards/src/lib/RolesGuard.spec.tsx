@@ -1,10 +1,8 @@
 import React from 'react';
-import { createMemoryHistory } from 'history';
-import { Router } from 'react-router';
-import { render } from '@testing-library/react';
+import { cleanup } from '@testing-library/react';
 
 import { AuthProvider } from '@deliveryapp/data-access';
-import { user } from '@deliveryapp/testing';
+import { user, renderWithRouter } from '@deliveryapp/testing';
 
 import { RolesGuard } from './RolesGuard';
 import { useLoadSelf } from './useLoadSelf';
@@ -20,21 +18,23 @@ const mockUseLoadSelf = (state: ReturnType<typeof useLoadSelf>) => {
 };
 
 describe('RolesGuard', () => {
+  afterEach(() => {
+    cleanup();
+    jest.clearAllMocks();
+  });
+
   it('should render spinner while waiting', () => {
-    const history = createMemoryHistory();
     mockUseLoadSelf({
       waiting: true,
       isLoggedIn: false,
       user: null
     });
 
-    const { getByTestId } = render(
+    const { getByTestId } = renderWithRouter(
       <AuthProvider>
-        <Router history={history}>
-          <RolesGuard roles={[2]}>
-            <TestRoute />
-          </RolesGuard>
-        </Router>
+        <RolesGuard roles={[2]}>
+          <TestRoute />
+        </RolesGuard>
       </AuthProvider>
     );
 
@@ -42,21 +42,17 @@ describe('RolesGuard', () => {
   });
 
   it('should redirect to / if is not loggedIn', () => {
-    const history = createMemoryHistory();
-
     mockUseLoadSelf({
       waiting: false,
       isLoggedIn: false,
       user: null
     });
 
-    render(
+    const { history } = renderWithRouter(
       <AuthProvider>
-        <Router history={history}>
-          <RolesGuard roles={[2]}>
-            <TestRoute />
-          </RolesGuard>
-        </Router>
+        <RolesGuard roles={[2]}>
+          <TestRoute />
+        </RolesGuard>
       </AuthProvider>
     );
 
@@ -64,21 +60,17 @@ describe('RolesGuard', () => {
   });
 
   it('should redirect to / if user has no required role', () => {
-    const history = createMemoryHistory();
-
     mockUseLoadSelf({
       waiting: false,
       isLoggedIn: true,
       user
     });
 
-    render(
+    const { history } = renderWithRouter(
       <AuthProvider>
-        <Router history={history}>
-          <RolesGuard roles={[2]}>
-            <TestRoute />
-          </RolesGuard>
-        </Router>
+        <RolesGuard roles={[2]}>
+          <TestRoute />
+        </RolesGuard>
       </AuthProvider>
     );
 
@@ -86,21 +78,17 @@ describe('RolesGuard', () => {
   });
 
   it('should render if user is loggedIn and has required role', () => {
-    const history = createMemoryHistory();
-
     mockUseLoadSelf({
       waiting: false,
       isLoggedIn: true,
       user
     });
 
-    const { container } = render(
+    const { container } = renderWithRouter(
       <AuthProvider>
-        <Router history={history}>
-          <RolesGuard roles={[1]}>
-            <TestRoute />
-          </RolesGuard>
-        </Router>
+        <RolesGuard roles={[1]}>
+          <TestRoute />
+        </RolesGuard>
       </AuthProvider>
     );
 

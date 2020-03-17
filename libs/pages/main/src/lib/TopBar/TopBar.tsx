@@ -68,7 +68,12 @@ export const TopBar: React.FC<TopBarProps> = ({ showMessages }) => {
         <a href="/" id="menu-button" onClick={toggleAppMenu}>
           <i className="fa fa-bars"></i>
         </a>
-        <a id="user-display" href="/" onClick={toggleUserMenu}>
+        <a
+          id="user-display"
+          data-testid="menu"
+          href="/"
+          onClick={toggleUserMenu}
+        >
           {user?.firstName && (
             <span className="username">{user?.firstName}</span>
           )}

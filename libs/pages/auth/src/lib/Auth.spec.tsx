@@ -9,7 +9,7 @@ import {
   MatcherOptions
 } from '@testing-library/react';
 
-import { authPayload } from '@deliveryapp/testing';
+import { authPayload, useHistoryMock } from '@deliveryapp/testing';
 import { ACCESS_TOKEN } from '@deliveryapp/common';
 import { login, register } from '@deliveryapp/data-access';
 
@@ -23,10 +23,6 @@ type GetByTestId = (
 
 const email = 'test@test.com';
 const password = 'password';
-
-const useHistoryMock = {
-  push: jest.fn()
-};
 
 const fillFormAndSubmit = (getByTestId: GetByTestId) => {
   fireEvent.change(getByTestId('email'), {
@@ -53,12 +49,12 @@ jest.mock('@deliveryapp/data-access', () => ({
   register: jest.fn().mockResolvedValue({ data: authPayload })
 }));
 
-afterEach(() => {
-  cleanup();
-  jest.clearAllMocks();
-});
-
 describe('Auth Page', () => {
+  afterEach(() => {
+    cleanup();
+    jest.clearAllMocks();
+  });
+
   describe('Login', () => {
     it('should render login form', () => {
       const { baseElement } = render(<Auth />);

@@ -23,7 +23,7 @@ export const AppMenu = () => {
             {appMenu.map(item =>
               canSee(item.allowedRoles) ? (
                 <li key={item.label}>
-                  <Link to={item.link}>
+                  <Link to={item.link} data-testid="link">
                     <Button
                       type="button"
                       icon={`fa ${item.icon}`}

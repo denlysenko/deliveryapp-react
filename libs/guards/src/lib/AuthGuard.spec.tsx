@@ -1,9 +1,8 @@
 import React from 'react';
-import { createMemoryHistory } from 'history';
-import { Router } from 'react-router';
-import { render } from '@testing-library/react';
+import { cleanup } from '@testing-library/react';
 
 import { AuthProvider } from '@deliveryapp/data-access';
+import { renderWithRouter } from '@deliveryapp/testing';
 
 import { AuthGuard } from './AuthGuard';
 import { useLoadSelf } from './useLoadSelf';
@@ -19,21 +18,23 @@ const mockUseLoadSelf = (state: ReturnType<typeof useLoadSelf>) => {
 };
 
 describe('AuthGuard', () => {
+  afterEach(() => {
+    cleanup();
+    jest.clearAllMocks();
+  });
+
   it('should render spinner while waiting', () => {
-    const history = createMemoryHistory();
     mockUseLoadSelf({
       waiting: true,
       isLoggedIn: false,
       user: null
     });
 
-    const { getByTestId } = render(
+    const { getByTestId } = renderWithRouter(
       <AuthProvider>
-        <Router history={history}>
-          <AuthGuard>
-            <TestRoute />
-          </AuthGuard>
-        </Router>
+        <AuthGuard>
+          <TestRoute />
+        </AuthGuard>
       </AuthProvider>
     );
 
@@ -41,21 +42,17 @@ describe('AuthGuard', () => {
   });
 
   it('should redirect to auth if is not loggedIn', () => {
-    const history = createMemoryHistory();
-
     mockUseLoadSelf({
       waiting: false,
       isLoggedIn: false,
       user: null
     });
 
-    render(
+    const { history } = renderWithRouter(
       <AuthProvider>
-        <Router history={history}>
-          <AuthGuard>
-            <TestRoute />
-          </AuthGuard>
-        </Router>
+        <AuthGuard>
+          <TestRoute />
+        </AuthGuard>
       </AuthProvider>
     );
 
@@ -63,21 +60,17 @@ describe('AuthGuard', () => {
   });
 
   it('should render if loggedIn', () => {
-    const history = createMemoryHistory();
-
     mockUseLoadSelf({
       waiting: false,
       isLoggedIn: true,
       user: null
     });
 
-    const { container } = render(
+    const { container } = renderWithRouter(
       <AuthProvider>
-        <Router history={history}>
-          <AuthGuard>
-            <TestRoute />
-          </AuthGuard>
-        </Router>
+        <AuthGuard>
+          <TestRoute />
+        </AuthGuard>
       </AuthProvider>
     );
 

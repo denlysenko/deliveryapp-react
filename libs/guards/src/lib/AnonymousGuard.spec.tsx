@@ -1,29 +1,29 @@
 import React from 'react';
-import { createMemoryHistory } from 'history';
-import { Router } from 'react-router';
-import { render } from '@testing-library/react';
+import { cleanup } from '@testing-library/react';
 
 import { AuthProvider } from '@deliveryapp/data-access';
+import { renderWithRouter } from '@deliveryapp/testing';
 
 import { AnonymousGuard } from './AnonymousGuard';
 
 const TestRoute = () => <h1>You are on the test page</h1>;
 
 describe('AnonymousGuard', () => {
+  afterEach(() => {
+    cleanup();
+    jest.clearAllMocks();
+  });
+
   it('should redirect to / when token is in localStorage', () => {
     jest
       .spyOn(window.localStorage.__proto__, 'getItem')
       .mockReturnValue('token');
 
-    const history = createMemoryHistory();
-
-    render(
+    const { history } = renderWithRouter(
       <AuthProvider>
-        <Router history={history}>
-          <AnonymousGuard>
-            <TestRoute />
-          </AnonymousGuard>
-        </Router>
+        <AnonymousGuard>
+          <TestRoute />
+        </AnonymousGuard>
       </AuthProvider>
     );
 
@@ -35,15 +35,11 @@ describe('AnonymousGuard', () => {
       .spyOn(window.localStorage.__proto__, 'getItem')
       .mockReturnValue(undefined);
 
-    const history = createMemoryHistory();
-
-    const { container } = render(
+    const { container } = renderWithRouter(
       <AuthProvider>
-        <Router history={history}>
-          <AnonymousGuard>
-            <TestRoute />
-          </AnonymousGuard>
-        </Router>
+        <AnonymousGuard>
+          <TestRoute />
+        </AnonymousGuard>
       </AuthProvider>
     );
 

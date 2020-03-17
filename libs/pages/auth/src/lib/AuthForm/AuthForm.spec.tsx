@@ -22,12 +22,12 @@ const props = {
   onFormSubmit: jest.fn()
 };
 
-afterEach(() => {
-  cleanup();
-  jest.clearAllMocks();
-});
-
 describe('AuthForm', () => {
+  afterEach(() => {
+    cleanup();
+    jest.clearAllMocks();
+  });
+
   describe('Login', () => {
     it('should render login form', () => {
       const { baseElement } = render(<AuthForm {...props} />);
