@@ -11,6 +11,7 @@ import { useAuth, User, Address, BankDetails } from '@deliveryapp/data-access';
 
 import { StyledProfile } from './StyledProfile';
 import { ContactsForm } from './ContactsForm/ContactsForm';
+import { PasswordForm } from './PasswordForm/PasswordForm';
 
 export interface ProfileFormValues {
   contacts: Omit<User, 'id' | 'role' | 'address' | 'bankDetails'>;
@@ -51,7 +52,7 @@ export const Profile = () => {
           <div className="p-col-12 p-lg-4">
             <div className="card">
               <ContactsForm formik={formik} />
-              <div>password form goes here</div>
+              <PasswordForm />
             </div>
           </div>
           {user?.role === Roles.CLIENT && (
