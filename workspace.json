@@ -20,7 +20,8 @@
               "apps/desktop/src/theme.css",
               "node_modules/font-awesome/css/font-awesome.min.css",
               "node_modules/primereact/resources/primereact.min.css",
-              "node_modules/primeicons/primeicons.css"
+              "node_modules/primeicons/primeicons.css",
+              "node_modules/primeflex/primeflex.scss"
             ],
             "scripts": [],
             "webpackConfig": "@nrwl/react/plugins/webpack"

@@ -35,6 +35,7 @@
     "font-awesome": "^4.7.0",
     "formik": "^2.1.4",
     "lodash-es": "^4.17.15",
+    "primeflex": "^1.0.0",
     "primeicons": "^2.0.0",
     "primereact": "^4.1.1",
     "react": "16.12.0",
