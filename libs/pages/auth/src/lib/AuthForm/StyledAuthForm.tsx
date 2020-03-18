@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const StyledAuthForm = styled.div`
-  .ui-g-12 {
+  .p-col-12 {
     padding: 15px 100px;
 
     @media (max-width: 640px) {

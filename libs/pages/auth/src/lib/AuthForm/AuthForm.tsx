@@ -85,7 +85,7 @@ export const AuthForm: React.FC<AuthFormProps> = ({
         <Messages id="error-message" className="error-message" ref={messages} />
         {!isLoggingIn && (
           <>
-            <div className="ui-g-12">
+            <div className="p-col-12">
               <div className="input-wrapper p-float-label">
                 <InputText
                   id="firstName"
@@ -97,7 +97,7 @@ export const AuthForm: React.FC<AuthFormProps> = ({
                 <i className="fa fa-user-circle-o"></i>
               </div>
             </div>
-            <div className="ui-g-12">
+            <div className="p-col-12">
               <div className="input-wrapper p-float-label">
                 <InputText
                   id="lastName"
@@ -109,7 +109,7 @@ export const AuthForm: React.FC<AuthFormProps> = ({
                 <i className="fa fa-user-circle-o"></i>
               </div>
             </div>
-            <div className="ui-g-12">
+            <div className="p-col-12">
               <div className="input-wrapper p-float-label">
                 <InputText
                   id="company"
@@ -121,7 +121,7 @@ export const AuthForm: React.FC<AuthFormProps> = ({
                 <i className="fa fa-building-o"></i>
               </div>
             </div>
-            <div className="ui-g-12">
+            <div className="p-col-12">
               <div className="input-wrapper p-float-label">
                 <InputMask
                   id="phone"
@@ -135,7 +135,7 @@ export const AuthForm: React.FC<AuthFormProps> = ({
             </div>
           </>
         )}
-        <div className="ui-g-12">
+        <div className="p-col-12">
           <div className="input-wrapper p-float-label">
             <InputText
               id="email"
@@ -157,7 +157,7 @@ export const AuthForm: React.FC<AuthFormProps> = ({
             ></Message>
           )}
         </div>
-        <div className="ui-g-12">
+        <div className="p-col-12">
           <div className="input-wrapper p-float-label">
             <InputText
               type="password"
@@ -182,7 +182,7 @@ export const AuthForm: React.FC<AuthFormProps> = ({
             ></Message>
           )}
         </div>
-        <div className="ui-g-12 button-container">
+        <div className="p-col-12 button-container">
           <Button
             data-testid="submit"
             type="submit"

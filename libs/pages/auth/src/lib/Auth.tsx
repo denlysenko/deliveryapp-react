@@ -49,25 +49,23 @@ export const Auth: React.FC = () => {
 
   return (
     <StyledAuth>
-      <div className="login-panel ui-fluid">
-        <div className="ui-g">
-          <div className="ui-g-12 logo-container">
-            <i className="fa fa-shield"></i>
-            <i className="fa fa-sign-in"></i>
-            <h2 data-testid="title">
-              {isLoggingIn ? 'Login' : 'Register'}
-              <a href="/" onClick={toggleMode} data-testid="mode-toggler">
-                {isLoggingIn ? 'Register' : 'Login'}
-              </a>
-            </h2>
-          </div>
-          <AuthForm
-            isLoggingIn={isLoggingIn}
-            loading={loading}
-            error={error}
-            onFormSubmit={handleSubmit}
-          />
+      <div className="login-panel">
+        <div className="p-col-12 logo-container">
+          <i className="fa fa-shield"></i>
+          <i className="fa fa-sign-in"></i>
+          <h2 data-testid="title">
+            {isLoggingIn ? 'Login' : 'Register'}
+            <a href="/" onClick={toggleMode} data-testid="mode-toggler">
+              {isLoggingIn ? 'Register' : 'Login'}
+            </a>
+          </h2>
         </div>
+        <AuthForm
+          isLoggingIn={isLoggingIn}
+          loading={loading}
+          error={error}
+          onFormSubmit={handleSubmit}
+        />
       </div>
     </StyledAuth>
   );
