@@ -1,48 +1,74 @@
 import React from 'react';
 
+import { useFormik } from 'formik';
+
 import { Button } from 'primereact/button';
 
+import { isNil } from 'lodash-es';
+
 import { Roles } from '@deliveryapp/common';
-import { useAuth } from '@deliveryapp/data-access';
+import { useAuth, User, Address, BankDetails } from '@deliveryapp/data-access';
 
 import { StyledProfile } from './StyledProfile';
+import { ContactsForm } from './ContactsForm/ContactsForm';
+
+export interface ProfileFormValues {
+  contacts: Omit<User, 'id' | 'role' | 'address' | 'bankDetails'>;
+  address?: Address;
+  bankDetails?: BankDetails;
+}
 
 export const Profile = () => {
   const [{ user }] = useAuth();
 
+  const formik = useFormik<ProfileFormValues>({
+    initialValues: {
+      contacts: {
+        firstName: !isNil(user) ? user.firstName : '',
+        lastName: !isNil(user) ? user.lastName : '',
+        email: !isNil(user) ? user.email : '',
+        company: !isNil(user) ? user.company : '',
+        phone: !isNil(user) ? user.phone : ''
+      }
+    },
+    // validationSchema: ValidationSchema,
+    onSubmit: values => {
+      console.log(values);
+    }
+  });
+
   return (
     <StyledProfile>
-      <div className="ui-g">
+      <div className="p-grid">
         <div
-          className={`ui-g-12 ${user?.role} !== ${Roles.CLIENT} ? ui-lg-4 : ''`}
+          className={`p-col-12 ${user?.role !== Roles.CLIENT ? 'p-lg-4' : ''}`}
         >
           <div className="card no-margin-bottom">
             <h2>Profile</h2>
           </div>
         </div>
         <form id="profileForm">
-          <div className="ui-g-12 ui-lg-4">
+          <div className="p-col-12 p-lg-4">
             <div className="card">
-              <div>contacts form goes here</div>
+              <ContactsForm formik={formik} />
               <div>password form goes here</div>
             </div>
           </div>
-
           {user?.role === Roles.CLIENT && (
-            <div className="ui-g-12 ui-lg-4">
+            <div className="p-col-12 p-lg-4">
               <div className="card">
                 <div>Address form goes here</div>
               </div>
             </div>
           )}
           {user?.role === Roles.CLIENT && (
-            <div className="ui-g-12 ui-lg-4">
+            <div className="p-col-12 p-lg-4">
               <div className="card">bank details forms goes here</div>
             </div>
           )}
         </form>
         <div
-          className={`ui-g-12 ${user?.role} !== ${Roles.CLIENT} ? ui-lg-4 : ''`}
+          className={`p-col-12 ${user?.role !== Roles.CLIENT ? 'p-lg-4' : ''}`}
         >
           <div className="card no-margin-bottom center">
             <Button
