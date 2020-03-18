@@ -13,6 +13,7 @@ import { StyledProfile } from './StyledProfile';
 import { ContactsForm } from './ContactsForm/ContactsForm';
 import { PasswordForm } from './PasswordForm/PasswordForm';
 import { AddressForm } from './AddressForm/AddressForm';
+import { BankDetailsForm } from './BankDetailsForm/BankDetailsForm';
 
 export interface ProfileFormValues {
   contacts: Omit<User, 'id' | 'role' | 'address' | 'bankDetails'>;
@@ -65,7 +66,9 @@ export const Profile = () => {
           )}
           {user?.role === Roles.CLIENT && (
             <div className="p-col-12 p-lg-4">
-              <div className="card">bank details forms goes here</div>
+              <div className="card">
+                <BankDetailsForm formik={formik} />
+              </div>
             </div>
           )}
         </form>
