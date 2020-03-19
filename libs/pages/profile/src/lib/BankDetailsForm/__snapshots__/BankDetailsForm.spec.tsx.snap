@@ -1,0 +1,109 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`[Profile] BankDetailsForm should render password form 1`] = `
+<body>
+  <div>
+    <div
+      class="sc-AykKC jlhElc"
+    >
+      <h3>
+        Bank Details
+      </h3>
+      <div
+        class="p-grid"
+      >
+        <div
+          class="p-col-12 row"
+        >
+          <div
+            class="input-wrapper p-float-label"
+          >
+            <input
+              class="p-inputtext p-component"
+              data-testid="name"
+              id="name"
+              name="bankDetails.name"
+              type="text"
+              value=""
+            />
+            <label
+              for="name"
+            >
+              Name
+            </label>
+            <i
+              class="fa fa-building-o"
+            />
+          </div>
+        </div>
+        <div
+          class="p-col-12 row"
+        >
+          <div
+            class="input-wrapper p-float-label"
+          >
+            <input
+              class="p-inputtext p-component"
+              id="accountNumber"
+              name="bankDetails.accountNumber"
+              type="text"
+            />
+            <label
+              for="accountNumber"
+            >
+              Account Number
+            </label>
+            <i
+              class="fa fa-credit-card"
+            />
+          </div>
+        </div>
+        <div
+          class="p-col-12 row"
+        >
+          <div
+            class="input-wrapper p-float-label"
+          >
+            <input
+              class="p-inputtext p-component"
+              id="bin"
+              name="bankDetails.bin"
+              type="text"
+            />
+            <label
+              for="bin"
+            >
+              BIN
+            </label>
+            <i
+              class="fa fa-credit-card"
+            />
+          </div>
+        </div>
+        <div
+          class="p-col-12 row"
+        >
+          <div
+            class="input-wrapper p-float-label"
+          >
+            <input
+              class="p-inputtext p-component"
+              id="swift"
+              name="bankDetails.swift"
+              type="text"
+            />
+            <label
+              for="swift"
+            >
+              SWIFT
+            </label>
+            <i
+              class="fa fa-credit-card"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+`;

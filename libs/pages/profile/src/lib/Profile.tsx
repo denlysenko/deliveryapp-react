@@ -111,7 +111,10 @@ export const Profile = () => {
           {user?.role === Roles.CLIENT && (
             <div className="p-col-12 p-lg-4">
               <div className="card">
-                <BankDetailsForm formik={formik} />
+                <BankDetailsForm
+                  bankDetails={formik.values.bankDetails}
+                  handleChange={formik.handleChange}
+                />
               </div>
             </div>
           )}

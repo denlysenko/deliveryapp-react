@@ -1,18 +1,23 @@
 import React from 'react';
 
-import { FormikContextType } from 'formik';
+import { FormikHandlers } from 'formik';
 
 import { InputText } from 'primereact/inputtext';
 import { InputMask } from 'primereact/inputmask';
 
-import { ProfileFormValues } from '../Profile';
+import { BankDetails } from '@deliveryapp/data-access';
+
 import { StyledForm } from '../StyledForm';
 
 interface BankDetailsFormProps {
-  formik: FormikContextType<ProfileFormValues>;
+  bankDetails?: BankDetails;
+  handleChange: FormikHandlers['handleChange'];
 }
 
-export const BankDetailsForm: React.FC<BankDetailsFormProps> = ({ formik }) => {
+export const BankDetailsForm: React.FC<BankDetailsFormProps> = ({
+  bankDetails,
+  handleChange
+}) => {
   return (
     <StyledForm>
       <h3>Bank Details</h3>
@@ -24,8 +29,8 @@ export const BankDetailsForm: React.FC<BankDetailsFormProps> = ({ formik }) => {
               type="text"
               name="bankDetails.name"
               data-testid="name"
-              value={formik.values.bankDetails?.name}
-              onChange={formik.handleChange}
+              value={bankDetails?.name}
+              onChange={handleChange}
             />
             <label htmlFor="name">Name</label>
             <i className="fa fa-building-o"></i>
@@ -40,8 +45,8 @@ export const BankDetailsForm: React.FC<BankDetailsFormProps> = ({ formik }) => {
               data-testid="accountNumber"
               mask="9999 9999 9999 9999"
               unmask
-              value={formik.values.bankDetails?.accountNumber}
-              onChange={formik.handleChange}
+              value={bankDetails?.accountNumber}
+              onChange={handleChange}
             />
             <label htmlFor="accountNumber">Account Number</label>
             <i className="fa fa-credit-card"></i>
@@ -56,8 +61,8 @@ export const BankDetailsForm: React.FC<BankDetailsFormProps> = ({ formik }) => {
               data-testid="bin"
               mask="9999999"
               unmask
-              value={formik.values.bankDetails?.bin}
-              onChange={formik.handleChange}
+              value={bankDetails?.bin}
+              onChange={handleChange}
             />
             <label htmlFor="bin">BIN</label>
             <i className="fa fa-credit-card"></i>
@@ -72,8 +77,8 @@ export const BankDetailsForm: React.FC<BankDetailsFormProps> = ({ formik }) => {
               data-testid="swift"
               mask="********"
               unmask
-              value={formik.values.bankDetails?.swift}
-              onChange={formik.handleChange}
+              value={bankDetails?.swift}
+              onChange={handleChange}
             />
             <label htmlFor="swift">SWIFT</label>
             <i className="fa fa-credit-card"></i>

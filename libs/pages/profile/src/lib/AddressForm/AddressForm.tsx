@@ -1,10 +1,11 @@
 import React from 'react';
 
 import { FormikHandlers } from 'formik';
-
 import { InputText } from 'primereact/inputtext';
-import { StyledForm } from '../StyledForm';
+
 import { Address } from '@deliveryapp/data-access';
+
+import { StyledForm } from '../StyledForm';
 
 interface AddressFormProps {
   address?: Address;
