@@ -23,3 +23,8 @@ export interface BankDetails {
   bin: string;
   swift: string;
 }
+
+export interface PasswordPayload {
+  oldPassword: string;
+  newPassword: string;
+}

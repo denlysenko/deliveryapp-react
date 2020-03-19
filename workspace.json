@@ -312,7 +312,8 @@
           "options": {
             "jestConfig": "libs/pages/profile/jest.config.js",
             "tsConfig": "libs/pages/profile/tsconfig.spec.json",
-            "passWithNoTests": true
+            "passWithNoTests": true,
+            "setupFile": "libs/pages/profile/src/test-setup.ts"
           }
         }
       }
