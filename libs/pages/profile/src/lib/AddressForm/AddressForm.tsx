@@ -22,6 +22,7 @@ export const AddressForm: React.FC<AddressFormProps> = ({ formik }) => {
               id="country"
               type="text"
               data-testid="country"
+              name="address.country"
               value={formik.values.address?.country}
               onChange={formik.handleChange}
             />
@@ -34,6 +35,7 @@ export const AddressForm: React.FC<AddressFormProps> = ({ formik }) => {
             <InputText
               id="city"
               type="text"
+              name="address.city"
               data-testid="city"
               value={formik.values.address?.city}
               onChange={formik.handleChange}
@@ -47,6 +49,7 @@ export const AddressForm: React.FC<AddressFormProps> = ({ formik }) => {
             <InputText
               id="street"
               type="text"
+              name="address.street"
               data-testid="street"
               value={formik.values.address?.street}
               onChange={formik.handleChange}
@@ -60,6 +63,7 @@ export const AddressForm: React.FC<AddressFormProps> = ({ formik }) => {
             <InputText
               id="house"
               type="text"
+              name="address.house"
               data-testid="house"
               value={formik.values.address?.house}
               onChange={formik.handleChange}

@@ -7,8 +7,8 @@ import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
 import { Message } from 'primereact/message';
 
-import { ERRORS } from '@deliveryapp/common';
-import { updatePassword, ValidationError } from '@deliveryapp/data-access';
+import { ERRORS, handleValidationError } from '@deliveryapp/common';
+import { updatePassword } from '@deliveryapp/data-access';
 
 import { StyledForm } from '../StyledForm';
 
@@ -39,11 +39,7 @@ export const PasswordForm: React.FC<{}> = () => {
         setLoading(false);
       } catch (error) {
         setLoading(false);
-        (error.response.data as ValidationError).errors.forEach(
-          ({ path, message }) => {
-            formik.setFieldError(path, message);
-          }
-        );
+        handleValidationError(error.response.data, formik);
       }
     }
   });

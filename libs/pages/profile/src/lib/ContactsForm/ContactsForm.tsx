@@ -22,7 +22,7 @@ export const ContactsForm: React.FC<ContactsFormProps> = ({ formik }) => (
           <InputText
             id="firstName"
             data-testid="firstName"
-            value={formik.values.contacts.firstName}
+            value={formik.values.firstName}
             onChange={formik.handleChange}
           />
           <label htmlFor="firstName">First Name</label>
@@ -34,7 +34,7 @@ export const ContactsForm: React.FC<ContactsFormProps> = ({ formik }) => (
           <InputText
             id="lastName"
             data-testid="lastName"
-            value={formik.values.contacts.lastName}
+            value={formik.values.lastName}
             onChange={formik.handleChange}
           />
           <label htmlFor="lastName">Last Name</label>
@@ -46,7 +46,7 @@ export const ContactsForm: React.FC<ContactsFormProps> = ({ formik }) => (
           <InputText
             id="company"
             data-testid="company"
-            value={formik.values.contacts.company}
+            value={formik.values.company}
             onChange={formik.handleChange}
           />
           <label htmlFor="company">Company</label>
@@ -59,21 +59,19 @@ export const ContactsForm: React.FC<ContactsFormProps> = ({ formik }) => (
             id="email"
             data-testid="email"
             className={
-              formik.touched.contacts?.email && formik.errors.contacts?.email
-                ? 'invalid'
-                : ''
+              formik.touched.email && formik.errors.email ? 'invalid' : ''
             }
-            value={formik.values.contacts.email}
+            value={formik.values.email}
             onChange={formik.handleChange}
           />
           <label htmlFor="email">Email</label>
           <i className="fa fa-envelope-o"></i>
         </div>
-        {formik.touched.contacts?.email && formik.errors.contacts?.email && (
+        {formik.touched.email && formik.errors.email && (
           <Message
             id="email-error"
             severity="error"
-            text={formik.errors.contacts?.email}
+            text={formik.errors.email}
           ></Message>
         )}
       </div>
@@ -82,7 +80,7 @@ export const ContactsForm: React.FC<ContactsFormProps> = ({ formik }) => (
           <InputMask
             id="phone"
             mask="(999) 999-9999"
-            value={formik.values.contacts.phone}
+            value={formik.values.phone}
             onChange={e => formik.setFieldValue('phone', e.value)}
           />
           <label htmlFor="phone">Phone</label>

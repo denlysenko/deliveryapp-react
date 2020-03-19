@@ -3,6 +3,7 @@ import React from 'react';
 import { FormikContextType } from 'formik';
 
 import { InputText } from 'primereact/inputtext';
+import { InputMask } from 'primereact/inputmask';
 
 import { ProfileFormValues } from '../Profile';
 import { StyledForm } from '../StyledForm';
@@ -21,6 +22,7 @@ export const BankDetailsForm: React.FC<BankDetailsFormProps> = ({ formik }) => {
             <InputText
               id="name"
               type="text"
+              name="bankDetails.name"
               data-testid="name"
               value={formik.values.bankDetails?.name}
               onChange={formik.handleChange}
@@ -31,10 +33,13 @@ export const BankDetailsForm: React.FC<BankDetailsFormProps> = ({ formik }) => {
         </div>
         <div className="p-col-12 row">
           <div className="input-wrapper p-float-label">
-            <InputText
+            <InputMask
               id="accountNumber"
               type="text"
+              name="bankDetails.accountNumber"
               data-testid="accountNumber"
+              mask="9999 9999 9999 9999"
+              unmask
               value={formik.values.bankDetails?.accountNumber}
               onChange={formik.handleChange}
             />
@@ -44,10 +49,13 @@ export const BankDetailsForm: React.FC<BankDetailsFormProps> = ({ formik }) => {
         </div>
         <div className="p-col-12 row">
           <div className="input-wrapper p-float-label">
-            <InputText
+            <InputMask
               id="bin"
               type="text"
+              name="bankDetails.bin"
               data-testid="bin"
+              mask="9999999"
+              unmask
               value={formik.values.bankDetails?.bin}
               onChange={formik.handleChange}
             />
@@ -57,10 +65,13 @@ export const BankDetailsForm: React.FC<BankDetailsFormProps> = ({ formik }) => {
         </div>
         <div className="p-col-12 row">
           <div className="input-wrapper p-float-label">
-            <InputText
+            <InputMask
               id="swift"
               type="text"
+              name="bankDetails.swift"
               data-testid="swift"
+              mask="********"
+              unmask
               value={formik.values.bankDetails?.swift}
               onChange={formik.handleChange}
             />

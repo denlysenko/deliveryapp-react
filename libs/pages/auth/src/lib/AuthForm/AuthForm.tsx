@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { useFormik } from 'formik';
 
-import { ERRORS } from '@deliveryapp/common';
+import { ERRORS, handleValidationError } from '@deliveryapp/common';
 import {
   AuthCredentials,
   LoginError,
@@ -64,9 +64,7 @@ export const AuthForm: React.FC<AuthFormProps> = ({
   useEffect(() => {
     if (!isNil(error)) {
       if ('errors' in error) {
-        error.errors.forEach(({ path, message }) => {
-          formik.setFieldError(path, message);
-        });
+        handleValidationError(error, formik);
       } else {
         !isNil(messages.current) &&
           messages.current.show({
