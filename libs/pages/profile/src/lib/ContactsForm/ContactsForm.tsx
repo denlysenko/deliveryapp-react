@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { FormikContextType } from 'formik';
+import { FormikHandlers, FormikErrors, FormikTouched } from 'formik';
 
 import { InputText } from 'primereact/inputtext';
 import { InputMask } from 'primereact/inputmask';
@@ -10,10 +10,18 @@ import { ProfileFormValues } from '../Profile';
 import { StyledForm } from '../StyledForm';
 
 interface ContactsFormProps {
-  formik: FormikContextType<ProfileFormValues>;
+  handleChange: FormikHandlers['handleChange'];
+  values: ProfileFormValues;
+  errors: FormikErrors<ProfileFormValues>;
+  touched: FormikTouched<ProfileFormValues>;
 }
 
-export const ContactsForm: React.FC<ContactsFormProps> = ({ formik }) => (
+export const ContactsForm: React.FC<ContactsFormProps> = ({
+  handleChange,
+  values,
+  errors,
+  touched
+}) => (
   <StyledForm>
     <h3>Contacts</h3>
     <div className="p-grid">
@@ -22,8 +30,8 @@ export const ContactsForm: React.FC<ContactsFormProps> = ({ formik }) => (
           <InputText
             id="firstName"
             data-testid="firstName"
-            value={formik.values.firstName}
-            onChange={formik.handleChange}
+            value={values.firstName}
+            onChange={handleChange}
           />
           <label htmlFor="firstName">First Name</label>
           <i className="fa fa-user-circle-o"></i>
@@ -34,8 +42,8 @@ export const ContactsForm: React.FC<ContactsFormProps> = ({ formik }) => (
           <InputText
             id="lastName"
             data-testid="lastName"
-            value={formik.values.lastName}
-            onChange={formik.handleChange}
+            value={values.lastName}
+            onChange={handleChange}
           />
           <label htmlFor="lastName">Last Name</label>
           <i className="fa fa-user-circle-o"></i>
@@ -46,8 +54,8 @@ export const ContactsForm: React.FC<ContactsFormProps> = ({ formik }) => (
           <InputText
             id="company"
             data-testid="company"
-            value={formik.values.company}
-            onChange={formik.handleChange}
+            value={values.company}
+            onChange={handleChange}
           />
           <label htmlFor="company">Company</label>
           <i className="fa fa-building-o"></i>
@@ -58,20 +66,18 @@ export const ContactsForm: React.FC<ContactsFormProps> = ({ formik }) => (
           <InputText
             id="email"
             data-testid="email"
-            className={
-              formik.touched.email && formik.errors.email ? 'invalid' : ''
-            }
-            value={formik.values.email}
-            onChange={formik.handleChange}
+            className={touched.email && errors.email ? 'invalid' : ''}
+            value={values.email}
+            onChange={handleChange}
           />
           <label htmlFor="email">Email</label>
           <i className="fa fa-envelope-o"></i>
         </div>
-        {formik.touched.email && formik.errors.email && (
+        {touched.email && errors.email && (
           <Message
             id="email-error"
             severity="error"
-            text={formik.errors.email}
+            text={errors.email}
           ></Message>
         )}
       </div>
@@ -80,8 +86,9 @@ export const ContactsForm: React.FC<ContactsFormProps> = ({ formik }) => (
           <InputMask
             id="phone"
             mask="(999) 999-9999"
-            value={formik.values.phone}
-            onChange={e => formik.setFieldValue('phone', e.value)}
+            name="phone"
+            value={values.phone}
+            onChange={handleChange}
           />
           <label htmlFor="phone">Phone</label>
           <i className="fa fa-phone"></i>

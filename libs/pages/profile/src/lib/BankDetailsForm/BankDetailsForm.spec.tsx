@@ -17,7 +17,7 @@ describe('[Profile] BankDetailsForm', () => {
     cleanup();
   });
 
-  it('should render password form', () => {
+  it('should render bank details form', () => {
     const { baseElement } = render(
       <BankDetailsForm bankDetails={bankDetails} handleChange={handleChange} />
     );

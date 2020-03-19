@@ -17,7 +17,7 @@ describe('[Profile] AddressForm', () => {
     cleanup();
   });
 
-  it('should render password form', () => {
+  it('should render address form', () => {
     const { baseElement } = render(
       <AddressForm address={address} handleChange={handleChange} />
     );

@@ -1,13 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`[Profile] BankDetailsForm should render bank details form 1`] = `
+exports[`[Profile] ContactsForm should render contacts form 1`] = `
 <body>
   <div>
     <div
       class="sc-AykKC jlhElc"
     >
       <h3>
-        Bank Details
+        Contacts
       </h3>
       <div
         class="p-grid"
@@ -20,16 +20,58 @@ exports[`[Profile] BankDetailsForm should render bank details form 1`] = `
           >
             <input
               class="p-inputtext p-component"
-              data-testid="name"
-              id="name"
-              name="bankDetails.name"
-              type="text"
+              data-testid="firstName"
+              id="firstName"
               value=""
             />
             <label
-              for="name"
+              for="firstName"
             >
-              Name
+              First Name
+            </label>
+            <i
+              class="fa fa-user-circle-o"
+            />
+          </div>
+        </div>
+        <div
+          class="p-col-12 row"
+        >
+          <div
+            class="input-wrapper p-float-label"
+          >
+            <input
+              class="p-inputtext p-component"
+              data-testid="lastName"
+              id="lastName"
+              value=""
+            />
+            <label
+              for="lastName"
+            >
+              Last Name
+            </label>
+            <i
+              class="fa fa-user-circle-o"
+            />
+          </div>
+        </div>
+        <div
+          class="p-col-12 row"
+        >
+          <div
+            class="input-wrapper p-float-label"
+          >
+            <input
+              class="p-inputtext p-component"
+              data-testid="company"
+              id="company"
+              value=""
+            />
+            <label
+              for="company"
+            >
+              Company
             </label>
             <i
               class="fa fa-building-o"
@@ -43,18 +85,18 @@ exports[`[Profile] BankDetailsForm should render bank details form 1`] = `
             class="input-wrapper p-float-label"
           >
             <input
-              class="p-inputtext p-component"
-              id="accountNumber"
-              name="bankDetails.accountNumber"
-              type="text"
+              class="p-inputtext p-component p-filled"
+              data-testid="email"
+              id="email"
+              value="test@test.com"
             />
             <label
-              for="accountNumber"
+              for="email"
             >
-              Account Number
+              Email
             </label>
             <i
-              class="fa fa-credit-card"
+              class="fa fa-envelope-o"
             />
           </div>
         </div>
@@ -66,39 +108,17 @@ exports[`[Profile] BankDetailsForm should render bank details form 1`] = `
           >
             <input
               class="p-inputtext p-component"
-              id="bin"
-              name="bankDetails.bin"
+              id="phone"
+              name="phone"
               type="text"
             />
             <label
-              for="bin"
+              for="phone"
             >
-              BIN
+              Phone
             </label>
             <i
-              class="fa fa-credit-card"
-            />
-          </div>
-        </div>
-        <div
-          class="p-col-12 row"
-        >
-          <div
-            class="input-wrapper p-float-label"
-          >
-            <input
-              class="p-inputtext p-component"
-              id="swift"
-              name="bankDetails.swift"
-              type="text"
-            />
-            <label
-              for="swift"
-            >
-              SWIFT
-            </label>
-            <i
-              class="fa fa-credit-card"
+              class="fa fa-phone"
             />
           </div>
         </div>

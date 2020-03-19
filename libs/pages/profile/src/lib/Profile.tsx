@@ -94,7 +94,12 @@ export const Profile = () => {
         <form id="profileForm" onSubmit={formik.handleSubmit}>
           <div className="p-col-12 p-lg-4">
             <div className="card">
-              <ContactsForm formik={formik} />
+              <ContactsForm
+                values={formik.values}
+                errors={formik.errors}
+                touched={formik.touched}
+                handleChange={formik.handleChange}
+              />
               <PasswordForm />
             </div>
           </div>

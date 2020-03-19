@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`[Profile] AddressForm should render password form 1`] = `
+exports[`[Profile] AddressForm should render address form 1`] = `
 <body>
   <div>
     <div
