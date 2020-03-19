@@ -1,17 +1,20 @@
 import React from 'react';
 
-import { FormikContextType } from 'formik';
+import { FormikHandlers } from 'formik';
 
 import { InputText } from 'primereact/inputtext';
-
-import { ProfileFormValues } from '../Profile';
 import { StyledForm } from '../StyledForm';
+import { Address } from '@deliveryapp/data-access';
 
 interface AddressFormProps {
-  formik: FormikContextType<ProfileFormValues>;
+  address?: Address;
+  handleChange: FormikHandlers['handleChange'];
 }
 
-export const AddressForm: React.FC<AddressFormProps> = ({ formik }) => {
+export const AddressForm: React.FC<AddressFormProps> = ({
+  address,
+  handleChange
+}) => {
   return (
     <StyledForm>
       <h3>Address</h3>
@@ -23,8 +26,8 @@ export const AddressForm: React.FC<AddressFormProps> = ({ formik }) => {
               type="text"
               data-testid="country"
               name="address.country"
-              value={formik.values.address?.country}
-              onChange={formik.handleChange}
+              value={address?.country}
+              onChange={handleChange}
             />
             <label htmlFor="country">Country</label>
             <i className="fa fa-globe"></i>
@@ -37,8 +40,8 @@ export const AddressForm: React.FC<AddressFormProps> = ({ formik }) => {
               type="text"
               name="address.city"
               data-testid="city"
-              value={formik.values.address?.city}
-              onChange={formik.handleChange}
+              value={address?.city}
+              onChange={handleChange}
             />
             <label htmlFor="city">City</label>
             <i className="fa fa-globe"></i>
@@ -51,8 +54,8 @@ export const AddressForm: React.FC<AddressFormProps> = ({ formik }) => {
               type="text"
               name="address.street"
               data-testid="street"
-              value={formik.values.address?.street}
-              onChange={formik.handleChange}
+              value={address?.street}
+              onChange={handleChange}
             />
             <label htmlFor="street">Street</label>
             <i className="fa fa-building-o"></i>
@@ -65,8 +68,8 @@ export const AddressForm: React.FC<AddressFormProps> = ({ formik }) => {
               type="text"
               name="address.house"
               data-testid="house"
-              value={formik.values.address?.house}
-              onChange={formik.handleChange}
+              value={address?.house}
+              onChange={handleChange}
             />
             <label htmlFor="house">House</label>
             <i className="fa fa-building-o"></i>
