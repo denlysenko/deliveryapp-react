@@ -1,6 +1,8 @@
 import React, { ReactElement } from 'react';
 import { Route, Redirect, RouteProps } from 'react-router-dom';
 
+import { Spinner } from '@deliveryapp/ui';
+
 import { useLoadSelf } from './useLoadSelf';
 
 export const AuthGuard: React.FC<RouteProps> = ({
@@ -12,7 +14,7 @@ export const AuthGuard: React.FC<RouteProps> = ({
   return (
     <>
       {waiting ? (
-        <span data-testid="spinner">loading...</span>
+        <Spinner />
       ) : (
         <Route {...rest}>
           {isLoggedIn ? children : <Redirect to="/auth" />}

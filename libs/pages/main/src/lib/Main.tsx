@@ -3,6 +3,8 @@ import { Switch, Route } from 'react-router-dom';
 
 import { Sidebar } from 'primereact/sidebar';
 
+import { Spinner } from '@deliveryapp/ui';
+
 import { StyledMain } from './StyledMain';
 import { AppMenu } from './AppMenu/AppMenu';
 import { TopBar } from './TopBar/TopBar';
@@ -22,7 +24,7 @@ export const Main = () => {
         <AppMenu />
         <TopBar showMessages={() => setShowMessages(true)} />
         <div className="content">
-          <Suspense fallback={<div>Loading...</div>}>
+          <Suspense fallback={<Spinner />}>
             <Switch>
               <Route exact path="/profile">
                 <Profile />
