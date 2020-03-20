@@ -91,7 +91,11 @@ export const Profile = () => {
             <h2>Profile</h2>
           </div>
         </div>
-        <form id="profileForm" onSubmit={formik.handleSubmit}>
+        <form
+          id="profileForm"
+          data-testid="profile-form"
+          onSubmit={formik.handleSubmit}
+        >
           <div className="p-col-12 p-lg-4">
             <div className="card">
               <ContactsForm
@@ -132,7 +136,8 @@ export const Profile = () => {
               label="Save"
               type="submit"
               form="profileForm"
-              className="blue-btn p-button-raised"
+              className="p-button-raised"
+              data-testid="save-profile"
               disabled={loading}
             />
           </div>
