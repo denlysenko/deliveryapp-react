@@ -4,7 +4,6 @@ import {
   cleanup,
   fireEvent,
   wait,
-  queryByAttribute,
   Matcher,
   MatcherOptions
 } from '@testing-library/react';
@@ -24,7 +23,7 @@ type GetByTestId = (
 const email = 'test@test.com';
 const password = 'password';
 
-const fillFormAndSubmit = (getByTestId: GetByTestId) => {
+const fillForm = (getByTestId: GetByTestId) => {
   fireEvent.change(getByTestId('email'), {
     target: {
       value: email
@@ -36,8 +35,6 @@ const fillFormAndSubmit = (getByTestId: GetByTestId) => {
       value: password
     }
   });
-
-  fireEvent.click(getByTestId('submit'));
 };
 
 jest.mock('react-router-dom', () => ({
@@ -96,8 +93,10 @@ describe('Auth Page', () => {
     it('should login', async () => {
       const { getByTestId } = render(<Auth />);
 
+      fillForm(getByTestId);
+
       await wait(() => {
-        fillFormAndSubmit(getByTestId);
+        fireEvent.click(getByTestId('submit'));
       });
 
       expect(login).toBeCalledTimes(1);
@@ -109,8 +108,10 @@ describe('Auth Page', () => {
 
       fireEvent.click(getByTestId('mode-toggler'));
 
+      fillForm(getByTestId);
+
       await wait(() => {
-        fillFormAndSubmit(getByTestId);
+        fireEvent.click(getByTestId('submit'));
       });
 
       expect(register).toBeCalledTimes(1);
@@ -132,8 +133,10 @@ describe('Auth Page', () => {
 
       const { getByTestId } = render(<Auth />);
 
+      fillForm(getByTestId);
+
       await wait(() => {
-        fillFormAndSubmit(getByTestId);
+        fireEvent.click(getByTestId('submit'));
       });
 
       expect(localStorageSpy).toBeCalledTimes(1);
@@ -143,8 +146,10 @@ describe('Auth Page', () => {
     it('should redirect to /', async () => {
       const { getByTestId } = render(<Auth />);
 
+      fillForm(getByTestId);
+
       await wait(() => {
-        fillFormAndSubmit(getByTestId);
+        fireEvent.click(getByTestId('submit'));
       });
 
       expect(useHistoryMock.push).toBeCalledTimes(1);
@@ -166,13 +171,15 @@ describe('Auth Page', () => {
 
       const { getByTestId, container } = render(<Auth />);
 
+      fillForm(getByTestId);
+
       await wait(() => {
-        fillFormAndSubmit(getByTestId);
+        fireEvent.click(getByTestId('submit'));
       });
 
-      expect(
-        queryByAttribute('id', container, 'error-message')
-      ).toHaveTextContent(errorMessage);
+      expect(container.querySelector('#error-message')).toHaveTextContent(
+        errorMessage
+      );
     });
   });
 });

@@ -7,107 +7,103 @@ exports[`Auth Page Login should render login form 1`] = `
       class="sc-AykKD AhzHh"
     >
       <div
-        class="login-panel ui-fluid"
+        class="login-panel"
       >
         <div
-          class="ui-g"
+          class="p-col-12 logo-container"
         >
-          <div
-            class="ui-g-12 logo-container"
+          <i
+            class="fa fa-shield"
+          />
+          <i
+            class="fa fa-sign-in"
+          />
+          <h2
+            data-testid="title"
           >
-            <i
-              class="fa fa-shield"
-            />
-            <i
-              class="fa fa-sign-in"
-            />
-            <h2
-              data-testid="title"
+            Login
+            <a
+              data-testid="mode-toggler"
+              href="/"
             >
-              Login
-              <a
-                data-testid="mode-toggler"
-                href="/"
-              >
-                Register
-              </a>
-            </h2>
-          </div>
-          <div
-            class="sc-AykKC doiYMD"
+              Register
+            </a>
+          </h2>
+        </div>
+        <div
+          class="sc-AykKC hpaEHk"
+        >
+          <form
+            autocomplete="off"
+            novalidate=""
           >
-            <form
-              autocomplete="off"
-              novalidate=""
+            <div
+              class="error-message"
+              id="error-message"
+            >
+              <div />
+            </div>
+            <div
+              class="p-col-12"
             >
               <div
-                class="error-message"
-                id="error-message"
+                class="input-wrapper p-float-label"
               >
-                <div />
-              </div>
-              <div
-                class="ui-g-12"
-              >
-                <div
-                  class="input-wrapper p-float-label"
+                <input
+                  class="p-inputtext p-component"
+                  data-testid="email"
+                  id="email"
+                  value=""
+                />
+                <label
+                  for="email"
                 >
-                  <input
-                    class="p-inputtext p-component"
-                    data-testid="email"
-                    id="email"
-                    value=""
-                  />
-                  <label
-                    for="email"
-                  >
-                    Email
-                  </label>
-                  <i
-                    class="fa fa-user-circle-o"
-                  />
-                </div>
+                  Email
+                </label>
+                <i
+                  class="fa fa-user-circle-o"
+                />
               </div>
+            </div>
+            <div
+              class="p-col-12"
+            >
               <div
-                class="ui-g-12"
+                class="input-wrapper p-float-label"
               >
-                <div
-                  class="input-wrapper p-float-label"
+                <input
+                  class="p-inputtext p-component"
+                  data-testid="password"
+                  id="password"
+                  type="password"
+                  value=""
+                />
+                <label
+                  for="password"
                 >
-                  <input
-                    class="p-inputtext p-component"
-                    data-testid="password"
-                    id="password"
-                    type="password"
-                    value=""
-                  />
-                  <label
-                    for="password"
-                  >
-                    Password
-                  </label>
-                  <i
-                    class="fa fa-lock"
-                  />
-                </div>
+                  Password
+                </label>
+                <i
+                  class="fa fa-lock"
+                />
               </div>
-              <div
-                class="ui-g-12 button-container"
+            </div>
+            <div
+              class="p-col-12 button-container"
+            >
+              <button
+                class="p-button p-component p-button-raised p-button-text-only"
+                data-testid="submit"
+                type="submit"
               >
-                <button
-                  class="p-button p-component p-button-raised p-button-text-only"
-                  data-testid="submit"
-                  type="submit"
+                <span
+                  class="p-button-text p-c"
                 >
-                  <span
-                    class="p-button-text p-c"
-                  >
-                    Login
-                  </span>
-                </button>
-              </div>
-            </form>
-          </div>
+                  Login
+                </span>
+              </button>
+            </div>
+          </form>
         </div>
       </div>
     </div>
@@ -122,194 +118,190 @@ exports[`Auth Page Register should render register form 1`] = `
       class="sc-AykKD AhzHh"
     >
       <div
-        class="login-panel ui-fluid"
+        class="login-panel"
       >
         <div
-          class="ui-g"
+          class="p-col-12 logo-container"
         >
-          <div
-            class="ui-g-12 logo-container"
+          <i
+            class="fa fa-shield"
+          />
+          <i
+            class="fa fa-sign-in"
+          />
+          <h2
+            data-testid="title"
           >
-            <i
-              class="fa fa-shield"
-            />
-            <i
-              class="fa fa-sign-in"
-            />
-            <h2
-              data-testid="title"
+            Register
+            <a
+              data-testid="mode-toggler"
+              href="/"
             >
-              Register
-              <a
-                data-testid="mode-toggler"
-                href="/"
-              >
-                Login
-              </a>
-            </h2>
-          </div>
-          <div
-            class="sc-AykKC doiYMD"
+              Login
+            </a>
+          </h2>
+        </div>
+        <div
+          class="sc-AykKC hpaEHk"
+        >
+          <form
+            autocomplete="off"
+            novalidate=""
           >
-            <form
-              autocomplete="off"
-              novalidate=""
+            <div
+              class="error-message"
+              id="error-message"
+            >
+              <div />
+            </div>
+            <div
+              class="p-col-12"
             >
               <div
-                class="error-message"
-                id="error-message"
+                class="input-wrapper p-float-label"
               >
-                <div />
-              </div>
-              <div
-                class="ui-g-12"
-              >
-                <div
-                  class="input-wrapper p-float-label"
+                <input
+                  class="p-inputtext p-component"
+                  data-testid="firstName"
+                  id="firstName"
+                  value=""
+                />
+                <label
+                  for="firstName"
                 >
-                  <input
-                    class="p-inputtext p-component"
-                    data-testid="firstName"
-                    id="firstName"
-                    value=""
-                  />
-                  <label
-                    for="firstName"
-                  >
-                    First Name
-                  </label>
-                  <i
-                    class="fa fa-user-circle-o"
-                  />
-                </div>
+                  First Name
+                </label>
+                <i
+                  class="fa fa-user-circle-o"
+                />
               </div>
+            </div>
+            <div
+              class="p-col-12"
+            >
               <div
-                class="ui-g-12"
+                class="input-wrapper p-float-label"
               >
-                <div
-                  class="input-wrapper p-float-label"
+                <input
+                  class="p-inputtext p-component"
+                  data-testid="lastName"
+                  id="lastName"
+                  value=""
+                />
+                <label
+                  for="lastName"
                 >
-                  <input
-                    class="p-inputtext p-component"
-                    data-testid="lastName"
-                    id="lastName"
-                    value=""
-                  />
-                  <label
-                    for="lastName"
-                  >
-                    Last Name
-                  </label>
-                  <i
-                    class="fa fa-user-circle-o"
-                  />
-                </div>
+                  Last Name
+                </label>
+                <i
+                  class="fa fa-user-circle-o"
+                />
               </div>
+            </div>
+            <div
+              class="p-col-12"
+            >
               <div
-                class="ui-g-12"
+                class="input-wrapper p-float-label"
               >
-                <div
-                  class="input-wrapper p-float-label"
+                <input
+                  class="p-inputtext p-component"
+                  data-testid="company"
+                  id="company"
+                  value=""
+                />
+                <label
+                  for="company"
                 >
-                  <input
-                    class="p-inputtext p-component"
-                    data-testid="company"
-                    id="company"
-                    value=""
-                  />
-                  <label
-                    for="company"
-                  >
-                    Company
-                  </label>
-                  <i
-                    class="fa fa-building-o"
-                  />
-                </div>
+                  Company
+                </label>
+                <i
+                  class="fa fa-building-o"
+                />
               </div>
+            </div>
+            <div
+              class="p-col-12"
+            >
               <div
-                class="ui-g-12"
+                class="input-wrapper p-float-label"
               >
-                <div
-                  class="input-wrapper p-float-label"
+                <input
+                  class="p-inputtext p-component"
+                  id="phone"
+                  type="text"
+                />
+                <label
+                  for="phone"
                 >
-                  <input
-                    class="p-inputtext p-component"
-                    id="phone"
-                    type="text"
-                  />
-                  <label
-                    for="phone"
-                  >
-                    Phone
-                  </label>
-                  <i
-                    class="fa fa-phone"
-                  />
-                </div>
+                  Phone
+                </label>
+                <i
+                  class="fa fa-phone"
+                />
               </div>
+            </div>
+            <div
+              class="p-col-12"
+            >
               <div
-                class="ui-g-12"
+                class="input-wrapper p-float-label"
               >
-                <div
-                  class="input-wrapper p-float-label"
+                <input
+                  class="p-inputtext p-component"
+                  data-testid="email"
+                  id="email"
+                  value=""
+                />
+                <label
+                  for="email"
                 >
-                  <input
-                    class="p-inputtext p-component"
-                    data-testid="email"
-                    id="email"
-                    value=""
-                  />
-                  <label
-                    for="email"
-                  >
-                    Email
-                  </label>
-                  <i
-                    class="fa fa-user-circle-o"
-                  />
-                </div>
+                  Email
+                </label>
+                <i
+                  class="fa fa-user-circle-o"
+                />
               </div>
+            </div>
+            <div
+              class="p-col-12"
+            >
               <div
-                class="ui-g-12"
+                class="input-wrapper p-float-label"
               >
-                <div
-                  class="input-wrapper p-float-label"
+                <input
+                  class="p-inputtext p-component"
+                  data-testid="password"
+                  id="password"
+                  type="password"
+                  value=""
+                />
+                <label
+                  for="password"
                 >
-                  <input
-                    class="p-inputtext p-component"
-                    data-testid="password"
-                    id="password"
-                    type="password"
-                    value=""
-                  />
-                  <label
-                    for="password"
-                  >
-                    Password
-                  </label>
-                  <i
-                    class="fa fa-lock"
-                  />
-                </div>
+                  Password
+                </label>
+                <i
+                  class="fa fa-lock"
+                />
               </div>
-              <div
-                class="ui-g-12 button-container"
+            </div>
+            <div
+              class="p-col-12 button-container"
+            >
+              <button
+                class="p-button p-component p-button-raised p-button-text-only"
+                data-testid="submit"
+                type="submit"
               >
-                <button
-                  class="p-button p-component p-button-raised p-button-text-only"
-                  data-testid="submit"
-                  type="submit"
+                <span
+                  class="p-button-text p-c"
                 >
-                  <span
-                    class="p-button-text p-c"
-                  >
-                    Register
-                  </span>
-                </button>
-              </div>
-            </form>
-          </div>
+                  Register
+                </span>
+              </button>
+            </div>
+          </form>
         </div>
       </div>
     </div>

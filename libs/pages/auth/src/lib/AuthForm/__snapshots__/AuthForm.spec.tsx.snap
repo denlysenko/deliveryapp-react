@@ -4,7 +4,7 @@ exports[`AuthForm Login should render login form 1`] = `
 <body>
   <div>
     <div
-      class="sc-AykKC doiYMD"
+      class="sc-AykKC hpaEHk"
     >
       <form
         autocomplete="off"
@@ -17,7 +17,7 @@ exports[`AuthForm Login should render login form 1`] = `
           <div />
         </div>
         <div
-          class="ui-g-12"
+          class="p-col-12"
         >
           <div
             class="input-wrapper p-float-label"
@@ -39,7 +39,7 @@ exports[`AuthForm Login should render login form 1`] = `
           </div>
         </div>
         <div
-          class="ui-g-12"
+          class="p-col-12"
         >
           <div
             class="input-wrapper p-float-label"
@@ -62,7 +62,7 @@ exports[`AuthForm Login should render login form 1`] = `
           </div>
         </div>
         <div
-          class="ui-g-12 button-container"
+          class="p-col-12 button-container"
         >
           <button
             class="p-button p-component p-button-raised p-button-text-only"
@@ -86,7 +86,7 @@ exports[`AuthForm Register should render register form 1`] = `
 <body>
   <div>
     <div
-      class="sc-AykKC doiYMD"
+      class="sc-AykKC hpaEHk"
     >
       <form
         autocomplete="off"
@@ -99,7 +99,7 @@ exports[`AuthForm Register should render register form 1`] = `
           <div />
         </div>
         <div
-          class="ui-g-12"
+          class="p-col-12"
         >
           <div
             class="input-wrapper p-float-label"
@@ -121,7 +121,7 @@ exports[`AuthForm Register should render register form 1`] = `
           </div>
         </div>
         <div
-          class="ui-g-12"
+          class="p-col-12"
         >
           <div
             class="input-wrapper p-float-label"
@@ -143,7 +143,7 @@ exports[`AuthForm Register should render register form 1`] = `
           </div>
         </div>
         <div
-          class="ui-g-12"
+          class="p-col-12"
         >
           <div
             class="input-wrapper p-float-label"
@@ -165,7 +165,7 @@ exports[`AuthForm Register should render register form 1`] = `
           </div>
         </div>
         <div
-          class="ui-g-12"
+          class="p-col-12"
         >
           <div
             class="input-wrapper p-float-label"
@@ -186,7 +186,7 @@ exports[`AuthForm Register should render register form 1`] = `
           </div>
         </div>
         <div
-          class="ui-g-12"
+          class="p-col-12"
         >
           <div
             class="input-wrapper p-float-label"
@@ -208,7 +208,7 @@ exports[`AuthForm Register should render register form 1`] = `
           </div>
         </div>
         <div
-          class="ui-g-12"
+          class="p-col-12"
         >
           <div
             class="input-wrapper p-float-label"
@@ -231,7 +231,7 @@ exports[`AuthForm Register should render register form 1`] = `
           </div>
         </div>
         <div
-          class="ui-g-12 button-container"
+          class="p-col-12 button-container"
         >
           <button
             class="p-button p-component p-button-raised p-button-text-only"

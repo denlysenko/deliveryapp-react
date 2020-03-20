@@ -1,11 +1,5 @@
 import React from 'react';
-import {
-  render,
-  fireEvent,
-  cleanup,
-  queryByAttribute,
-  wait
-} from '@testing-library/react';
+import { render, fireEvent, cleanup, wait } from '@testing-library/react';
 
 import { ERRORS } from '@deliveryapp/common';
 import { ValidationError } from '@deliveryapp/data-access';
@@ -44,19 +38,19 @@ describe('AuthForm', () => {
         <AuthForm {...props} />
       );
 
+      fireEvent.change(getByTestId('email'), {
+        target: {
+          value: email
+        }
+      });
+
+      fireEvent.change(getByTestId('password'), {
+        target: {
+          value: password
+        }
+      });
+
       await wait(() => {
-        fireEvent.change(getByTestId('email'), {
-          target: {
-            value: email
-          }
-        });
-
-        fireEvent.change(getByTestId('password'), {
-          target: {
-            value: password
-          }
-        });
-
         fireEvent.click(getByTestId('submit'));
       });
 
@@ -64,10 +58,8 @@ describe('AuthForm', () => {
 
       rerender(<AuthForm {...props} error={{ message: errorMessage }} />);
 
-      await wait(() =>
-        expect(
-          queryByAttribute('id', container, 'error-message')
-        ).toHaveTextContent(errorMessage)
+      expect(container.querySelector('#error-message')).toHaveTextContent(
+        errorMessage
       );
     });
   });
@@ -102,32 +94,30 @@ describe('AuthForm', () => {
         <AuthForm {...props} isLoggingIn={false} />
       );
 
+      fireEvent.change(getByTestId('email'), {
+        target: {
+          value: email
+        }
+      });
+
+      fireEvent.change(getByTestId('password'), {
+        target: {
+          value: password
+        }
+      });
+
       await wait(() => {
-        fireEvent.change(getByTestId('email'), {
-          target: {
-            value: email
-          }
-        });
-
-        fireEvent.change(getByTestId('password'), {
-          target: {
-            value: password
-          }
-        });
-
         fireEvent.click(getByTestId('submit'));
       });
 
       rerender(<AuthForm {...props} isLoggingIn={false} error={error} />);
 
-      await wait(() => {
-        expect(
-          queryByAttribute('id', container, 'email-error')
-        ).toHaveTextContent(emailErrorMessage);
-        expect(
-          queryByAttribute('id', container, 'password-error')
-        ).toHaveTextContent(passwordErrorMessage);
-      });
+      expect(container.querySelector('#email-error')).toHaveTextContent(
+        emailErrorMessage
+      );
+      expect(container.querySelector('#password-error')).toHaveTextContent(
+        passwordErrorMessage
+      );
     });
   });
 
@@ -136,13 +126,13 @@ describe('AuthForm', () => {
       it('should display required error', async () => {
         const { getByTestId, container } = render(<AuthForm {...props} />);
 
-        fireEvent.click(getByTestId('submit'));
-
         await wait(() => {
-          expect(
-            queryByAttribute('id', container, 'email-error')
-          ).toHaveTextContent(ERRORS.REQUIRED_FIELD);
+          fireEvent.click(getByTestId('submit'));
         });
+
+        expect(container.querySelector('#email-error')).toHaveTextContent(
+          ERRORS.REQUIRED_FIELD
+        );
       });
 
       it('should display invalid email error', async () => {
@@ -154,13 +144,13 @@ describe('AuthForm', () => {
           }
         });
 
-        fireEvent.click(getByTestId('submit'));
-
         await wait(() => {
-          expect(
-            queryByAttribute('id', container, 'email-error')
-          ).toHaveTextContent(ERRORS.INVALID_EMAIL);
+          fireEvent.click(getByTestId('submit'));
         });
+
+        expect(container.querySelector('#email-error')).toHaveTextContent(
+          ERRORS.INVALID_EMAIL
+        );
       });
 
       it('should not display any errors', async () => {
@@ -172,13 +162,11 @@ describe('AuthForm', () => {
           }
         });
 
-        fireEvent.click(getByTestId('submit'));
-
         await wait(() => {
-          expect(
-            queryByAttribute('id', container, 'email-error')
-          ).not.toBeInTheDocument();
+          fireEvent.click(getByTestId('submit'));
         });
+
+        expect(container.querySelector('#email-error')).not.toBeInTheDocument();
       });
     });
 
@@ -186,13 +174,13 @@ describe('AuthForm', () => {
       it('should display required error', async () => {
         const { getByTestId, container } = render(<AuthForm {...props} />);
 
-        fireEvent.click(getByTestId('submit'));
-
         await wait(() => {
-          expect(
-            queryByAttribute('id', container, 'password-error')
-          ).toHaveTextContent(ERRORS.REQUIRED_FIELD);
+          fireEvent.click(getByTestId('submit'));
         });
+
+        expect(container.querySelector('#password-error')).toHaveTextContent(
+          ERRORS.REQUIRED_FIELD
+        );
       });
 
       it('should not display any errors', async () => {
@@ -204,13 +192,13 @@ describe('AuthForm', () => {
           }
         });
 
-        fireEvent.click(getByTestId('submit'));
-
         await wait(() => {
-          expect(
-            queryByAttribute('id', container, 'password-error')
-          ).not.toBeInTheDocument();
+          fireEvent.click(getByTestId('submit'));
         });
+
+        expect(
+          container.querySelector('#password-error')
+        ).not.toBeInTheDocument();
       });
     });
 
@@ -219,21 +207,17 @@ describe('AuthForm', () => {
         <AuthForm {...props} />
       );
 
-      fireEvent.click(getByTestId('submit'));
-
       await wait(() => {
-        expect(
-          queryByAttribute('id', container, 'email-error')
-        ).toHaveTextContent(ERRORS.REQUIRED_FIELD);
+        fireEvent.click(getByTestId('submit'));
       });
+
+      expect(container.querySelector('#email-error')).toHaveTextContent(
+        ERRORS.REQUIRED_FIELD
+      );
 
       rerender(<AuthForm {...props} isLoggingIn={false} />);
 
-      await wait(() => {
-        expect(
-          queryByAttribute('id', container, 'email-error')
-        ).not.toBeInTheDocument();
-      });
+      expect(container.querySelector('#email-error')).not.toBeInTheDocument();
     });
   });
 
@@ -241,19 +225,19 @@ describe('AuthForm', () => {
     it('should call onFormSubmit prop', async () => {
       const { getByTestId } = render(<AuthForm {...props} />);
 
+      fireEvent.change(getByTestId('email'), {
+        target: {
+          value: email
+        }
+      });
+
+      fireEvent.change(getByTestId('password'), {
+        target: {
+          value: password
+        }
+      });
+
       await wait(() => {
-        fireEvent.change(getByTestId('email'), {
-          target: {
-            value: email
-          }
-        });
-
-        fireEvent.change(getByTestId('password'), {
-          target: {
-            value: password
-          }
-        });
-
         fireEvent.click(getByTestId('submit'));
       });
 
