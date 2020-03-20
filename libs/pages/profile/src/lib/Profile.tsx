@@ -6,7 +6,7 @@ import { Button } from 'primereact/button';
 import * as Yup from 'yup';
 import { isNil } from 'lodash-es';
 
-import { Roles, ERRORS, handleValidationError } from '@deliveryapp/common';
+import { Roles, ERRORS } from '@deliveryapp/common';
 import {
   useAuth,
   User,
@@ -15,6 +15,7 @@ import {
   updateProfile,
   AuthActionTypes
 } from '@deliveryapp/data-access';
+import { handleValidationError } from '@deliveryapp/utils';
 
 import { StyledProfile } from './StyledProfile';
 import { ContactsForm } from './ContactsForm/ContactsForm';

@@ -1,12 +1,13 @@
 import React, { useEffect, useRef } from 'react';
 import { useFormik } from 'formik';
 
-import { ERRORS, handleValidationError } from '@deliveryapp/common';
+import { ERRORS } from '@deliveryapp/common';
 import {
   AuthCredentials,
   LoginError,
   ValidationError
 } from '@deliveryapp/data-access';
+import { handleValidationError } from '@deliveryapp/utils';
 
 import { Button } from 'primereact/button';
 import { InputMask } from 'primereact/inputmask';

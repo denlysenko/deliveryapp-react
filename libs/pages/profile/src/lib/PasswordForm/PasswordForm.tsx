@@ -7,8 +7,9 @@ import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
 import { Message } from 'primereact/message';
 
-import { ERRORS, handleValidationError } from '@deliveryapp/common';
+import { ERRORS } from '@deliveryapp/common';
 import { updatePassword } from '@deliveryapp/data-access';
+import { handleValidationError } from '@deliveryapp/utils';
 
 import { StyledForm } from '../StyledForm';
 
