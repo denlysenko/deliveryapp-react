@@ -41,11 +41,11 @@ export const Profile = () => {
 
   const formik = useFormik<ProfileFormValues>({
     initialValues: {
-      firstName: !isNil(user) ? user.firstName : '',
-      lastName: !isNil(user) ? user.lastName : '',
+      firstName: !isNil(user) && !isNil(user.firstName) ? user.firstName : '',
+      lastName: !isNil(user) && !isNil(user.lastName) ? user.lastName : '',
       email: !isNil(user) ? user.email : '',
-      company: !isNil(user) ? user.company : '',
-      phone: !isNil(user) ? user.phone : '',
+      company: !isNil(user) && !isNil(user.company) ? user.company : '',
+      phone: !isNil(user) && !isNil(user.phone) ? user.phone : '',
       ...(!isNil(user) &&
         user.role === Roles.CLIENT && {
           address: {

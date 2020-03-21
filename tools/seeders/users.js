@@ -6,7 +6,6 @@ module.exports = {
       'users',
       [
         {
-          id: 1,
           email: 'client@test.com',
           firstName: 'John',
           lastName: 'Doe',
@@ -18,7 +17,6 @@ module.exports = {
           updatedAt: new Date()
         },
         {
-          id: 2,
           email: 'manager@test.com',
           firstName: 'Joe',
           lastName: 'Schmoe',
@@ -30,7 +28,6 @@ module.exports = {
           updatedAt: new Date()
         },
         {
-          id: 3,
           email: 'admin@test.com',
           firstName: 'Jane',
           lastName: 'Dane',
@@ -46,7 +43,19 @@ module.exports = {
     );
   },
 
-  down: function(queryInterface) {
-    return queryInterface.bulkDelete('users', null, {});
+  down: function(queryInterface, Sequelize) {
+    return queryInterface.bulkDelete(
+      'users',
+      {
+        email: {
+          [Sequelize.Op.in]: [
+            'admin@test.com',
+            'manager@test.com',
+            'client@test.com'
+          ]
+        }
+      },
+      {}
+    );
   }
 };
