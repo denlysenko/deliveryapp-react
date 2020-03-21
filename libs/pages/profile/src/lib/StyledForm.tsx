@@ -20,10 +20,6 @@ export const StyledForm = styled.div`
   .input-wrapper {
     position: relative;
 
-    .p-inputtext {
-      width: 100%;
-    }
-
     .fa {
       position: absolute;
       width: 14px;

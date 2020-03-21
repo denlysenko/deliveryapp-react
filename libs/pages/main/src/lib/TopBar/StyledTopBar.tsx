@@ -18,6 +18,10 @@ export const StyledTopBar = styled.div`
       color: #757575;
     }
 
+    .p-inputtext {
+      width: auto;
+    }
+
     &-logo {
       .fa {
         font-size: 44px;

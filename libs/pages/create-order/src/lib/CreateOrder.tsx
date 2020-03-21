@@ -4,14 +4,15 @@ import { Steps } from 'primereact/steps';
 import { MenuItem } from 'primereact/api';
 
 import { StyledCreateOrder } from './StyledCreateOrder';
+import { DestinationForm } from './DestinationForm/DestinationForm';
+
+const items: MenuItem[] = [
+  { label: 'Destination' },
+  { label: 'Cargo' },
+  { label: 'Sender' }
+];
 
 export const CreateOrder = () => {
-  const [items] = useState<MenuItem[]>([
-    { label: 'Destination' },
-    { label: 'Cargo' },
-    { label: 'Sender' }
-  ]);
-
   const [activeIndex, setActiveIndex] = useState(0);
 
   const handleSelect = (event: {
@@ -34,7 +35,7 @@ export const CreateOrder = () => {
               readOnly={false}
             />
             <div className="ui-widget-content">
-              {activeIndex === 0 && <div>Destination form goes here</div>}
+              {activeIndex === 0 && <DestinationForm />}
               {activeIndex === 1 && <div>Cargo form goes here</div>}
               {activeIndex === 2 && <div>Sender form goes here</div>}
             </div>

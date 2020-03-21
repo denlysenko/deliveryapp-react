@@ -15,6 +15,15 @@ body {
   margin: 0;
 }
 
+.p-inputtext {
+  width: 100%;
+}
+
+body .ui-widget-content {
+  background-color: #fff;
+  border: 1px solid #c7cdd1;
+}
+
 .ui-inputtext,
 .ui-float-label label {
   font-weight: 300;
