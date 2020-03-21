@@ -47,6 +47,9 @@
     },
     "ui": {
       "tags": []
+    },
+    "pages-create-order": {
+      "tags": []
     }
   }
 }

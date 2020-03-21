@@ -15,6 +15,12 @@ const Profile = lazy(() =>
   }))
 );
 
+const CreateOrder = lazy(() =>
+  import('@deliveryapp/pages/create-order').then(({ CreateOrder }) => ({
+    default: CreateOrder
+  }))
+);
+
 export const Main = () => {
   const [showMessages, setShowMessages] = useState(false);
 
@@ -28,6 +34,9 @@ export const Main = () => {
             <Switch>
               <Route exact path="/profile">
                 <Profile />
+              </Route>
+              <Route exact path="/orders/create">
+                <CreateOrder />
               </Route>
             </Switch>
           </Suspense>
