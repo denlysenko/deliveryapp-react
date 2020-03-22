@@ -5,6 +5,7 @@ import { MenuItem } from 'primereact/api';
 
 import { StyledCreateOrder } from './StyledCreateOrder';
 import { DestinationForm } from './DestinationForm/DestinationForm';
+import { CargoForm } from './CargoForm/CargoForm';
 
 const items: MenuItem[] = [
   { label: 'Destination' },
@@ -36,7 +37,7 @@ export const CreateOrder = () => {
             />
             <div className="ui-widget-content">
               {activeIndex === 0 && <DestinationForm />}
-              {activeIndex === 1 && <div>Cargo form goes here</div>}
+              {activeIndex === 1 && <CargoForm />}
               {activeIndex === 2 && <div>Sender form goes here</div>}
             </div>
           </div>

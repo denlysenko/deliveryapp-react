@@ -81,7 +81,7 @@ export const DestinationForm = () => {
         </div>
         <div className="p-col-12 p-md-6 p-md-offset-3">
           <label>Additional Info</label>
-          <InputTextarea rows={5} />
+          <InputTextarea rows={5} autoResize />
         </div>
         <div className="p-col-12 button-container">
           <Button
