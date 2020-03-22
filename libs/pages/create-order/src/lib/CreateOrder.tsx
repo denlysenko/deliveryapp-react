@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 
 import { useFormik, FormikTouched } from 'formik';
 import * as Yup from 'yup';
@@ -8,6 +9,7 @@ import { Steps } from 'primereact/steps';
 import { MenuItem } from 'primereact/api';
 
 import { ERRORS } from '@deliveryapp/common';
+import { createOrderSelf } from '@deliveryapp/data-access';
 
 import { StyledCreateOrder } from './StyledCreateOrder';
 import { DestinationForm } from './DestinationForm/DestinationForm';
@@ -109,18 +111,28 @@ const steps: (keyof CreateOrderFormValues)[] = [
 ];
 
 export const CreateOrder = () => {
+  const history = useHistory();
   const [activeIndex, setActiveIndex] = useState(0);
   const [loading, setLoading] = useState(false);
   const formik = useFormik<CreateOrderFormValues>({
     initialValues,
     validationSchema: ValidationSchema,
-    onSubmit: values => {
+    onSubmit: async values => {
       const order = {
         ...values.destination,
         ...values.cargo,
         ...values.sender
       };
-      console.log(order);
+
+      setLoading(true);
+
+      try {
+        await createOrderSelf(order);
+        history.push('/orders');
+      } catch (error) {
+        setLoading(false);
+        console.log(error);
+      }
     }
   });
 

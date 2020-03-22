@@ -9,7 +9,7 @@ export interface Order {
   cargoName: string;
   additionalData?: string;
   comment?: string;
-  cargoWeight: number;
+  cargoWeight?: number;
   cargoVolume?: number;
   senderName?: string;
   senderCompany?: string;
