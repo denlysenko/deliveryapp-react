@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { FormikHandlers, FormikErrors, FormikTouched, getIn } from 'formik';
+import { FormikHandlers, FormikErrors, FormikTouched } from 'formik';
 
 import { InputText } from 'primereact/inputtext';
 import { InputTextarea } from 'primereact/inputtextarea';
@@ -8,13 +8,16 @@ import { Button } from 'primereact/button';
 import { Message } from 'primereact/message';
 import { Spinner } from 'primereact/spinner';
 
+import { getError } from '@deliveryapp/utils';
+
+import { CreateOrderFormValues } from '../CreateOrderFormValues';
 import { StyledCargoForm } from './StyledCargoForm';
-import { CreateOrderFormValues } from '../CreateOrder';
 
 interface CargoFormProps {
   handleChange: FormikHandlers['handleChange'];
   values: CreateOrderFormValues['cargo'];
   errors?: FormikErrors<CreateOrderFormValues['cargo']>;
+  apiErrors?: FormikErrors<CreateOrderFormValues['cargo']>;
   touched?: FormikTouched<CreateOrderFormValues['cargo']>;
   onNext: () => void;
   onPrev: () => void;
@@ -24,6 +27,7 @@ export const CargoForm: React.FC<CargoFormProps> = ({
   handleChange,
   values,
   errors,
+  apiErrors,
   touched,
   onNext,
   onPrev
@@ -32,6 +36,21 @@ export const CargoForm: React.FC<CargoFormProps> = ({
     event.preventDefault();
     onNext();
   };
+
+  const cargoNameError = getError<CreateOrderFormValues['cargo']>('cargoName', {
+    touched,
+    errors,
+    apiErrors
+  });
+
+  const cargoWeightError = getError<CreateOrderFormValues['cargo']>(
+    'cargoWeight',
+    {
+      touched,
+      errors,
+      apiErrors
+    }
+  );
 
   return (
     <StyledCargoForm>
@@ -48,17 +67,18 @@ export const CargoForm: React.FC<CargoFormProps> = ({
               type="text"
               data-testid="cargoName"
               name="cargo.cargoName"
+              className={cargoNameError ? 'invalid' : ''}
               value={values.cargoName}
               onChange={handleChange}
             />
             <label htmlFor="cargoName">Cargo Name</label>
             <i className="fa fa-info"></i>
           </div>
-          {getIn(touched, 'cargoName') && getIn(errors, 'cargoName') && (
+          {cargoNameError && (
             <Message
               id="cargoName-error"
               severity="error"
-              text={getIn(errors, 'cargoName')}
+              text={cargoNameError}
             ></Message>
           )}
         </div>
@@ -68,16 +88,17 @@ export const CargoForm: React.FC<CargoFormProps> = ({
               id="cargoWeight"
               data-testid="cargoWeight"
               name="cargo.cargoWeight"
+              className={cargoWeightError ? 'invalid' : ''}
               value={values.cargoWeight}
               onChange={handleChange}
             />
             <label htmlFor="cargoWeight">Weight</label>
           </div>
-          {getIn(touched, 'cargoWeight') && getIn(errors, 'cargoWeight') && (
+          {cargoWeightError && (
             <Message
               id="cargoWeight-error"
               severity="error"
-              text={getIn(errors, 'cargoWeight')}
+              text={cargoWeightError}
             ></Message>
           )}
         </div>

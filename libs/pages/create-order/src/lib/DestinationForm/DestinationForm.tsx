@@ -1,19 +1,22 @@
 import React from 'react';
 
-import { FormikHandlers, FormikErrors, FormikTouched, getIn } from 'formik';
+import { FormikHandlers, FormikErrors, FormikTouched } from 'formik';
 
 import { InputText } from 'primereact/inputtext';
 import { InputTextarea } from 'primereact/inputtextarea';
 import { Button } from 'primereact/button';
 import { Message } from 'primereact/message';
 
+import { getError } from '@deliveryapp/utils';
+
+import { CreateOrderFormValues } from '../CreateOrderFormValues';
 import { StyledForm } from '../StyledForm';
-import { CreateOrderFormValues } from '../CreateOrder';
 
 interface DestinationFormProps {
   handleChange: FormikHandlers['handleChange'];
   values: CreateOrderFormValues['destination'];
   errors?: FormikErrors<CreateOrderFormValues['destination']>;
+  apiErrors?: FormikErrors<CreateOrderFormValues['destination']>;
   touched?: FormikTouched<CreateOrderFormValues['destination']>;
   onNext: () => void;
 }
@@ -21,6 +24,7 @@ interface DestinationFormProps {
 export const DestinationForm: React.FC<DestinationFormProps> = ({
   values,
   errors,
+  apiErrors,
   touched,
   handleChange,
   onNext
@@ -29,6 +33,27 @@ export const DestinationForm: React.FC<DestinationFormProps> = ({
     event.preventDefault();
     onNext();
   };
+
+  const cityFromError = getError<CreateOrderFormValues['destination']>(
+    'cityFrom',
+    { touched, errors, apiErrors }
+  );
+
+  const cityToError = getError<CreateOrderFormValues['destination']>('cityTo', {
+    touched,
+    errors,
+    apiErrors
+  });
+
+  const addressFromError = getError<CreateOrderFormValues['destination']>(
+    'addressFrom',
+    { touched, errors, apiErrors }
+  );
+
+  const addressToError = getError<CreateOrderFormValues['destination']>(
+    'addressTo',
+    { touched, errors, apiErrors }
+  );
 
   return (
     <StyledForm>
@@ -45,17 +70,18 @@ export const DestinationForm: React.FC<DestinationFormProps> = ({
               type="text"
               data-testid="cityFrom"
               name="destination.cityFrom"
+              className={cityFromError ? 'invalid' : ''}
               value={values.cityFrom}
               onChange={handleChange}
             />
             <label htmlFor="cityFrom">Departure City</label>
             <i className="fa fa-globe"></i>
           </div>
-          {getIn(touched, 'cityFrom') && getIn(errors, 'cityFrom') && (
+          {cityFromError && (
             <Message
               id="cityFrom-error"
               severity="error"
-              text={getIn(errors, 'cityFrom')}
+              text={cityFromError}
             ></Message>
           )}
         </div>
@@ -66,17 +92,18 @@ export const DestinationForm: React.FC<DestinationFormProps> = ({
               type="text"
               data-testid="cityTo"
               name="destination.cityTo"
+              className={cityToError ? 'invalid' : ''}
               value={values.cityTo}
               onChange={handleChange}
             />
             <label htmlFor="cityTo">Arrival City</label>
             <i className="fa fa-globe"></i>
           </div>
-          {getIn(touched, 'cityTo') && getIn(errors, 'cityTo') && (
+          {cityToError && (
             <Message
               id="cityTo-error"
               severity="error"
-              text={getIn(errors, 'cityTo')}
+              text={cityToError}
             ></Message>
           )}
         </div>
@@ -87,17 +114,18 @@ export const DestinationForm: React.FC<DestinationFormProps> = ({
               type="text"
               data-testid="addressFrom"
               name="destination.addressFrom"
+              className={addressFromError ? 'invalid' : ''}
               value={values.addressFrom}
               onChange={handleChange}
             />
             <label htmlFor="addressFrom">Departure Address</label>
             <i className="fa fa-building-o"></i>
           </div>
-          {getIn(touched, 'addressFrom') && getIn(errors, 'addressFrom') && (
+          {addressFromError && (
             <Message
               id="addressFrom-error"
               severity="error"
-              text={getIn(errors, 'addressFrom')}
+              text={addressFromError}
             ></Message>
           )}
         </div>
@@ -108,17 +136,18 @@ export const DestinationForm: React.FC<DestinationFormProps> = ({
               type="text"
               data-testid="addressTo"
               name="destination.addressTo"
+              className={addressToError ? 'invalid' : ''}
               value={values.addressTo}
               onChange={handleChange}
             />
             <label htmlFor="addressTo">Arrival Address</label>
             <i className="fa fa-building-o"></i>
           </div>
-          {getIn(touched, 'addressTo') && getIn(errors, 'addressTo') && (
+          {addressToError && (
             <Message
               id="addressTo-error"
               severity="error"
-              text={getIn(errors, 'addressTo')}
+              text={addressToError}
             ></Message>
           )}
         </div>
