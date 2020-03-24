@@ -1,12 +1,14 @@
-import { FormikContextType } from 'formik';
+import { FormikContextType, FormikErrors } from 'formik';
 import { ValidationError } from '@deliveryapp/data-access';
 
-export function handleValidationError(
+export function handleValidationError<T>(
   error: ValidationError,
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  formik: FormikContextType<any>
+  formik: FormikContextType<T>
 ) {
-  error.errors.forEach(({ path, message }) => {
-    formik.setFieldError(path, message);
-  });
+  const apiErrors = error.errors.reduce<FormikErrors<T>>(
+    (acc, { path, message }) => ({ ...acc, [path]: message }),
+    {}
+  );
+
+  formik.setStatus({ apiErrors });
 }
