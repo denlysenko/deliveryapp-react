@@ -1,1 +1,1 @@
-export * from './lib/Spinner/Spinner';
+export * from './lib/FullPageSpinner/FullPageSpinner';

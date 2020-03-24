@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react';
 import { Route, Redirect, RouteProps } from 'react-router-dom';
 
-import { Spinner } from '@deliveryapp/ui';
+import { FullPageSpinner } from '@deliveryapp/ui';
 
 import { useLoadSelf } from './useLoadSelf';
 
@@ -14,7 +14,7 @@ export const AuthGuard: React.FC<RouteProps> = ({
   return (
     <>
       {waiting ? (
-        <Spinner />
+        <FullPageSpinner />
       ) : (
         <Route {...rest}>
           {isLoggedIn ? children : <Redirect to="/auth" />}

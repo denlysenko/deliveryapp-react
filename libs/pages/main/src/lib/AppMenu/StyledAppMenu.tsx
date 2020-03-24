@@ -43,7 +43,7 @@ export const StyledAppMenu = styled.div`
             background-color: #f6f9fb;
           }
 
-          &.active {
+          &.active button {
             color: #3984b8;
           }
         }

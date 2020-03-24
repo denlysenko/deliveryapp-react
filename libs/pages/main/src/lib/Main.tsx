@@ -3,7 +3,7 @@ import { Switch, Route } from 'react-router-dom';
 
 import { Sidebar } from 'primereact/sidebar';
 
-import { Spinner } from '@deliveryapp/ui';
+import { FullPageSpinner } from '@deliveryapp/ui';
 
 import { StyledMain } from './StyledMain';
 import { AppMenu } from './AppMenu/AppMenu';
@@ -30,7 +30,7 @@ export const Main = () => {
         <AppMenu />
         <TopBar showMessages={() => setShowMessages(true)} />
         <div className="content">
-          <Suspense fallback={<Spinner />}>
+          <Suspense fallback={<FullPageSpinner />}>
             <Switch>
               <Route exact path="/profile">
                 <Profile />

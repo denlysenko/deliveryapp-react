@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { Button } from 'primereact/button';
 
 import { isNil } from 'lodash-es';
@@ -23,13 +23,13 @@ export const AppMenu = () => {
             {appMenu.map(item =>
               canSee(item.allowedRoles) ? (
                 <li key={item.label}>
-                  <Link to={item.link} data-testid="link">
+                  <NavLink to={item.link} data-testid="link">
                     <Button
                       type="button"
                       icon={`fa ${item.icon}`}
                       tooltip={item.label}
                     />
-                  </Link>
+                  </NavLink>
                 </li>
               ) : null
             )}

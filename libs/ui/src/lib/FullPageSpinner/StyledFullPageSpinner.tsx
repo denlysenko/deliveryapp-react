@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const StyledSpinner = styled.div`
+export const StyledFullPageSpinner = styled.div`
   .spinner {
     position: fixed;
     padding: 0px;

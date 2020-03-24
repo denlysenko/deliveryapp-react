@@ -1,10 +1,10 @@
 import React from 'react';
 
-import { StyledSpinner } from './StyledSpinner';
+import { StyledFullPageSpinner } from './StyledFullPageSpinner';
 
-export const Spinner = () => {
+export const FullPageSpinner = () => {
   return (
-    <StyledSpinner>
+    <StyledFullPageSpinner>
       <div className="spinner center" data-testid="spinner">
         <div className="la-ball-clip-rotate-multiple la-3x">
           <div></div>
@@ -12,6 +12,6 @@ export const Spinner = () => {
           <div></div>
         </div>
       </div>
-    </StyledSpinner>
+    </StyledFullPageSpinner>
   );
 };

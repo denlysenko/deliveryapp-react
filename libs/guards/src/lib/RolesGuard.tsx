@@ -4,7 +4,7 @@ import { Route, Redirect, RouteProps } from 'react-router-dom';
 import { isNil } from 'lodash-es';
 
 import { User } from '@deliveryapp/data-access';
-import { Spinner } from '@deliveryapp/ui';
+import { FullPageSpinner } from '@deliveryapp/ui';
 
 import { useLoadSelf } from './useLoadSelf';
 
@@ -25,7 +25,7 @@ export const RolesGuard: React.FC<Props> = ({
   return (
     <>
       {waiting ? (
-        <Spinner />
+        <FullPageSpinner />
       ) : (
         <Route {...rest}>
           {isLoggedIn && hasRights(user) ? children : <Redirect to="/" />}
