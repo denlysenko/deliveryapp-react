@@ -4,7 +4,7 @@ import { useFormik } from 'formik';
 import { Button } from 'primereact/button';
 
 import * as Yup from 'yup';
-import { isNil } from 'lodash-es';
+import { isNil, has, omit } from 'lodash-es';
 
 import { Roles, ERRORS } from '@deliveryapp/common';
 import {
@@ -64,6 +64,9 @@ export const Profile = () => {
           }
         })
     },
+    initialStatus: {
+      apiErrors: {}
+    },
     validationSchema: ValidationSchema,
     onSubmit: async values => {
       setLoading(true);
@@ -77,10 +80,22 @@ export const Profile = () => {
         setLoading(false);
       } catch (error) {
         setLoading(false);
-        handleValidationError(error.response.data, formik);
+        handleValidationError<ProfileFormValues>(error.response.data, formik);
       }
     }
   });
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const name = event.target.name;
+
+    if (has(formik.status.apiErrors, name)) {
+      formik.setStatus({
+        apiErrors: omit(formik.status.apiErrors, name)
+      });
+    }
+
+    formik.handleChange(event);
+  };
 
   return (
     <StyledProfile>
@@ -102,8 +117,9 @@ export const Profile = () => {
               <ContactsForm
                 values={formik.values}
                 errors={formik.errors}
+                apiErrors={formik.status.apiErrors}
                 touched={formik.touched}
-                handleChange={formik.handleChange}
+                handleChange={handleChange}
               />
               <PasswordForm />
             </div>

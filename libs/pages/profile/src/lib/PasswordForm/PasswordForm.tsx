@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
+import { has, omit } from 'lodash-es';
 
 import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
@@ -9,9 +10,15 @@ import { Message } from 'primereact/message';
 
 import { ERRORS } from '@deliveryapp/common';
 import { updatePassword } from '@deliveryapp/data-access';
-import { handleValidationError } from '@deliveryapp/utils';
+import { handleValidationError, getError } from '@deliveryapp/utils';
 
 import { StyledForm } from '../StyledForm';
+
+export interface PasswordFormValues {
+  oldPassword: string;
+  newPassword: string;
+  confirmPassword: string;
+}
 
 const ValidationSchema = Yup.object().shape({
   oldPassword: Yup.string().required(ERRORS.REQUIRED_FIELD),
@@ -24,11 +31,14 @@ const ValidationSchema = Yup.object().shape({
 export const PasswordForm: React.FC<{}> = () => {
   const [loading, setLoading] = useState(false);
 
-  const formik = useFormik({
+  const formik = useFormik<PasswordFormValues>({
     initialValues: {
       oldPassword: '',
       newPassword: '',
       confirmPassword: ''
+    },
+    initialStatus: {
+      apiErrors: {}
     },
     validationSchema: ValidationSchema,
     onSubmit: async values => {
@@ -40,10 +50,40 @@ export const PasswordForm: React.FC<{}> = () => {
         setLoading(false);
       } catch (error) {
         setLoading(false);
-        handleValidationError(error.response.data, formik);
+        handleValidationError<PasswordFormValues>(error.response.data, formik);
       }
     }
   });
+
+  const oldPasswordError = getError<PasswordFormValues>('oldPassword', {
+    touched: formik.touched,
+    errors: formik.errors,
+    apiErrors: formik.status.apiErrors
+  });
+
+  const newPasswordError = getError<PasswordFormValues>('newPassword', {
+    touched: formik.touched,
+    errors: formik.errors,
+    apiErrors: formik.status.apiErrors
+  });
+
+  const confirmPasswordError = getError<PasswordFormValues>('confirmPassword', {
+    touched: formik.touched,
+    errors: formik.errors,
+    apiErrors: formik.status.apiErrors
+  });
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const name = event.target.name;
+
+    if (has(formik.status.apiErrors, name)) {
+      formik.setStatus({
+        apiErrors: omit(formik.status.apiErrors, name)
+      });
+    }
+
+    formik.handleChange(event);
+  };
 
   return (
     <StyledForm>
@@ -55,22 +95,19 @@ export const PasswordForm: React.FC<{}> = () => {
               id="oldPassword"
               type="password"
               data-testid="oldPassword"
-              className={
-                formik.touched.oldPassword && formik.errors.oldPassword
-                  ? 'invalid'
-                  : ''
-              }
+              name="oldPassword"
+              className={oldPasswordError ? 'invalid' : ''}
               value={formik.values.oldPassword}
-              onChange={formik.handleChange}
+              onChange={handleChange}
             />
             <label htmlFor="oldPassword">Current Password</label>
             <i className="fa fa-lock"></i>
           </div>
-          {formik.touched.oldPassword && formik.errors.oldPassword && (
+          {oldPasswordError && (
             <Message
               id="oldPassword-error"
               severity="error"
-              text={formik.errors.oldPassword}
+              text={oldPasswordError}
             ></Message>
           )}
         </div>
@@ -80,22 +117,19 @@ export const PasswordForm: React.FC<{}> = () => {
               id="newPassword"
               type="password"
               data-testid="newPassword"
-              className={
-                formik.touched.newPassword && formik.errors.newPassword
-                  ? 'invalid'
-                  : ''
-              }
+              name="newPassword"
+              className={newPasswordError ? 'invalid' : ''}
               value={formik.values.newPassword}
-              onChange={formik.handleChange}
+              onChange={handleChange}
             />
             <label>New Password</label>
             <i className="fa fa-lock"></i>
           </div>
-          {formik.touched.newPassword && formik.errors.newPassword && (
+          {newPasswordError && (
             <Message
               id="newPassword-error"
               severity="error"
-              text={formik.errors.newPassword}
+              text={newPasswordError}
             ></Message>
           )}
         </div>
@@ -105,22 +139,19 @@ export const PasswordForm: React.FC<{}> = () => {
               id="confirmPassword"
               type="password"
               data-testid="confirmPassword"
-              className={
-                formik.touched.confirmPassword && formik.errors.confirmPassword
-                  ? 'invalid'
-                  : ''
-              }
+              name="confirmPassword"
+              className={confirmPasswordError ? 'invalid' : ''}
               value={formik.values.confirmPassword}
-              onChange={formik.handleChange}
+              onChange={handleChange}
             />
             <label htmlFor="confirmPassword">Confirm Password</label>
             <i className="fa fa-lock"></i>
           </div>
-          {formik.touched.confirmPassword && formik.errors.confirmPassword && (
+          {confirmPasswordError && (
             <Message
               id="confirmPassword-error"
               severity="error"
-              text={formik.errors.confirmPassword}
+              text={confirmPasswordError}
             ></Message>
           )}
         </div>
