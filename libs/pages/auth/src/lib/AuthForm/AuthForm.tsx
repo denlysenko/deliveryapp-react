@@ -7,7 +7,7 @@ import {
   LoginError,
   ValidationError
 } from '@deliveryapp/data-access';
-import { handleValidationError } from '@deliveryapp/utils';
+import { handleValidationError, getError } from '@deliveryapp/utils';
 
 import { Button } from 'primereact/button';
 import { InputMask } from 'primereact/inputmask';
@@ -16,9 +16,18 @@ import { Messages } from 'primereact/messages';
 import { Message } from 'primereact/message';
 
 import * as Yup from 'yup';
-import { isNil } from 'lodash-es';
+import { isNil, has, omit } from 'lodash-es';
 
 import { StyledAuthForm } from './StyledAuthForm';
+
+export interface AuthFormValues {
+  firstName: '';
+  lastName: '';
+  email: '';
+  company: '';
+  phone: '';
+  password: '';
+}
 
 export interface AuthFormProps {
   isLoggingIn: boolean;
@@ -42,7 +51,7 @@ export const AuthForm: React.FC<AuthFormProps> = ({
 }) => {
   const messages = useRef<Messages>(null);
 
-  const formik = useFormik({
+  const formik = useFormik<AuthFormValues>({
     initialValues: {
       firstName: '',
       lastName: '',
@@ -50,6 +59,9 @@ export const AuthForm: React.FC<AuthFormProps> = ({
       company: '',
       phone: '',
       password: ''
+    },
+    initialStatus: {
+      apiErrors: {}
     },
     validationSchema: ValidationSchema,
     onSubmit: values => {
@@ -59,13 +71,14 @@ export const AuthForm: React.FC<AuthFormProps> = ({
 
   useEffect(() => {
     formik.setErrors({});
+    formik.setStatus({});
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoggingIn]);
 
   useEffect(() => {
     if (!isNil(error)) {
       if ('errors' in error) {
-        handleValidationError(error, formik);
+        handleValidationError<AuthFormValues>(error, formik);
       } else {
         !isNil(messages.current) &&
           messages.current.show({
@@ -78,6 +91,30 @@ export const AuthForm: React.FC<AuthFormProps> = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [error]);
 
+  const emailError = getError<AuthFormValues>('email', {
+    touched: formik.touched,
+    errors: formik.errors,
+    apiErrors: formik.status.apiErrors
+  });
+
+  const passwordError = getError<AuthFormValues>('password', {
+    touched: formik.touched,
+    errors: formik.errors,
+    apiErrors: formik.status.apiErrors
+  });
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const name = event.target.name;
+
+    if (has(formik.status.apiErrors, name)) {
+      formik.setStatus({
+        apiErrors: omit(formik.status.apiErrors, name)
+      });
+    }
+
+    formik.handleChange(event);
+  };
+
   return (
     <StyledAuthForm>
       <form onSubmit={formik.handleSubmit} autoComplete="off" noValidate>
@@ -89,8 +126,9 @@ export const AuthForm: React.FC<AuthFormProps> = ({
                 <InputText
                   id="firstName"
                   data-testid="firstName"
+                  name="firstName"
                   value={formik.values.firstName}
-                  onChange={formik.handleChange}
+                  onChange={handleChange}
                 />
                 <label htmlFor="firstName">First Name</label>
                 <i className="fa fa-user-circle-o"></i>
@@ -101,8 +139,9 @@ export const AuthForm: React.FC<AuthFormProps> = ({
                 <InputText
                   id="lastName"
                   data-testid="lastName"
+                  name="lastName"
                   value={formik.values.lastName}
-                  onChange={formik.handleChange}
+                  onChange={handleChange}
                 />
                 <label htmlFor="lastName">Last Name</label>
                 <i className="fa fa-user-circle-o"></i>
@@ -113,8 +152,9 @@ export const AuthForm: React.FC<AuthFormProps> = ({
                 <InputText
                   id="company"
                   data-testid="company"
+                  name="company"
                   value={formik.values.company}
-                  onChange={formik.handleChange}
+                  onChange={handleChange}
                 />
                 <label htmlFor="company">Company</label>
                 <i className="fa fa-building-o"></i>
@@ -125,6 +165,7 @@ export const AuthForm: React.FC<AuthFormProps> = ({
                 <InputMask
                   id="phone"
                   mask="(999) 999-9999"
+                  name="phone"
                   value={formik.values.phone}
                   onChange={e => formik.setFieldValue('phone', e.value)}
                 />
@@ -138,21 +179,20 @@ export const AuthForm: React.FC<AuthFormProps> = ({
           <div className="input-wrapper p-float-label">
             <InputText
               id="email"
-              className={
-                formik.touched.email && formik.errors.email ? 'invalid' : ''
-              }
+              name="email"
+              className={emailError ? 'invalid' : ''}
               value={formik.values.email}
-              onChange={formik.handleChange}
+              onChange={handleChange}
               data-testid="email"
             />
             <label htmlFor="email">Email</label>
             <i className="fa fa-user-circle-o"></i>
           </div>
-          {formik.touched.email && formik.errors.email && (
+          {emailError && (
             <Message
               id="email-error"
               severity="error"
-              text={formik.errors.email}
+              text={emailError}
             ></Message>
           )}
         </div>
@@ -161,23 +201,20 @@ export const AuthForm: React.FC<AuthFormProps> = ({
             <InputText
               type="password"
               id="password"
-              className={
-                formik.touched.password && formik.errors.password
-                  ? 'invalid'
-                  : ''
-              }
+              name="password"
+              className={passwordError ? 'invalid' : ''}
               value={formik.values.password}
-              onChange={formik.handleChange}
+              onChange={handleChange}
               data-testid="password"
             />
             <label htmlFor="password">Password</label>
             <i className="fa fa-lock"></i>
           </div>
-          {formik.touched.password && formik.errors.password && (
+          {passwordError && (
             <Message
               id="password-error"
               severity="error"
-              text={formik.errors.password}
+              text={passwordError}
             ></Message>
           )}
         </div>
