@@ -12,7 +12,7 @@ import {
   User,
   Address,
   BankDetails,
-  updateProfile,
+  usersClient,
   AuthActionTypes
 } from '@deliveryapp/data-access';
 import { handleValidationError } from '@deliveryapp/utils';
@@ -72,7 +72,7 @@ export const Profile = () => {
       setLoading(true);
 
       try {
-        const { data } = await updateProfile(values);
+        const { data } = await usersClient.updateProfile(values);
         dispatch({
           type: AuthActionTypes.USER_LOADED,
           payload: data

@@ -9,7 +9,7 @@ import { Button } from 'primereact/button';
 import { Message } from 'primereact/message';
 
 import { ERRORS } from '@deliveryapp/common';
-import { updatePassword } from '@deliveryapp/data-access';
+import { usersClient } from '@deliveryapp/data-access';
 import { handleValidationError, getError } from '@deliveryapp/utils';
 
 import { StyledForm } from '../StyledForm';
@@ -46,7 +46,7 @@ export const PasswordForm: React.FC<{}> = () => {
 
       try {
         const { oldPassword, newPassword } = values;
-        await updatePassword({ oldPassword, newPassword });
+        await usersClient.updatePassword({ oldPassword, newPassword });
         setLoading(false);
       } catch (error) {
         setLoading(false);

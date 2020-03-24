@@ -4,9 +4,8 @@ import { useHistory } from 'react-router-dom';
 import { ACCESS_TOKEN } from '@deliveryapp/common';
 import {
   AuthCredentials,
-  login,
   LoginError,
-  register,
+  authClient,
   ValidationError
 } from '@deliveryapp/data-access';
 
@@ -33,11 +32,11 @@ export const Auth: React.FC = () => {
 
     try {
       const { data } = isLoggingIn
-        ? await login({
+        ? await authClient.login({
             email: credentials.email,
             password: credentials.password
           })
-        : await register(credentials);
+        : await authClient.register(credentials);
 
       localStorage.setItem(ACCESS_TOKEN, data.token);
       history.push('/');

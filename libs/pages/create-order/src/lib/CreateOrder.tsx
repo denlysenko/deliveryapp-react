@@ -9,7 +9,7 @@ import { Steps } from 'primereact/steps';
 import { Growl } from 'primereact/growl';
 
 import { ERRORS } from '@deliveryapp/common';
-import { createOrderSelf, ValidationError } from '@deliveryapp/data-access';
+import { ordersClient, ValidationError } from '@deliveryapp/data-access';
 
 import { CreateOrderFormValues } from './CreateOrderFormValues';
 import {
@@ -72,7 +72,7 @@ export const CreateOrder = () => {
       setLoading(true);
 
       try {
-        await createOrderSelf(order);
+        await ordersClient.createOrderSelf(order);
         history.push('/orders');
       } catch (error) {
         setLoading(false);
