@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter, Switch } from 'react-router-dom';
 
 import { Auth } from '@deliveryapp/pages/auth';
-import { apiService } from '@deliveryapp/core';
+import { apiClient } from '@deliveryapp/core';
 import { AuthProvider } from '@deliveryapp/data-access';
 import { AuthGuard, AnonymousGuard } from '@deliveryapp/guards';
 import { Main } from '@deliveryapp/pages/main';
@@ -10,7 +10,7 @@ import { Main } from '@deliveryapp/pages/main';
 import { environment } from '../environments/environment';
 import './app.scss';
 
-apiService.setBaseUrl(environment.apiUrl);
+apiClient.setBaseUrl(environment.apiUrl);
 
 export const App = () => {
   return (

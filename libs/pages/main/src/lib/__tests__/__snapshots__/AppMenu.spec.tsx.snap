@@ -1,0 +1,64 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AppMenu should render successfully 1`] = `
+<body>
+  <div>
+    <div
+      class="sc-AykKC htNtEA"
+    >
+      <div
+        class="menu-wrapper"
+      >
+        <div
+          class="menu-container"
+        >
+          <ul
+            class="menu"
+          >
+            <li>
+              <a
+                data-testid="link"
+                href="/orders"
+              >
+                <button
+                  class="p-button p-component p-button-icon-only"
+                  type="button"
+                >
+                  <span
+                    class="fa fa-file-text p-c p-button-icon-left"
+                  />
+                  <span
+                    class="p-button-text p-c"
+                  >
+                    p-btn
+                  </span>
+                </button>
+              </a>
+            </li>
+            <li>
+              <a
+                data-testid="link"
+                href="/payments"
+              >
+                <button
+                  class="p-button p-component p-button-icon-only"
+                  type="button"
+                >
+                  <span
+                    class="fa fa-money p-c p-button-icon-left"
+                  />
+                  <span
+                    class="p-button-text p-c"
+                  >
+                    p-btn
+                  </span>
+                </button>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+`;

@@ -1,7 +1,7 @@
-import { apiService } from '@deliveryapp/core';
+import { apiClient } from '@deliveryapp/core';
 import { ACCESS_TOKEN } from '@deliveryapp/common';
 
-import { me } from '../../api/users/users';
+import { me } from '../../api/users';
 import { User } from '../../models/user';
 
 export enum AuthActionTypes {
@@ -31,7 +31,7 @@ export const logout = (dispatch: AuthDispatch, history: History) => {
     type: AuthActionTypes.LOGOUT
   });
   localStorage.removeItem(ACCESS_TOKEN);
-  apiService.removeAuthHeader();
+  apiClient.removeAuthHeader();
   history.push('/auth');
 };
 

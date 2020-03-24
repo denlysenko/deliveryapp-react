@@ -1,6 +1,6 @@
-import * as authClient from './lib/api/auth/auth';
-import * as usersClient from './lib/api/users/users';
-import * as ordersClient from './lib/api/orders/orders';
+import * as authClient from './lib/api/auth';
+import * as usersClient from './lib/api/users';
+import * as ordersClient from './lib/api/orders';
 
 export { authClient, usersClient, ordersClient };
 

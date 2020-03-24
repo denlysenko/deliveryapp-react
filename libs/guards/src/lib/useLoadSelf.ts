@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 import { isNil } from 'lodash-es';
 
 import { ACCESS_TOKEN } from '@deliveryapp/common';
-import { apiService } from '@deliveryapp/core';
+import { apiClient } from '@deliveryapp/core';
 import { useAuth, loadSelf } from '@deliveryapp/data-access';
 
 export function useLoadSelf() {
@@ -15,7 +15,7 @@ export function useLoadSelf() {
 
   if (hasToken) {
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    apiService.setAuthHeader(localStorage.getItem(ACCESS_TOKEN)!);
+    apiClient.setAuthHeader(localStorage.getItem(ACCESS_TOKEN)!);
   }
 
   const [waiting, setWaiting] = useState(hasToken);

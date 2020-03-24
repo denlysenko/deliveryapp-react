@@ -1,0 +1,785 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Profile page should not render address & bankDetails 1`] = `
+<body>
+  <div>
+    <div
+      class="sc-AykKC sc-AykKD eAcyFO"
+    >
+      <div
+        class="p-grid"
+      >
+        <div
+          class="p-col-12 p-lg-4"
+        >
+          <div
+            class="card no-margin-bottom"
+          >
+            <h2>
+              Profile
+            </h2>
+          </div>
+        </div>
+        <form
+          data-testid="profile-form"
+          id="profileForm"
+        >
+          <div
+            class="p-col-12 p-lg-4"
+          >
+            <div
+              class="card"
+            >
+              <div
+                class="sc-AykKC eKHpuZ"
+              >
+                <h3>
+                  Contacts
+                </h3>
+                <div
+                  class="p-grid"
+                >
+                  <div
+                    class="p-col-12 row"
+                  >
+                    <div
+                      class="input-wrapper p-float-label"
+                    >
+                      <input
+                        class="p-inputtext p-component p-filled"
+                        data-testid="firstName"
+                        id="firstName"
+                        name="firstName"
+                        value="User"
+                      />
+                      <label
+                        for="firstName"
+                      >
+                        First Name
+                      </label>
+                      <i
+                        class="fa fa-user-circle-o"
+                      />
+                    </div>
+                  </div>
+                  <div
+                    class="p-col-12 row"
+                  >
+                    <div
+                      class="input-wrapper p-float-label"
+                    >
+                      <input
+                        class="p-inputtext p-component p-filled"
+                        data-testid="lastName"
+                        id="lastName"
+                        name="lastName"
+                        value="Test"
+                      />
+                      <label
+                        for="lastName"
+                      >
+                        Last Name
+                      </label>
+                      <i
+                        class="fa fa-user-circle-o"
+                      />
+                    </div>
+                  </div>
+                  <div
+                    class="p-col-12 row"
+                  >
+                    <div
+                      class="input-wrapper p-float-label"
+                    >
+                      <input
+                        class="p-inputtext p-component p-filled"
+                        data-testid="company"
+                        id="company"
+                        name="company"
+                        value="company"
+                      />
+                      <label
+                        for="company"
+                      >
+                        Company
+                      </label>
+                      <i
+                        class="fa fa-building-o"
+                      />
+                    </div>
+                  </div>
+                  <div
+                    class="p-col-12 row"
+                  >
+                    <div
+                      class="input-wrapper p-float-label"
+                    >
+                      <input
+                        class="p-inputtext p-component p-filled"
+                        data-testid="email"
+                        id="email"
+                        name="email"
+                        value="test@test.com"
+                      />
+                      <label
+                        for="email"
+                      >
+                        Email
+                      </label>
+                      <i
+                        class="fa fa-envelope-o"
+                      />
+                    </div>
+                  </div>
+                  <div
+                    class="p-col-12 row"
+                  >
+                    <div
+                      class="input-wrapper p-float-label"
+                    >
+                      <input
+                        class="p-inputtext p-component"
+                        id="phone"
+                        name="phone"
+                        type="text"
+                      />
+                      <label
+                        for="phone"
+                      >
+                        Phone
+                      </label>
+                      <i
+                        class="fa fa-phone"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="sc-AykKC eKHpuZ"
+              >
+                <h3>
+                  Change Password
+                </h3>
+                <div
+                  class="p-grid"
+                >
+                  <div
+                    class="p-col-12 row"
+                  >
+                    <div
+                      class="input-wrapper p-float-label"
+                    >
+                      <input
+                        class="p-inputtext p-component"
+                        data-testid="oldPassword"
+                        id="oldPassword"
+                        name="oldPassword"
+                        type="password"
+                        value=""
+                      />
+                      <label
+                        for="oldPassword"
+                      >
+                        Current Password
+                      </label>
+                      <i
+                        class="fa fa-lock"
+                      />
+                    </div>
+                  </div>
+                  <div
+                    class="p-col-12 row"
+                  >
+                    <div
+                      class="input-wrapper p-float-label"
+                    >
+                      <input
+                        class="p-inputtext p-component"
+                        data-testid="newPassword"
+                        id="newPassword"
+                        name="newPassword"
+                        type="password"
+                        value=""
+                      />
+                      <label>
+                        New Password
+                      </label>
+                      <i
+                        class="fa fa-lock"
+                      />
+                    </div>
+                  </div>
+                  <div
+                    class="p-col-12 row"
+                  >
+                    <div
+                      class="input-wrapper p-float-label"
+                    >
+                      <input
+                        class="p-inputtext p-component"
+                        data-testid="confirmPassword"
+                        id="confirmPassword"
+                        name="confirmPassword"
+                        type="password"
+                        value=""
+                      />
+                      <label
+                        for="confirmPassword"
+                      >
+                        Confirm Password
+                      </label>
+                      <i
+                        class="fa fa-lock"
+                      />
+                    </div>
+                  </div>
+                  <div
+                    class="p-col-12 row center"
+                  >
+                    <button
+                      class="p-button p-component p-button-raised p-button-text-only"
+                      data-testid="change-password"
+                      type="button"
+                    >
+                      <span
+                        class="p-button-text p-c"
+                      >
+                        Change Password
+                      </span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+        <div
+          class="p-col-12 p-lg-4"
+        >
+          <div
+            class="card no-margin-bottom center"
+          >
+            <button
+              class="p-button p-component p-button-raised p-button-text-only"
+              data-testid="save-profile"
+              form="profileForm"
+              type="submit"
+            >
+              <span
+                class="p-button-text p-c"
+              >
+                Save
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+`;
+
+exports[`Profile page should render successfully 1`] = `
+<body>
+  <div>
+    <div
+      class="sc-AykKC sc-AykKD eAcyFO"
+    >
+      <div
+        class="p-grid"
+      >
+        <div
+          class="p-col-12 "
+        >
+          <div
+            class="card no-margin-bottom"
+          >
+            <h2>
+              Profile
+            </h2>
+          </div>
+        </div>
+        <form
+          data-testid="profile-form"
+          id="profileForm"
+        >
+          <div
+            class="p-col-12 p-lg-4"
+          >
+            <div
+              class="card"
+            >
+              <div
+                class="sc-AykKC eKHpuZ"
+              >
+                <h3>
+                  Contacts
+                </h3>
+                <div
+                  class="p-grid"
+                >
+                  <div
+                    class="p-col-12 row"
+                  >
+                    <div
+                      class="input-wrapper p-float-label"
+                    >
+                      <input
+                        class="p-inputtext p-component p-filled"
+                        data-testid="firstName"
+                        id="firstName"
+                        name="firstName"
+                        value="User"
+                      />
+                      <label
+                        for="firstName"
+                      >
+                        First Name
+                      </label>
+                      <i
+                        class="fa fa-user-circle-o"
+                      />
+                    </div>
+                  </div>
+                  <div
+                    class="p-col-12 row"
+                  >
+                    <div
+                      class="input-wrapper p-float-label"
+                    >
+                      <input
+                        class="p-inputtext p-component p-filled"
+                        data-testid="lastName"
+                        id="lastName"
+                        name="lastName"
+                        value="Test"
+                      />
+                      <label
+                        for="lastName"
+                      >
+                        Last Name
+                      </label>
+                      <i
+                        class="fa fa-user-circle-o"
+                      />
+                    </div>
+                  </div>
+                  <div
+                    class="p-col-12 row"
+                  >
+                    <div
+                      class="input-wrapper p-float-label"
+                    >
+                      <input
+                        class="p-inputtext p-component p-filled"
+                        data-testid="company"
+                        id="company"
+                        name="company"
+                        value="company"
+                      />
+                      <label
+                        for="company"
+                      >
+                        Company
+                      </label>
+                      <i
+                        class="fa fa-building-o"
+                      />
+                    </div>
+                  </div>
+                  <div
+                    class="p-col-12 row"
+                  >
+                    <div
+                      class="input-wrapper p-float-label"
+                    >
+                      <input
+                        class="p-inputtext p-component p-filled"
+                        data-testid="email"
+                        id="email"
+                        name="email"
+                        value="test@test.com"
+                      />
+                      <label
+                        for="email"
+                      >
+                        Email
+                      </label>
+                      <i
+                        class="fa fa-envelope-o"
+                      />
+                    </div>
+                  </div>
+                  <div
+                    class="p-col-12 row"
+                  >
+                    <div
+                      class="input-wrapper p-float-label"
+                    >
+                      <input
+                        class="p-inputtext p-component"
+                        id="phone"
+                        name="phone"
+                        type="text"
+                      />
+                      <label
+                        for="phone"
+                      >
+                        Phone
+                      </label>
+                      <i
+                        class="fa fa-phone"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="sc-AykKC eKHpuZ"
+              >
+                <h3>
+                  Change Password
+                </h3>
+                <div
+                  class="p-grid"
+                >
+                  <div
+                    class="p-col-12 row"
+                  >
+                    <div
+                      class="input-wrapper p-float-label"
+                    >
+                      <input
+                        class="p-inputtext p-component"
+                        data-testid="oldPassword"
+                        id="oldPassword"
+                        name="oldPassword"
+                        type="password"
+                        value=""
+                      />
+                      <label
+                        for="oldPassword"
+                      >
+                        Current Password
+                      </label>
+                      <i
+                        class="fa fa-lock"
+                      />
+                    </div>
+                  </div>
+                  <div
+                    class="p-col-12 row"
+                  >
+                    <div
+                      class="input-wrapper p-float-label"
+                    >
+                      <input
+                        class="p-inputtext p-component"
+                        data-testid="newPassword"
+                        id="newPassword"
+                        name="newPassword"
+                        type="password"
+                        value=""
+                      />
+                      <label>
+                        New Password
+                      </label>
+                      <i
+                        class="fa fa-lock"
+                      />
+                    </div>
+                  </div>
+                  <div
+                    class="p-col-12 row"
+                  >
+                    <div
+                      class="input-wrapper p-float-label"
+                    >
+                      <input
+                        class="p-inputtext p-component"
+                        data-testid="confirmPassword"
+                        id="confirmPassword"
+                        name="confirmPassword"
+                        type="password"
+                        value=""
+                      />
+                      <label
+                        for="confirmPassword"
+                      >
+                        Confirm Password
+                      </label>
+                      <i
+                        class="fa fa-lock"
+                      />
+                    </div>
+                  </div>
+                  <div
+                    class="p-col-12 row center"
+                  >
+                    <button
+                      class="p-button p-component p-button-raised p-button-text-only"
+                      data-testid="change-password"
+                      type="button"
+                    >
+                      <span
+                        class="p-button-text p-c"
+                      >
+                        Change Password
+                      </span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="p-col-12 p-lg-4"
+          >
+            <div
+              class="card"
+            >
+              <div
+                class="sc-AykKC eKHpuZ"
+              >
+                <h3>
+                  Address
+                </h3>
+                <div
+                  class="p-grid"
+                >
+                  <div
+                    class="p-col-12 row"
+                  >
+                    <div
+                      class="input-wrapper p-float-label"
+                    >
+                      <input
+                        class="p-inputtext p-component"
+                        data-testid="country"
+                        id="country"
+                        name="address.country"
+                        type="text"
+                        value=""
+                      />
+                      <label
+                        for="country"
+                      >
+                        Country
+                      </label>
+                      <i
+                        class="fa fa-globe"
+                      />
+                    </div>
+                  </div>
+                  <div
+                    class="p-col-12 row"
+                  >
+                    <div
+                      class="input-wrapper p-float-label"
+                    >
+                      <input
+                        class="p-inputtext p-component"
+                        data-testid="city"
+                        id="city"
+                        name="address.city"
+                        type="text"
+                        value=""
+                      />
+                      <label
+                        for="city"
+                      >
+                        City
+                      </label>
+                      <i
+                        class="fa fa-globe"
+                      />
+                    </div>
+                  </div>
+                  <div
+                    class="p-col-12 row"
+                  >
+                    <div
+                      class="input-wrapper p-float-label"
+                    >
+                      <input
+                        class="p-inputtext p-component"
+                        data-testid="street"
+                        id="street"
+                        name="address.street"
+                        type="text"
+                        value=""
+                      />
+                      <label
+                        for="street"
+                      >
+                        Street
+                      </label>
+                      <i
+                        class="fa fa-building-o"
+                      />
+                    </div>
+                  </div>
+                  <div
+                    class="p-col-12 row"
+                  >
+                    <div
+                      class="input-wrapper p-float-label"
+                    >
+                      <input
+                        class="p-inputtext p-component"
+                        data-testid="house"
+                        id="house"
+                        name="address.house"
+                        type="text"
+                        value=""
+                      />
+                      <label
+                        for="house"
+                      >
+                        House
+                      </label>
+                      <i
+                        class="fa fa-building-o"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="p-col-12 p-lg-4"
+          >
+            <div
+              class="card"
+            >
+              <div
+                class="sc-AykKC eKHpuZ"
+              >
+                <h3>
+                  Bank Details
+                </h3>
+                <div
+                  class="p-grid"
+                >
+                  <div
+                    class="p-col-12 row"
+                  >
+                    <div
+                      class="input-wrapper p-float-label"
+                    >
+                      <input
+                        class="p-inputtext p-component"
+                        data-testid="name"
+                        id="name"
+                        name="bankDetails.name"
+                        type="text"
+                        value=""
+                      />
+                      <label
+                        for="name"
+                      >
+                        Name
+                      </label>
+                      <i
+                        class="fa fa-building-o"
+                      />
+                    </div>
+                  </div>
+                  <div
+                    class="p-col-12 row"
+                  >
+                    <div
+                      class="input-wrapper p-float-label"
+                    >
+                      <input
+                        class="p-inputtext p-component"
+                        id="accountNumber"
+                        name="bankDetails.accountNumber"
+                        type="text"
+                      />
+                      <label
+                        for="accountNumber"
+                      >
+                        Account Number
+                      </label>
+                      <i
+                        class="fa fa-credit-card"
+                      />
+                    </div>
+                  </div>
+                  <div
+                    class="p-col-12 row"
+                  >
+                    <div
+                      class="input-wrapper p-float-label"
+                    >
+                      <input
+                        class="p-inputtext p-component"
+                        id="bin"
+                        name="bankDetails.bin"
+                        type="text"
+                      />
+                      <label
+                        for="bin"
+                      >
+                        BIN
+                      </label>
+                      <i
+                        class="fa fa-credit-card"
+                      />
+                    </div>
+                  </div>
+                  <div
+                    class="p-col-12 row"
+                  >
+                    <div
+                      class="input-wrapper p-float-label"
+                    >
+                      <input
+                        class="p-inputtext p-component"
+                        id="swift"
+                        name="bankDetails.swift"
+                        type="text"
+                      />
+                      <label
+                        for="swift"
+                      >
+                        SWIFT
+                      </label>
+                      <i
+                        class="fa fa-credit-card"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+        <div
+          class="p-col-12 "
+        >
+          <div
+            class="card no-margin-bottom center"
+          >
+            <button
+              class="p-button p-component p-button-raised p-button-text-only"
+              data-testid="save-profile"
+              form="profileForm"
+              type="submit"
+            >
+              <span
+                class="p-button-text p-c"
+              >
+                Save
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+`;
