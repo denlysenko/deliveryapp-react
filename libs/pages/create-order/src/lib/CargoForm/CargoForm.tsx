@@ -128,6 +128,7 @@ export const CargoForm: React.FC<CargoFormProps> = ({
           <Button
             type="button"
             label="Back"
+            data-testid="back"
             icon="fa fa-arrow-left"
             iconPos="left"
             className="p-button-raised"
@@ -136,6 +137,7 @@ export const CargoForm: React.FC<CargoFormProps> = ({
           <Button
             type="submit"
             label="Next"
+            data-testid="next"
             icon="fa fa-arrow-right"
             iconPos="right"
             className="p-button-raised"

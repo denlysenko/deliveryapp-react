@@ -166,6 +166,7 @@ export const DestinationForm: React.FC<DestinationFormProps> = ({
           <Button
             type="submit"
             label="Next"
+            data-testid="next"
             icon="fa fa-arrow-right"
             iconPos="right"
             className="p-button-raised"

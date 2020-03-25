@@ -1,0 +1,1072 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CreateOrder CargoFrom should render successfully 1`] = `
+<body>
+  <style
+    type="text/css"
+  >
+    
+            #pr_id_1 .p-steps-item {
+                flex: 1 0 33.333333333333336%
+            }
+        
+  </style>
+  <style
+    type="text/css"
+  >
+    
+            #pr_id_2 .p-steps-item {
+                flex: 1 0 33.333333333333336%
+            }
+        
+  </style>
+  <style
+    type="text/css"
+  >
+    
+            #pr_id_3 .p-steps-item {
+                flex: 1 0 33.333333333333336%
+            }
+        
+  </style>
+  <style
+    type="text/css"
+  >
+    
+            #pr_id_4 .p-steps-item {
+                flex: 1 0 33.333333333333336%
+            }
+        
+  </style>
+  <style
+    type="text/css"
+  >
+    
+            #pr_id_5 .p-steps-item {
+                flex: 1 0 33.333333333333336%
+            }
+        
+  </style>
+  <style
+    type="text/css"
+  >
+    
+            #pr_id_6 .p-steps-item {
+                flex: 1 0 33.333333333333336%
+            }
+        
+  </style>
+  <style
+    type="text/css"
+  >
+    
+            #pr_id_7 .p-steps-item {
+                flex: 1 0 33.333333333333336%
+            }
+        
+  </style>
+  <style
+    type="text/css"
+  >
+    
+            #pr_id_8 .p-steps-item {
+                flex: 1 0 33.333333333333336%
+            }
+        
+  </style>
+  <style
+    type="text/css"
+  >
+    
+            #pr_id_9 .p-steps-item {
+                flex: 1 0 33.333333333333336%
+            }
+        
+  </style>
+  <style
+    type="text/css"
+  >
+    
+            #pr_id_10 .p-steps-item {
+                flex: 1 0 33.333333333333336%
+            }
+        
+  </style>
+  <style
+    type="text/css"
+  >
+    
+            #pr_id_11 .p-steps-item {
+                flex: 1 0 33.333333333333336%
+            }
+        
+  </style>
+  <div>
+    <div
+      class="sc-AykKC iFhaiL"
+    >
+      <div
+        class="p-growl p-component p-growl-topright"
+      >
+        <div />
+      </div>
+      <div
+        class="p-grid"
+      >
+        <div
+          class="p-col-12"
+        >
+          <div
+            class="card"
+          >
+            <div
+              class="p-steps p-component"
+              id="pr_id_12"
+            >
+              <ul
+                role="tablist"
+              >
+                <li
+                  aria-expanded="false"
+                  aria-selected="false"
+                  class="p-steps-item p-state-default p-disabled"
+                  role="tab"
+                >
+                  <a
+                    class="p-menuitem-link"
+                    href="#"
+                    role="presentation"
+                    tabindex="-1"
+                  >
+                    <span
+                      class="p-steps-number"
+                    >
+                      1
+                    </span>
+                    <span
+                      class="p-steps-title"
+                    >
+                      Destination
+                    </span>
+                  </a>
+                </li>
+                <li
+                  aria-expanded="true"
+                  aria-selected="true"
+                  class="p-steps-item p-highlight p-steps-current"
+                  role="tab"
+                >
+                  <a
+                    class="p-menuitem-link"
+                    href="#"
+                    role="presentation"
+                    tabindex=""
+                  >
+                    <span
+                      class="p-steps-number"
+                    >
+                      2
+                    </span>
+                    <span
+                      class="p-steps-title"
+                    >
+                      Cargo
+                    </span>
+                  </a>
+                </li>
+                <li
+                  aria-expanded="false"
+                  aria-selected="false"
+                  class="p-steps-item p-state-default p-disabled"
+                  role="tab"
+                >
+                  <a
+                    class="p-menuitem-link"
+                    href="#"
+                    role="presentation"
+                    tabindex="-1"
+                  >
+                    <span
+                      class="p-steps-number"
+                    >
+                      3
+                    </span>
+                    <span
+                      class="p-steps-title"
+                    >
+                      Sender
+                    </span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <div
+              class="ui-widget-content"
+            >
+              <div
+                class="sc-AykKD sc-AykKE jAOpWs"
+              >
+                <form
+                  autocomplete="off"
+                  class="p-grid"
+                  novalidate=""
+                >
+                  <div
+                    class="p-col-12 p-md-6 p-md-offset-3"
+                  >
+                    <div
+                      class="input-wrapper p-float-label"
+                    >
+                      <input
+                        class="p-inputtext p-component"
+                        data-testid="cargoName"
+                        id="cargoName"
+                        name="cargo.cargoName"
+                        type="text"
+                        value=""
+                      />
+                      <label
+                        for="cargoName"
+                      >
+                        Cargo Name
+                      </label>
+                      <i
+                        class="fa fa-info"
+                      />
+                    </div>
+                  </div>
+                  <div
+                    class="p-col-12 p-md-6 p-md-offset-3"
+                  >
+                    <div
+                      class="input-wrapper p-float-label"
+                    >
+                      <span
+                        class="p-spinner p-component"
+                        id="cargoWeight"
+                      >
+                        <input
+                          aria-valuenow=""
+                          class="p-inputtext p-component p-spinner-input"
+                          name="cargo.cargoWeight"
+                          type="text"
+                          value=""
+                        />
+                        <button
+                          class="p-spinner-button p-spinner-button-up p-button p-component"
+                          type="button"
+                        >
+                          <span
+                            class="p-spinner-button-icon pi pi-caret-up"
+                          />
+                        </button>
+                        <button
+                          class="p-spinner-button p-spinner-button-down p-button p-component"
+                          type="button"
+                        >
+                          <span
+                            class="p-spinner-button-icon pi pi-caret-down"
+                          />
+                        </button>
+                      </span>
+                      <label
+                        for="cargoWeight"
+                      >
+                        Weight
+                      </label>
+                    </div>
+                  </div>
+                  <div
+                    class="p-col-12 p-md-6 p-md-offset-3"
+                  >
+                    <div
+                      class="input-wrapper p-float-label"
+                    >
+                      <span
+                        class="p-spinner p-component"
+                        id="cargoVolume"
+                      >
+                        <input
+                          aria-valuenow=""
+                          class="p-inputtext p-component p-spinner-input"
+                          name="cargo.cargoVolume"
+                          type="text"
+                          value=""
+                        />
+                        <button
+                          class="p-spinner-button p-spinner-button-up p-button p-component"
+                          type="button"
+                        >
+                          <span
+                            class="p-spinner-button-icon pi pi-caret-up"
+                          />
+                        </button>
+                        <button
+                          class="p-spinner-button p-spinner-button-down p-button p-component"
+                          type="button"
+                        >
+                          <span
+                            class="p-spinner-button-icon pi pi-caret-down"
+                          />
+                        </button>
+                      </span>
+                      <label
+                        for="cargoVolume"
+                      >
+                        Volume
+                      </label>
+                    </div>
+                  </div>
+                  <div
+                    class="p-col-12 p-md-6 p-md-offset-3"
+                  >
+                    <label>
+                      Comments
+                    </label>
+                    <textarea
+                      class="p-inputtext p-inputtextarea p-component p-inputtextarea-resizable"
+                      name="cargo.comment"
+                      rows="5"
+                      style="overflow: hidden;"
+                    />
+                  </div>
+                  <div
+                    class="p-col-12 button-container"
+                  >
+                    <button
+                      class="p-button p-component p-button-raised p-button-text-icon-left"
+                      data-testid="back"
+                      type="button"
+                    >
+                      <span
+                        class="fa fa-arrow-left p-c p-button-icon-left"
+                      />
+                      <span
+                        class="p-button-text p-c"
+                      >
+                        Back
+                      </span>
+                    </button>
+                    <button
+                      class="p-button p-component p-button-raised p-button-text-icon-right"
+                      data-testid="next"
+                      type="submit"
+                    >
+                      <span
+                        class="p-button-text p-c"
+                      >
+                        Next
+                      </span>
+                      <span
+                        class="fa fa-arrow-right p-c p-button-icon-right"
+                      />
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <style
+    type="text/css"
+  >
+    
+            #pr_id_12 .p-steps-item {
+                flex: 1 0 33.333333333333336%
+            }
+        
+  </style>
+</body>
+`;
+
+exports[`CreateOrder DestinationForm should render successfully 1`] = `
+<body>
+  <div>
+    <div
+      class="sc-AykKC iFhaiL"
+    >
+      <div
+        class="p-growl p-component p-growl-topright"
+      >
+        <div />
+      </div>
+      <div
+        class="p-grid"
+      >
+        <div
+          class="p-col-12"
+        >
+          <div
+            class="card"
+          >
+            <div
+              class="p-steps p-component"
+              id="pr_id_1"
+            >
+              <ul
+                role="tablist"
+              >
+                <li
+                  aria-expanded="true"
+                  aria-selected="true"
+                  class="p-steps-item p-highlight p-steps-current"
+                  role="tab"
+                >
+                  <a
+                    class="p-menuitem-link"
+                    href="#"
+                    role="presentation"
+                    tabindex=""
+                  >
+                    <span
+                      class="p-steps-number"
+                    >
+                      1
+                    </span>
+                    <span
+                      class="p-steps-title"
+                    >
+                      Destination
+                    </span>
+                  </a>
+                </li>
+                <li
+                  aria-expanded="false"
+                  aria-selected="false"
+                  class="p-steps-item p-state-default p-disabled"
+                  role="tab"
+                >
+                  <a
+                    class="p-menuitem-link"
+                    href="#"
+                    role="presentation"
+                    tabindex="-1"
+                  >
+                    <span
+                      class="p-steps-number"
+                    >
+                      2
+                    </span>
+                    <span
+                      class="p-steps-title"
+                    >
+                      Cargo
+                    </span>
+                  </a>
+                </li>
+                <li
+                  aria-expanded="false"
+                  aria-selected="false"
+                  class="p-steps-item p-state-default p-disabled"
+                  role="tab"
+                >
+                  <a
+                    class="p-menuitem-link"
+                    href="#"
+                    role="presentation"
+                    tabindex="-1"
+                  >
+                    <span
+                      class="p-steps-number"
+                    >
+                      3
+                    </span>
+                    <span
+                      class="p-steps-title"
+                    >
+                      Sender
+                    </span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <div
+              class="ui-widget-content"
+            >
+              <div
+                class="sc-AykKD foAOvT"
+              >
+                <form
+                  autocomplete="off"
+                  class="p-grid"
+                  novalidate=""
+                >
+                  <div
+                    class="p-col-12 p-md-6"
+                  >
+                    <div
+                      class="input-wrapper p-float-label"
+                    >
+                      <input
+                        class="p-inputtext p-component"
+                        data-testid="cityFrom"
+                        id="cityFrom"
+                        name="destination.cityFrom"
+                        type="text"
+                        value=""
+                      />
+                      <label
+                        for="cityFrom"
+                      >
+                        Departure City
+                      </label>
+                      <i
+                        class="fa fa-globe"
+                      />
+                    </div>
+                  </div>
+                  <div
+                    class="p-col-12 p-md-6"
+                  >
+                    <div
+                      class="input-wrapper p-float-label"
+                    >
+                      <input
+                        class="p-inputtext p-component"
+                        data-testid="cityTo"
+                        id="cityTo"
+                        name="destination.cityTo"
+                        type="text"
+                        value=""
+                      />
+                      <label
+                        for="cityTo"
+                      >
+                        Arrival City
+                      </label>
+                      <i
+                        class="fa fa-globe"
+                      />
+                    </div>
+                  </div>
+                  <div
+                    class="p-col-12 p-md-6"
+                  >
+                    <div
+                      class="input-wrapper p-float-label"
+                    >
+                      <input
+                        class="p-inputtext p-component"
+                        data-testid="addressFrom"
+                        id="addressFrom"
+                        name="destination.addressFrom"
+                        type="text"
+                        value=""
+                      />
+                      <label
+                        for="addressFrom"
+                      >
+                        Departure Address
+                      </label>
+                      <i
+                        class="fa fa-building-o"
+                      />
+                    </div>
+                  </div>
+                  <div
+                    class="p-col-12 p-md-6"
+                  >
+                    <div
+                      class="input-wrapper p-float-label"
+                    >
+                      <input
+                        class="p-inputtext p-component"
+                        data-testid="addressTo"
+                        id="addressTo"
+                        name="destination.addressTo"
+                        type="text"
+                        value=""
+                      />
+                      <label
+                        for="addressTo"
+                      >
+                        Arrival Address
+                      </label>
+                      <i
+                        class="fa fa-building-o"
+                      />
+                    </div>
+                  </div>
+                  <div
+                    class="p-col-12 p-md-6 p-md-offset-3"
+                  >
+                    <label>
+                      Additional Info
+                    </label>
+                    <textarea
+                      class="p-inputtext p-inputtextarea p-component p-inputtextarea-resizable"
+                      data-testid="additionalData"
+                      name="destination.additionalData"
+                      rows="5"
+                      style="overflow: hidden;"
+                    />
+                  </div>
+                  <div
+                    class="p-col-12 button-container"
+                  >
+                    <button
+                      class="p-button p-component p-button-raised p-button-text-icon-right"
+                      data-testid="next"
+                      type="submit"
+                    >
+                      <span
+                        class="p-button-text p-c"
+                      >
+                        Next
+                      </span>
+                      <span
+                        class="fa fa-arrow-right p-c p-button-icon-right"
+                      />
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <style
+    type="text/css"
+  >
+    
+            #pr_id_1 .p-steps-item {
+                flex: 1 0 33.333333333333336%
+            }
+        
+  </style>
+</body>
+`;
+
+exports[`CreateOrder SenderForm should render successfully 1`] = `
+<body>
+  <style
+    type="text/css"
+  >
+    
+            #pr_id_1 .p-steps-item {
+                flex: 1 0 33.333333333333336%
+            }
+        
+  </style>
+  <style
+    type="text/css"
+  >
+    
+            #pr_id_2 .p-steps-item {
+                flex: 1 0 33.333333333333336%
+            }
+        
+  </style>
+  <style
+    type="text/css"
+  >
+    
+            #pr_id_3 .p-steps-item {
+                flex: 1 0 33.333333333333336%
+            }
+        
+  </style>
+  <style
+    type="text/css"
+  >
+    
+            #pr_id_4 .p-steps-item {
+                flex: 1 0 33.333333333333336%
+            }
+        
+  </style>
+  <style
+    type="text/css"
+  >
+    
+            #pr_id_5 .p-steps-item {
+                flex: 1 0 33.333333333333336%
+            }
+        
+  </style>
+  <style
+    type="text/css"
+  >
+    
+            #pr_id_6 .p-steps-item {
+                flex: 1 0 33.333333333333336%
+            }
+        
+  </style>
+  <style
+    type="text/css"
+  >
+    
+            #pr_id_7 .p-steps-item {
+                flex: 1 0 33.333333333333336%
+            }
+        
+  </style>
+  <style
+    type="text/css"
+  >
+    
+            #pr_id_8 .p-steps-item {
+                flex: 1 0 33.333333333333336%
+            }
+        
+  </style>
+  <style
+    type="text/css"
+  >
+    
+            #pr_id_9 .p-steps-item {
+                flex: 1 0 33.333333333333336%
+            }
+        
+  </style>
+  <style
+    type="text/css"
+  >
+    
+            #pr_id_10 .p-steps-item {
+                flex: 1 0 33.333333333333336%
+            }
+        
+  </style>
+  <style
+    type="text/css"
+  >
+    
+            #pr_id_11 .p-steps-item {
+                flex: 1 0 33.333333333333336%
+            }
+        
+  </style>
+  <style
+    type="text/css"
+  >
+    
+            #pr_id_12 .p-steps-item {
+                flex: 1 0 33.333333333333336%
+            }
+        
+  </style>
+  <style
+    type="text/css"
+  >
+    
+            #pr_id_13 .p-steps-item {
+                flex: 1 0 33.333333333333336%
+            }
+        
+  </style>
+  <style
+    type="text/css"
+  >
+    
+            #pr_id_14 .p-steps-item {
+                flex: 1 0 33.333333333333336%
+            }
+        
+  </style>
+  <style
+    type="text/css"
+  >
+    
+            #pr_id_15 .p-steps-item {
+                flex: 1 0 33.333333333333336%
+            }
+        
+  </style>
+  <style
+    type="text/css"
+  >
+    
+            #pr_id_16 .p-steps-item {
+                flex: 1 0 33.333333333333336%
+            }
+        
+  </style>
+  <style
+    type="text/css"
+  >
+    
+            #pr_id_17 .p-steps-item {
+                flex: 1 0 33.333333333333336%
+            }
+        
+  </style>
+  <style
+    type="text/css"
+  >
+    
+            #pr_id_18 .p-steps-item {
+                flex: 1 0 33.333333333333336%
+            }
+        
+  </style>
+  <style
+    type="text/css"
+  >
+    
+            #pr_id_19 .p-steps-item {
+                flex: 1 0 33.333333333333336%
+            }
+        
+  </style>
+  <div>
+    <div
+      class="sc-AykKC iFhaiL"
+    >
+      <div
+        class="p-growl p-component p-growl-topright"
+      >
+        <div />
+      </div>
+      <div
+        class="p-grid"
+      >
+        <div
+          class="p-col-12"
+        >
+          <div
+            class="card"
+          >
+            <div
+              class="p-steps p-component"
+              id="pr_id_20"
+            >
+              <ul
+                role="tablist"
+              >
+                <li
+                  aria-expanded="false"
+                  aria-selected="false"
+                  class="p-steps-item p-state-default p-disabled"
+                  role="tab"
+                >
+                  <a
+                    class="p-menuitem-link"
+                    href="#"
+                    role="presentation"
+                    tabindex="-1"
+                  >
+                    <span
+                      class="p-steps-number"
+                    >
+                      1
+                    </span>
+                    <span
+                      class="p-steps-title"
+                    >
+                      Destination
+                    </span>
+                  </a>
+                </li>
+                <li
+                  aria-expanded="false"
+                  aria-selected="false"
+                  class="p-steps-item p-state-default p-disabled"
+                  role="tab"
+                >
+                  <a
+                    class="p-menuitem-link"
+                    href="#"
+                    role="presentation"
+                    tabindex="-1"
+                  >
+                    <span
+                      class="p-steps-number"
+                    >
+                      2
+                    </span>
+                    <span
+                      class="p-steps-title"
+                    >
+                      Cargo
+                    </span>
+                  </a>
+                </li>
+                <li
+                  aria-expanded="true"
+                  aria-selected="true"
+                  class="p-steps-item p-highlight p-steps-current"
+                  role="tab"
+                >
+                  <a
+                    class="p-menuitem-link"
+                    href="#"
+                    role="presentation"
+                    tabindex=""
+                  >
+                    <span
+                      class="p-steps-number"
+                    >
+                      3
+                    </span>
+                    <span
+                      class="p-steps-title"
+                    >
+                      Sender
+                    </span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <div
+              class="ui-widget-content"
+            >
+              <div
+                class="sc-AykKD sc-AykKF juBFuJ"
+              >
+                <form
+                  autocomplete="off"
+                  class="p-grid"
+                  novalidate=""
+                >
+                  <div
+                    class="p-col-12 p-md-6 p-md-offset-3"
+                  >
+                    <div
+                      class="input-wrapper p-float-label"
+                    >
+                      <input
+                        class="p-inputtext p-component"
+                        data-testid="senderCompany"
+                        id="senderCompany"
+                        name="sender.senderCompany"
+                        type="text"
+                        value=""
+                      />
+                      <label
+                        for="senderCompany"
+                      >
+                        Company Name
+                      </label>
+                      <i
+                        class="fa fa-building-o"
+                      />
+                    </div>
+                  </div>
+                  <div
+                    class="p-col-12 p-md-6 p-md-offset-3"
+                  >
+                    <div
+                      class="input-wrapper p-float-label"
+                    >
+                      <input
+                        class="p-inputtext p-component"
+                        data-testid="senderName"
+                        id="senderName"
+                        name="sender.senderName"
+                        type="text"
+                        value=""
+                      />
+                      <label
+                        for="senderName"
+                      >
+                        Contact Person
+                      </label>
+                      <i
+                        class="fa fa-user-circle-o"
+                      />
+                    </div>
+                  </div>
+                  <div
+                    class="p-col-12 p-md-6 p-md-offset-3"
+                  >
+                    <div
+                      class="input-wrapper p-float-label"
+                    >
+                      <input
+                        class="p-inputtext p-component"
+                        data-testid="senderEmail"
+                        id="senderEmail"
+                        name="sender.senderEmail"
+                        type="text"
+                        value=""
+                      />
+                      <label
+                        for="senderEmail"
+                      >
+                        Email
+                      </label>
+                      <i
+                        class="fa fa-envelope-o"
+                      />
+                    </div>
+                  </div>
+                  <div
+                    class="p-col-12 p-md-6 p-md-offset-3"
+                  >
+                    <div
+                      class="input-wrapper p-float-label"
+                    >
+                      <input
+                        class="p-inputtext p-component"
+                        id="senderPhone"
+                        name="sender.senderPhone"
+                        type="text"
+                      />
+                      <label
+                        for="senderPhone"
+                      >
+                        Phone
+                      </label>
+                      <i
+                        class="fa fa-phone"
+                      />
+                    </div>
+                  </div>
+                  <div
+                    class="p-col-12 button-container"
+                  >
+                    <button
+                      class="p-button p-component p-button-raised p-button-text-icon-left"
+                      data-testid="back"
+                      type="button"
+                    >
+                      <span
+                        class="fa fa-arrow-left p-c p-button-icon-left"
+                      />
+                      <span
+                        class="p-button-text p-c"
+                      >
+                        Back
+                      </span>
+                    </button>
+                    <button
+                      class="p-button p-component p-button-raised p-button-text-icon-right"
+                      data-testid="create"
+                      type="submit"
+                    >
+                      <span
+                        class="p-button-text p-c"
+                      >
+                        Create
+                      </span>
+                      <span
+                        class="fa fa-check p-c p-button-icon-right"
+                      />
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <style
+    type="text/css"
+  >
+    
+            #pr_id_20 .p-steps-item {
+                flex: 1 0 33.333333333333336%
+            }
+        
+  </style>
+</body>
+`;

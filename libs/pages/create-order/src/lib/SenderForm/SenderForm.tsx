@@ -132,6 +132,7 @@ export const SenderForm: React.FC<SenderFormProps> = ({
             label="Back"
             icon="fa fa-arrow-left"
             iconPos="left"
+            data-testid="back"
             className="p-button-raised"
             disabled={loading}
             onClick={onPrev}
@@ -139,6 +140,7 @@ export const SenderForm: React.FC<SenderFormProps> = ({
           <Button
             type="submit"
             label="Create"
+            data-testid="create"
             icon="fa fa-check"
             iconPos="right"
             className="p-button-raised"
