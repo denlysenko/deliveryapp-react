@@ -90,8 +90,16 @@ describe('AuthForm', () => {
         ]
       } as ValidationError;
 
-      const { container, getByTestId, rerender } = render(
-        <AuthForm {...props} isLoggingIn={false} />
+      const { container, getByTestId } = render(
+        <AuthForm {...props} isLoggingIn={false} error={error} />
+      );
+
+      expect(container.querySelector('#email-error')).toHaveTextContent(
+        emailErrorMessage
+      );
+
+      expect(container.querySelector('#password-error')).toHaveTextContent(
+        passwordErrorMessage
       );
 
       fireEvent.change(getByTestId('email'), {
@@ -106,18 +114,11 @@ describe('AuthForm', () => {
         }
       });
 
-      await wait(() => {
-        fireEvent.click(getByTestId('submit'));
-      });
+      expect(container.querySelector('#email-error')).not.toBeInTheDocument();
 
-      rerender(<AuthForm {...props} isLoggingIn={false} error={error} />);
-
-      expect(container.querySelector('#email-error')).toHaveTextContent(
-        emailErrorMessage
-      );
-      expect(container.querySelector('#password-error')).toHaveTextContent(
-        passwordErrorMessage
-      );
+      expect(
+        container.querySelector('#password-error')
+      ).not.toBeInTheDocument();
     });
   });
 

@@ -4,8 +4,7 @@ import {
   cleanup,
   fireEvent,
   wait,
-  Matcher,
-  MatcherOptions
+  screen
 } from '@testing-library/react';
 
 import { authPayload, useHistoryMock } from '@deliveryapp/testing';
@@ -14,23 +13,17 @@ import { authClient } from '@deliveryapp/data-access';
 
 import { Auth } from '../Auth';
 
-type GetByTestId = (
-  text: Matcher,
-  options?: MatcherOptions | undefined,
-  waitForElementOptions?: unknown
-) => HTMLElement;
-
 const email = 'test@test.com';
 const password = 'password';
 
-const fillForm = (getByTestId: GetByTestId) => {
-  fireEvent.change(getByTestId('email'), {
+const fillForm = () => {
+  fireEvent.change(screen.getByTestId('email'), {
     target: {
       value: email
     }
   });
 
-  fireEvent.change(getByTestId('password'), {
+  fireEvent.change(screen.getByTestId('password'), {
     target: {
       value: password
     }
@@ -93,7 +86,7 @@ describe('Auth Page', () => {
     it('should login', async () => {
       const { getByTestId } = render(<Auth />);
 
-      fillForm(getByTestId);
+      fillForm();
 
       await wait(() => {
         fireEvent.click(getByTestId('submit'));
@@ -108,7 +101,7 @@ describe('Auth Page', () => {
 
       fireEvent.click(getByTestId('mode-toggler'));
 
-      fillForm(getByTestId);
+      fillForm();
 
       await wait(() => {
         fireEvent.click(getByTestId('submit'));
@@ -133,7 +126,7 @@ describe('Auth Page', () => {
 
       const { getByTestId } = render(<Auth />);
 
-      fillForm(getByTestId);
+      fillForm();
 
       await wait(() => {
         fireEvent.click(getByTestId('submit'));
@@ -146,7 +139,7 @@ describe('Auth Page', () => {
     it('should redirect to /', async () => {
       const { getByTestId } = render(<Auth />);
 
-      fillForm(getByTestId);
+      fillForm();
 
       await wait(() => {
         fireEvent.click(getByTestId('submit'));
@@ -171,7 +164,7 @@ describe('Auth Page', () => {
 
       const { getByTestId, container } = render(<Auth />);
 
-      fillForm(getByTestId);
+      fillForm();
 
       await wait(() => {
         fireEvent.click(getByTestId('submit'));

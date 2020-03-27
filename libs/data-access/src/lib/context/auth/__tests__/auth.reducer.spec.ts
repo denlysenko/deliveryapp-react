@@ -4,6 +4,16 @@ import { AuthActionTypes, AuthAction } from '../auth.actions';
 import { authReducer, initialAuthState } from '../auth.reducer';
 
 describe('[Auth Context] Reducer', () => {
+  describe('Unknown type', () => {
+    it('should return passed state', () => {
+      const action = {} as AuthAction;
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const state: any = { type: 'UNKNOWN' };
+      const updatedState = authReducer(state, action);
+      expect(updatedState).toBe(state);
+    });
+  });
+
   describe('LOAD_USER_SUCCESS', () => {
     it('should update state with user', () => {
       const action: AuthAction = {

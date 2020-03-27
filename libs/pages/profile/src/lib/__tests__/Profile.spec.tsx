@@ -174,7 +174,7 @@ describe('Profile page', () => {
       });
     });
 
-    it('should have error', async () => {
+    it('should have API error', async () => {
       const error = {
         errors: [{ path: 'email', message: 'Error' }]
       };
@@ -200,6 +200,14 @@ describe('Profile page', () => {
       expect(container.querySelector('#email-error')).toHaveTextContent(
         error.errors[0].message
       );
+
+      fireEvent.change(getByTestId('email'), {
+        target: {
+          value: 'fixed@test.com'
+        }
+      });
+
+      expect(container.querySelector('#email-error')).not.toBeInTheDocument();
     });
   });
 });

@@ -227,6 +227,16 @@ describe('[Profile] PasswordForm', () => {
       expect(container.querySelector('#oldPassword-error')).toHaveTextContent(
         error.errors[0].message
       );
+
+      fireEvent.change(getByTestId('oldPassword'), {
+        target: {
+          value: 'fixed'
+        }
+      });
+
+      expect(
+        container.querySelector('#oldPassword-error')
+      ).not.toBeInTheDocument();
     });
   });
 });
