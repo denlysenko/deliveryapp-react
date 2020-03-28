@@ -8,5 +8,7 @@ export * from './lib/models/auth';
 export * from './lib/models/user';
 export * from './lib/models/validation-error';
 export * from './lib/models/order';
+export * from './lib/models/list-response';
+export * from './lib/models/orders-filter';
 
 export * from './lib/context/auth';
