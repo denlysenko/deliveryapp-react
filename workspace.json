@@ -402,6 +402,35 @@
           }
         }
       }
+    },
+    "pages-update-order": {
+      "root": "libs/pages/update-order",
+      "sourceRoot": "libs/pages/update-order/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:lint",
+          "options": {
+            "linter": "eslint",
+            "config": "libs/pages/update-order/.eslintrc",
+            "tsConfig": [
+              "libs/pages/update-order/tsconfig.lib.json",
+              "libs/pages/update-order/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/pages/update-order/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/pages/update-order/jest.config.js",
+            "tsConfig": "libs/pages/update-order/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "libs/pages/update-order/src/test-setup.ts"
+          }
+        }
+      }
     }
   },
   "cli": {

@@ -29,6 +29,9 @@
       "@deliveryapp/ui": ["libs/ui/src/index.ts"],
       "@deliveryapp/pages/create-order": [
         "libs/pages/create-order/src/index.ts"
+      ],
+      "@deliveryapp/pages/update-order": [
+        "libs/pages/update-order/src/index.ts"
       ]
     }
   },

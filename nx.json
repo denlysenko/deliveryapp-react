@@ -50,6 +50,9 @@
     },
     "pages-create-order": {
       "tags": []
+    },
+    "pages-update-order": {
+      "tags": []
     }
   }
 }

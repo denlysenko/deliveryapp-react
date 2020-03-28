@@ -21,6 +21,12 @@ const CreateOrder = lazy(() =>
   }))
 );
 
+const UpdateOrder = lazy(() =>
+  import('@deliveryapp/pages/update-order').then(({ UpdateOrder }) => ({
+    default: UpdateOrder
+  }))
+);
+
 export const Main = () => {
   const [showMessages, setShowMessages] = useState(false);
 
@@ -37,6 +43,9 @@ export const Main = () => {
               </Route>
               <Route exact path="/orders/create">
                 <CreateOrder />
+              </Route>
+              <Route exact path="/orders/:id">
+                <UpdateOrder />
               </Route>
             </Switch>
           </Suspense>
