@@ -1,15 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import { useFormik } from 'formik';
 
 import { Button } from 'primereact/button';
+import { Growl } from 'primereact/growl';
 
-import { isNil, has, omit } from 'lodash-es';
+import { isNil, has, omit, isEmpty } from 'lodash-es';
+import * as Yup from 'yup';
 
-import { Roles } from '@deliveryapp/common';
+import { Roles, ERRORS, MESSAGES } from '@deliveryapp/common';
 import { Order, ordersClient, User, useAuth } from '@deliveryapp/data-access';
 import { FullPageSpinner } from '@deliveryapp/ui';
-import { useIsMounted } from '@deliveryapp/utils';
+import { useIsMounted, handleValidationError } from '@deliveryapp/utils';
 
 import { StyledUpdateOrder } from './StyledUpdateOrder';
 import { MainInfo } from './MainInfo/MainInfo';
@@ -18,8 +20,24 @@ import { PaymentInfo } from './PaymentInfo/PaymentInfo';
 import { ClientInfo } from './ClientInfo/ClientInfo';
 import { AdditionalInfo } from './AdditionalInfo/AdditionalInfo';
 
+const ValidationSchema = Yup.object().shape({
+  cityFrom: Yup.string().required(ERRORS.REQUIRED_FIELD),
+  cityTo: Yup.string().required(ERRORS.REQUIRED_FIELD),
+  addressFrom: Yup.string().required(ERRORS.REQUIRED_FIELD),
+  addressTo: Yup.string().required(ERRORS.REQUIRED_FIELD),
+  cargoName: Yup.string().required(ERRORS.REQUIRED_FIELD),
+  cargoWeight: Yup.number()
+    .required(ERRORS.REQUIRED_FIELD)
+    .typeError(ERRORS.NUMBER_FIELD),
+  senderEmail: Yup.string()
+    .required(ERRORS.REQUIRED_FIELD)
+    .email(ERRORS.INVALID_EMAIL),
+  senderPhone: Yup.string().required(ERRORS.REQUIRED_FIELD)
+});
+
 export const UpdateOrder = () => {
   const isMounted = useIsMounted();
+  const growl = useRef<Growl>(null);
   const [loading, setLoading] = useState(false);
   const [pending, setPending] = useState(false);
   const [client, setClient] = useState<User | undefined>(undefined);
@@ -53,8 +71,28 @@ export const UpdateOrder = () => {
     initialStatus: {
       apiErrors: {}
     },
-    onSubmit: values => {
-      console.log(values);
+    validationSchema: ValidationSchema,
+    onSubmit: async values => {
+      if (!isEmpty(formik.status.apiErrors)) {
+        return;
+      }
+
+      setPending(true);
+
+      try {
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        await ordersClient.updateOrderSelf(values.id!, values);
+        setPending(false);
+        !isNil(growl.current) &&
+          growl.current.show({
+            severity: 'success',
+            summary: MESSAGES.UPDATE_ORDER_SUCCESS,
+            closable: false
+          });
+      } catch (error) {
+        setPending(false);
+        handleValidationError<Order>(error.response.data, formik);
+      }
     }
   });
 
@@ -109,6 +147,7 @@ export const UpdateOrder = () => {
 
   return (
     <StyledUpdateOrder>
+      <Growl ref={growl} />
       {loading ? (
         <FullPageSpinner />
       ) : (

@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 
 import { useFormik } from 'formik';
 import { Button } from 'primereact/button';
+import { Growl } from 'primereact/growl';
 
 import * as Yup from 'yup';
 import { isNil, has, omit } from 'lodash-es';
 
-import { Roles, ERRORS } from '@deliveryapp/common';
+import { Roles, ERRORS, MESSAGES } from '@deliveryapp/common';
 import {
   useAuth,
   User,
@@ -36,6 +37,7 @@ const ValidationSchema = Yup.object().shape({
 });
 
 export const Profile = () => {
+  const growl = useRef<Growl>(null);
   const [loading, setLoading] = useState(false);
   const [{ user }, dispatch] = useAuth();
 
@@ -78,6 +80,12 @@ export const Profile = () => {
           payload: data
         });
         setLoading(false);
+        !isNil(growl.current) &&
+          growl.current.show({
+            severity: 'success',
+            summary: MESSAGES.UPDATE_PROFILE_SUCCESS,
+            closable: false
+          });
       } catch (error) {
         setLoading(false);
         handleValidationError<ProfileFormValues>(error.response.data, formik);
@@ -99,6 +107,7 @@ export const Profile = () => {
 
   return (
     <StyledProfile>
+      <Growl ref={growl} />
       <div className="p-grid">
         <div
           className={`p-col-12 ${user?.role !== Roles.CLIENT ? 'p-lg-4' : ''}`}
