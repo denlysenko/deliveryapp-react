@@ -1,10 +1,83 @@
-export const order = {
+export const createOrder = {
   cityFrom: 'FromCity',
   cityTo: 'ToCity',
   addressFrom: 'FromAddress',
   addressTo: 'ToAddress',
+  additionalData: '',
   cargoName: 'CargoName',
   cargoWeight: 5,
+  cargoVolume: null,
+  comment: '',
+  senderCompany: '',
+  senderName: '',
   senderEmail: 'test@test.com',
   senderPhone: '1232123222'
+};
+
+export const updateOrder = {
+  id: 1,
+  cityFrom: 'Kyiv',
+  cityTo: 'Dnipro',
+  addressFrom: 'From, 12',
+  addressTo: 'To, 1',
+  cargoName: 'Computers',
+  additionalData: 'test',
+  comment: 'fragile',
+  cargoWeight: 12,
+  cargoVolume: null,
+  senderName: 'Jane Lane',
+  senderCompany: 'Computers LTD',
+  senderEmail: 'sender@test.com',
+  senderPhone: '(123) 121-1212',
+  status: 0,
+  deliveryCosts: null,
+  deliveryDate: null,
+  paid: false,
+  paymentDate: null,
+  invoiceId: null
+};
+
+export const savedOrder = {
+  id: 1,
+  cityFrom: 'Kyiv',
+  cityTo: 'Dnipro',
+  addressFrom: 'From, 12',
+  addressTo: 'To, 1',
+  cargoName: 'Computers',
+  additionalData: 'test',
+  comment: 'fragile',
+  cargoWeight: 12,
+  cargoVolume: null,
+  senderName: 'Jane Lane',
+  senderCompany: 'Computers LTD',
+  senderEmail: 'sender@test.com',
+  senderPhone: '(123) 121-1212',
+  status: 0,
+  deliveryCosts: null,
+  deliveryDate: null,
+  paid: false,
+  paymentDate: null,
+  createdAt: '2020-03-29T14:52:51.956Z',
+  updatedAt: '2020-03-29T17:57:10.882Z',
+  deletedAt: null,
+  creatorId: 1,
+  clientId: 1,
+  invoiceId: null,
+  creator: {
+    id: 1,
+    email: 'test@test.com',
+    firstName: '',
+    lastName: '',
+    company: 'DL',
+    phone: ''
+  },
+  client: {
+    id: 1,
+    email: 'test@test.com',
+    firstName: '',
+    lastName: '',
+    company: 'DL',
+    phone: ''
+  },
+  payment: null
 };

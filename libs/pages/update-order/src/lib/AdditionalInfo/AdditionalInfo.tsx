@@ -2,6 +2,7 @@ import React from 'react';
 import { FormikHandlers } from 'formik';
 
 import dayjs from 'dayjs';
+import { isNull } from 'lodash-es';
 
 import { Dropdown } from 'primereact/dropdown';
 import { Calendar } from 'primereact/calendar';
@@ -9,13 +10,13 @@ import { InputText } from 'primereact/inputtext';
 import { SelectItem } from 'primereact/api';
 
 import { ORDER_STATUSES, Roles } from '@deliveryapp/common';
-import { Order, useAuth } from '@deliveryapp/data-access';
+import { UpdateOrderDTO, useAuth } from '@deliveryapp/data-access';
 
 interface AdditionalInfoProps {
-  values: Order;
+  values: UpdateOrderDTO;
   handleChange: FormikHandlers['handleChange'];
-  createdAt?: Date;
-  updatedAt?: Date;
+  createdAt?: string;
+  updatedAt?: string;
 }
 
 const orderStatuses: SelectItem[] = ORDER_STATUSES.map((status, index) => ({
@@ -56,7 +57,9 @@ export const AdditionalInfo: React.FC<AdditionalInfoProps> = ({
               dateFormat="dd.mm.yy"
               showButtonBar
               showIcon
-              value={values.deliveryDate}
+              value={
+                !isNull(values.deliveryDate) ? values.deliveryDate : undefined
+              }
               onChange={handleChange}
               disabled={user?.role === Roles.CLIENT}
             />

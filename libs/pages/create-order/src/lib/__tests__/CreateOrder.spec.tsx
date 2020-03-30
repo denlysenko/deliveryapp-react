@@ -9,7 +9,7 @@ import {
 
 import { ERRORS } from '@deliveryapp/common';
 import { ordersClient } from '@deliveryapp/data-access';
-import { useHistoryMock, order } from '@deliveryapp/testing';
+import { useHistoryMock, savedOrder } from '@deliveryapp/testing';
 
 import { CreateOrder } from '../CreateOrder';
 
@@ -303,7 +303,7 @@ describe('CreateOrder', () => {
       });
 
       describe('cargoWeight', () => {
-        it('should display required error', async () => {
+        it('should display number error', async () => {
           const { container, getByTestId } = render(<CreateOrder />);
           fillDestinationForm();
 
@@ -317,7 +317,7 @@ describe('CreateOrder', () => {
 
           expect(
             container.querySelector('#cargoWeight-error')
-          ).toHaveTextContent(ERRORS.REQUIRED_FIELD);
+          ).toHaveTextContent(ERRORS.NUMBER_FIELD);
         });
 
         it('should not display required error', async () => {
@@ -407,7 +407,7 @@ describe('CreateOrder', () => {
     beforeEach(() => {
       jest
         .spyOn(ordersClient, 'createOrderSelf')
-        .mockResolvedValue({ data: order });
+        .mockResolvedValue({ data: savedOrder });
     });
 
     it('should render successfully', async () => {
@@ -618,7 +618,7 @@ describe('CreateOrder', () => {
           addressFrom: 'test',
           addressTo: 'test',
           cargoName: 'test',
-          cargoVolume: undefined,
+          cargoVolume: null,
           cargoWeight: '12',
           cityFrom: 'test',
           cityTo: 'test',

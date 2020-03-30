@@ -5,15 +5,15 @@ import { InputText } from 'primereact/inputtext';
 import { InputMask } from 'primereact/inputmask';
 import { Message } from 'primereact/message';
 
-import { Order } from '@deliveryapp/data-access';
+import { UpdateOrderDTO } from '@deliveryapp/data-access';
 import { getError } from '@deliveryapp/utils';
 
 interface SenderInfoProps {
   handleChange: FormikHandlers['handleChange'];
-  values: Order;
-  errors: FormikErrors<Order>;
-  apiErrors: FormikErrors<Order>;
-  touched: FormikTouched<Order>;
+  values: UpdateOrderDTO;
+  errors: FormikErrors<UpdateOrderDTO>;
+  apiErrors: FormikErrors<UpdateOrderDTO>;
+  touched: FormikTouched<UpdateOrderDTO>;
 }
 
 export const SenderInfo: React.FC<SenderInfoProps> = ({
@@ -23,13 +23,13 @@ export const SenderInfo: React.FC<SenderInfoProps> = ({
   errors,
   apiErrors
 }) => {
-  const senderEmailError = getError<Order>('senderEmail', {
+  const senderEmailError = getError<UpdateOrderDTO>('senderEmail', {
     touched,
     errors,
     apiErrors
   });
 
-  const senderPhoneError = getError<Order>('senderPhone', {
+  const senderPhoneError = getError<UpdateOrderDTO>('senderPhone', {
     touched,
     errors,
     apiErrors

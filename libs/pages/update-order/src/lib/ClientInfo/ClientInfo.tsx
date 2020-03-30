@@ -4,7 +4,7 @@ import { InputText } from 'primereact/inputtext';
 import { User } from '@deliveryapp/data-access';
 
 interface ClientInfoProps {
-  client?: User;
+  client: Partial<User> | null;
 }
 
 export const ClientInfo: React.FC<ClientInfoProps> = ({ client }) => (

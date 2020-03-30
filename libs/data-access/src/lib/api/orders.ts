@@ -1,10 +1,12 @@
 import { apiClient } from '@deliveryapp/core';
 
-import { Order } from '../models/order';
+import { Order, CreateOrderDTO, UpdateOrderDTO } from '../models/order';
 import { ListResponse } from '../models/list-response';
 import { OrdersFilter } from '../models/orders-filter';
 
-export function createOrderSelf(order: Order): Promise<{ data: Order }> {
+export function createOrderSelf(
+  order: CreateOrderDTO
+): Promise<{ data: Order }> {
   return apiClient.post('/users/self/orders', order);
 }
 
@@ -16,7 +18,7 @@ export function getOrdersSelf(
 
 export function updateOrderSelf(
   id: number,
-  order: Partial<Order>
+  order: UpdateOrderDTO
 ): Promise<{ data: Order }> {
   return apiClient.patch(`/users/self/orders/${id}`, order);
 }

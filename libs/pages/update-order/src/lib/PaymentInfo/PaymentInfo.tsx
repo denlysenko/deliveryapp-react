@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { FormikHandlers } from 'formik';
+import { isNull } from 'lodash-es';
 
 import { Spinner } from 'primereact/spinner';
 import { Dropdown } from 'primereact/dropdown';
@@ -8,7 +9,7 @@ import { Calendar } from 'primereact/calendar';
 import { InputText } from 'primereact/inputtext';
 import { SelectItem } from 'primereact/api';
 
-import { Order, useAuth } from '@deliveryapp/data-access';
+import { UpdateOrderDTO, useAuth } from '@deliveryapp/data-access';
 import { Roles } from '@deliveryapp/common';
 
 const paymentStatuses: SelectItem[] = [
@@ -24,7 +25,7 @@ const paymentStatuses: SelectItem[] = [
 
 interface PaymentInfoProps {
   handleChange: FormikHandlers['handleChange'];
-  values: Order;
+  values: UpdateOrderDTO;
 }
 
 export const PaymentInfo: React.FC<PaymentInfoProps> = ({
@@ -44,7 +45,9 @@ export const PaymentInfo: React.FC<PaymentInfoProps> = ({
               data-testid="deliveryCosts"
               name="deliveryCosts"
               step={0.01}
-              value={values.deliveryCosts}
+              value={
+                !isNull(values.deliveryCosts) ? values.deliveryCosts : undefined
+              }
               onChange={handleChange}
               disabled={user?.role === Roles.CLIENT}
             />
@@ -72,7 +75,9 @@ export const PaymentInfo: React.FC<PaymentInfoProps> = ({
               dateFormat="dd.mm.yy"
               showButtonBar
               showIcon
-              value={values.paymentDate}
+              value={
+                !isNull(values.paymentDate) ? values.paymentDate : undefined
+              }
               onChange={handleChange}
               disabled={user?.role === Roles.CLIENT}
             />
@@ -86,7 +91,7 @@ export const PaymentInfo: React.FC<PaymentInfoProps> = ({
               type="text"
               data-testid="invoiceId"
               name="invoiceId"
-              value={values.invoiceId || ''}
+              value={!isNull(values.invoiceId) ? values.invoiceId : ''}
               onChange={handleChange}
               disabled={user?.role === Roles.CLIENT}
             />

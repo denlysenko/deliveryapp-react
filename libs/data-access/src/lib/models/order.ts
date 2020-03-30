@@ -1,33 +1,41 @@
 import { User } from './user';
 
-export interface Order {
-  id?: number;
+export interface CreateOrderDTO {
   cityFrom: string;
   cityTo: string;
   addressFrom: string;
   addressTo: string;
+  additionalData: string;
   cargoName: string;
-  additionalData?: string;
-  comment?: string;
-  cargoWeight?: number;
-  cargoVolume?: number;
-  senderName?: string;
-  senderCompany?: string;
+  cargoWeight: number | null;
+  cargoVolume: number | null;
+  comment: string;
+  senderCompany: string;
+  senderName: string;
   senderEmail: string;
   senderPhone: string;
-  status?: number;
-  deliveryCosts?: number;
-  deliveryDate?: Date;
-  paid?: boolean;
-  paymentDate?: Date;
-  invoiceId?: number;
+}
+
+export interface UpdateOrderDTO extends CreateOrderDTO {
+  id?: number;
+  cargoVolume: number | null;
+  status: number;
+  deliveryCosts: number | null;
+  deliveryDate: Date | null;
+  paid: boolean;
+  paymentDate: Date | null;
+  invoiceId: number | null;
+}
+
+export interface Order extends UpdateOrderDTO {
+  id: number;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  payment?: any;
-  clientId?: number;
-  client?: User;
-  creatorId?: number;
-  creator?: User;
-  createdAt?: Date;
-  updatedAt?: Date;
-  deletedAt?: Date;
+  payment: any | null;
+  clientId: number;
+  client: Partial<User>;
+  creatorId: number;
+  creator: Partial<User>;
+  createdAt: string;
+  updatedAt: string;
+  deletedAt: string | null;
 }

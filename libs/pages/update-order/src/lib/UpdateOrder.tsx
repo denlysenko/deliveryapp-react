@@ -9,7 +9,12 @@ import { isNil, has, omit, isEmpty } from 'lodash-es';
 import * as Yup from 'yup';
 
 import { Roles, ERRORS, MESSAGES } from '@deliveryapp/common';
-import { Order, ordersClient, User, useAuth } from '@deliveryapp/data-access';
+import {
+  UpdateOrderDTO,
+  ordersClient,
+  User,
+  useAuth
+} from '@deliveryapp/data-access';
 import { FullPageSpinner } from '@deliveryapp/ui';
 import { useIsMounted, handleValidationError } from '@deliveryapp/utils';
 
@@ -40,13 +45,13 @@ export const UpdateOrder = () => {
   const growl = useRef<Growl>(null);
   const [loading, setLoading] = useState(false);
   const [pending, setPending] = useState(false);
-  const [client, setClient] = useState<User | undefined>(undefined);
-  const [createDate, setCreateDate] = useState<Date | undefined>(undefined);
-  const [updateDate, setUpdateDate] = useState<Date | undefined>(undefined);
+  const [client, setClient] = useState<Partial<User> | null>(null);
+  const [createDate, setCreateDate] = useState<string | undefined>(undefined);
+  const [updateDate, setUpdateDate] = useState<string | undefined>(undefined);
   const { id } = useParams<{ id: string }>();
   const { goBack } = useHistory();
   const [{ user }] = useAuth();
-  const formik = useFormik<Order>({
+  const formik = useFormik<UpdateOrderDTO>({
     initialValues: {
       cityFrom: '',
       cityTo: '',
@@ -55,18 +60,18 @@ export const UpdateOrder = () => {
       cargoName: '',
       additionalData: '',
       comment: '',
-      cargoWeight: undefined,
-      cargoVolume: undefined,
+      cargoWeight: 0,
+      cargoVolume: null,
       senderName: '',
       senderCompany: '',
       senderEmail: '',
       senderPhone: '',
-      status: undefined,
-      deliveryCosts: undefined,
-      deliveryDate: undefined,
-      paid: undefined,
-      paymentDate: undefined,
-      invoiceId: undefined
+      status: 0,
+      deliveryCosts: null,
+      deliveryDate: null,
+      paid: false,
+      paymentDate: null,
+      invoiceId: null
     },
     initialStatus: {
       apiErrors: {}
@@ -91,7 +96,7 @@ export const UpdateOrder = () => {
           });
       } catch (error) {
         setPending(false);
-        handleValidationError<Order>(error.response.data, formik);
+        handleValidationError<UpdateOrderDTO>(error.response.data, formik);
       }
     }
   });
@@ -117,6 +122,7 @@ export const UpdateOrder = () => {
               payment,
               ...rest
             } = data.rows[0];
+
             formik.setValues(rest);
             setCreateDate(createdAt);
             setUpdateDate(updatedAt);

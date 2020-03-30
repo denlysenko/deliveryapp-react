@@ -19,8 +19,8 @@ export const initialValues: CreateOrderFormValues = {
   },
   cargo: {
     cargoName: '',
-    cargoWeight: undefined,
-    cargoVolume: undefined,
+    cargoWeight: null,
+    cargoVolume: null,
     comment: ''
   },
   sender: {

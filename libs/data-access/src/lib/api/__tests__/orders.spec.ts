@@ -1,5 +1,5 @@
 import { apiClient } from '@deliveryapp/core';
-import { order } from '@deliveryapp/testing';
+import { updateOrder, createOrder } from '@deliveryapp/testing';
 
 import { createOrderSelf, updateOrderSelf } from '../orders';
 
@@ -10,16 +10,16 @@ describe('API Orders', () => {
 
   describe('createOrderSelf', () => {
     beforeEach(() => {
-      jest.spyOn(apiClient, 'post').mockResolvedValue({ data: order });
+      jest.spyOn(apiClient, 'post').mockResolvedValue({ data: createOrder });
     });
 
     it('should send POST request', () => {
-      createOrderSelf(order);
-      expect(apiClient.post).toBeCalledWith('/users/self/orders', order);
+      createOrderSelf(createOrder);
+      expect(apiClient.post).toBeCalledWith('/users/self/orders', createOrder);
     });
 
     it('should return newly created order', async () => {
-      expect(await createOrderSelf(order)).toEqual({ data: order });
+      expect(await createOrderSelf(createOrder)).toEqual({ data: createOrder });
     });
 
     it('should return error if creation failed', async () => {
@@ -30,7 +30,7 @@ describe('API Orders', () => {
         .mockImplementation(() => Promise.reject(error));
 
       try {
-        await createOrderSelf(order);
+        await createOrderSelf(createOrder);
       } catch (err) {
         expect(err).toEqual(error);
       }
@@ -39,16 +39,21 @@ describe('API Orders', () => {
 
   describe('updateOrderSelf', () => {
     beforeEach(() => {
-      jest.spyOn(apiClient, 'patch').mockResolvedValue({ data: order });
+      jest.spyOn(apiClient, 'patch').mockResolvedValue({ data: updateOrder });
     });
 
     it('should send PATCH request', () => {
-      updateOrderSelf(1, order);
-      expect(apiClient.patch).toBeCalledWith('/users/self/orders/1', order);
+      updateOrderSelf(1, updateOrder);
+      expect(apiClient.patch).toBeCalledWith(
+        '/users/self/orders/1',
+        updateOrder
+      );
     });
 
     it('should return updated order', async () => {
-      expect(await updateOrderSelf(1, order)).toEqual({ data: order });
+      expect(await updateOrderSelf(1, updateOrder)).toEqual({
+        data: updateOrder
+      });
     });
 
     it('should return error if updating failed', async () => {
@@ -59,7 +64,7 @@ describe('API Orders', () => {
         .mockImplementation(() => Promise.reject(error));
 
       try {
-        await updateOrderSelf(1, order);
+        await updateOrderSelf(1, updateOrder);
       } catch (err) {
         expect(err).toEqual(error);
       }

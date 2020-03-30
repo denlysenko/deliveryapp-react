@@ -4,17 +4,17 @@ export interface CreateOrderFormValues {
     cityTo: string;
     addressFrom: string;
     addressTo: string;
-    additionalData?: string;
+    additionalData: string;
   };
   cargo: {
     cargoName: string;
-    cargoWeight?: number;
-    cargoVolume?: number;
-    comment?: string;
+    cargoWeight: number | null;
+    cargoVolume: number | null;
+    comment: string;
   };
   sender: {
-    senderCompany?: string;
-    senderName?: string;
+    senderCompany: string;
+    senderName: string;
     senderEmail: string;
     senderPhone: string;
   };

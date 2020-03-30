@@ -2,6 +2,8 @@ import React from 'react';
 
 import { FormikHandlers, FormikErrors, FormikTouched } from 'formik';
 
+import { isNull } from 'lodash-es';
+
 import { InputText } from 'primereact/inputtext';
 import { InputTextarea } from 'primereact/inputtextarea';
 import { Button } from 'primereact/button';
@@ -89,7 +91,9 @@ export const CargoForm: React.FC<CargoFormProps> = ({
               data-testid="cargoWeight"
               name="cargo.cargoWeight"
               className={cargoWeightError ? 'invalid' : ''}
-              value={values.cargoWeight}
+              value={
+                !isNull(values.cargoWeight) ? values.cargoWeight : undefined
+              }
               onChange={handleChange}
             />
             <label htmlFor="cargoWeight">Weight</label>
@@ -108,7 +112,9 @@ export const CargoForm: React.FC<CargoFormProps> = ({
               id="cargoVolume"
               data-testid="cargoVolume"
               name="cargo.cargoVolume"
-              value={values.cargoVolume}
+              value={
+                !isNull(values.cargoVolume) ? values.cargoVolume : undefined
+              }
               onChange={handleChange}
             />
             <label htmlFor="cargoVolume">Volume</label>

@@ -7,6 +7,11 @@ exports[`Profile page should not render address & bankDetails 1`] = `
       class="sc-AykKC sc-AykKD eAcyFO"
     >
       <div
+        class="p-growl p-component p-growl-topright"
+      >
+        <div />
+      </div>
+      <div
         class="p-grid"
       >
         <div
@@ -286,6 +291,11 @@ exports[`Profile page should render successfully 1`] = `
     <div
       class="sc-AykKC sc-AykKD eAcyFO"
     >
+      <div
+        class="p-growl p-component p-growl-topright"
+      >
+        <div />
+      </div>
       <div
         class="p-grid"
       >

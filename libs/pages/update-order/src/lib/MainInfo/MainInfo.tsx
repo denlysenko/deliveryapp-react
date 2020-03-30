@@ -1,20 +1,22 @@
 import React from 'react';
 import { FormikHandlers, FormikErrors, FormikTouched } from 'formik';
 
+import { isNull } from 'lodash-es';
+
 import { InputText } from 'primereact/inputtext';
 import { InputTextarea } from 'primereact/inputtextarea';
 import { Message } from 'primereact/message';
 import { Spinner } from 'primereact/spinner';
 
-import { Order } from '@deliveryapp/data-access';
+import { UpdateOrderDTO } from '@deliveryapp/data-access';
 import { getError } from '@deliveryapp/utils';
 
 export interface MainInfoProps {
   handleChange: FormikHandlers['handleChange'];
-  values: Order;
-  errors: FormikErrors<Order>;
-  apiErrors: FormikErrors<Order>;
-  touched: FormikTouched<Order>;
+  values: UpdateOrderDTO;
+  errors: FormikErrors<UpdateOrderDTO>;
+  apiErrors: FormikErrors<UpdateOrderDTO>;
+  touched: FormikTouched<UpdateOrderDTO>;
 }
 
 export const MainInfo: React.FC<MainInfoProps> = ({
@@ -24,37 +26,37 @@ export const MainInfo: React.FC<MainInfoProps> = ({
   apiErrors,
   handleChange
 }) => {
-  const cargoNameError = getError<Order>('cargoName', {
+  const cargoNameError = getError<UpdateOrderDTO>('cargoName', {
     touched,
     errors,
     apiErrors
   });
 
-  const cargoWeightError = getError<Order>('cargoWeight', {
+  const cargoWeightError = getError<UpdateOrderDTO>('cargoWeight', {
     touched,
     errors,
     apiErrors
   });
 
-  const cityFromError = getError<Order>('cityFrom', {
+  const cityFromError = getError<UpdateOrderDTO>('cityFrom', {
     touched,
     errors,
     apiErrors
   });
 
-  const cityToError = getError<Order>('cityTo', {
+  const cityToError = getError<UpdateOrderDTO>('cityTo', {
     touched,
     errors,
     apiErrors
   });
 
-  const addressFromError = getError<Order>('addressFrom', {
+  const addressFromError = getError<UpdateOrderDTO>('addressFrom', {
     touched,
     errors,
     apiErrors
   });
 
-  const addressToError = getError<Order>('addressTo', {
+  const addressToError = getError<UpdateOrderDTO>('addressTo', {
     touched,
     errors,
     apiErrors
@@ -103,7 +105,9 @@ export const MainInfo: React.FC<MainInfoProps> = ({
               data-testid="cargoWeight"
               name="cargoWeight"
               className={cargoWeightError ? 'invalid' : ''}
-              value={values.cargoWeight}
+              value={
+                !isNull(values.cargoWeight) ? values.cargoWeight : undefined
+              }
               onChange={handleChange}
             />
             <label htmlFor="cargoWeight">Weight</label>
@@ -122,7 +126,9 @@ export const MainInfo: React.FC<MainInfoProps> = ({
               id="cargoVolume"
               data-testid="cargoVolume"
               name="cargoVolume"
-              value={values.cargoVolume}
+              value={
+                !isNull(values.cargoVolume) ? values.cargoVolume : undefined
+              }
               onChange={handleChange}
             />
             <label htmlFor="cargoVolume">Volume</label>
