@@ -16,7 +16,9 @@ export const ClientInfo: React.FC<ClientInfoProps> = ({ client }) => (
           <InputText
             id="name"
             type="text"
-            value={`${client?.firstName} ${client?.lastName}`}
+            value={`${client ? client.firstName : ''} ${
+              client ? client.lastName : ''
+            }`}
             readOnly
           />
           <label htmlFor="name">First Name / Last Name</label>
