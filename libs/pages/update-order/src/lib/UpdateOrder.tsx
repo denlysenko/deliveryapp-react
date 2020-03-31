@@ -165,6 +165,7 @@ export const UpdateOrder = () => {
           </div>
           <form
             id="updateOrderForm"
+            data-testid="updateOrderForm"
             className="p-grid"
             onSubmit={formik.handleSubmit}
           >
@@ -196,7 +197,7 @@ export const UpdateOrder = () => {
                 />
               </div>
               {user?.role !== Roles.CLIENT && (
-                <div className="card">
+                <div className="card client-block">
                   <ClientInfo client={client} />
                 </div>
               )}
@@ -216,12 +217,14 @@ export const UpdateOrder = () => {
                 type="submit"
                 form="updateOrderForm"
                 label="Save"
+                data-testid="save"
                 className="p-button-raised"
                 disabled={pending}
               ></Button>
               <Button
                 type="button"
                 label="Back"
+                data-testid="back"
                 className="p-button-secondary"
                 disabled={pending}
                 onClick={goBack}

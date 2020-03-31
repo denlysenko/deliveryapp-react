@@ -1,3 +1,4 @@
 export const useHistoryMock = {
-  push: jest.fn()
+  push: jest.fn(),
+  goBack: jest.fn()
 };

@@ -58,7 +58,9 @@ export const PaymentInfo: React.FC<PaymentInfoProps> = ({
           <div className="input-wrapper p-float-label">
             <span className="p-inputwrapper-focus">
               <Dropdown
+                id="paid"
                 name="paid"
+                data-testid="paid"
                 options={paymentStatuses}
                 value={values.paid}
                 onChange={handleChange}
@@ -71,7 +73,9 @@ export const PaymentInfo: React.FC<PaymentInfoProps> = ({
         <div className="p-col-12 p-lg-3 row">
           <div className="input-wrapper p-float-label">
             <Calendar
+              id="paymentDate"
               name="paymentDate"
+              data-testid="paymentDate"
               dateFormat="dd.mm.yy"
               showButtonBar
               showIcon

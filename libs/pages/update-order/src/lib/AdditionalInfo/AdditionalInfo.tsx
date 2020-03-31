@@ -40,6 +40,7 @@ export const AdditionalInfo: React.FC<AdditionalInfoProps> = ({
           <div className="input-wrapper p-float-label">
             <span className="p-inputwrapper-focus">
               <Dropdown
+                id="status"
                 name="status"
                 options={orderStatuses}
                 value={values.status}
@@ -53,6 +54,7 @@ export const AdditionalInfo: React.FC<AdditionalInfoProps> = ({
         <div className="p-col-12 p-lg-3 row">
           <div className="input-wrapper p-float-label">
             <Calendar
+              id="deliveryDate"
               name="deliveryDate"
               dateFormat="dd.mm.yy"
               showButtonBar
