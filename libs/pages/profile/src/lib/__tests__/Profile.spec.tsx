@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, fireEvent, wait, cleanup } from '@testing-library/react';
+import { render, fireEvent, waitFor, cleanup } from '@testing-library/react';
 
 import { ERRORS, Roles } from '@deliveryapp/common';
 import { AuthProvider, usersClient, useAuth } from '@deliveryapp/data-access';
@@ -64,13 +64,13 @@ describe('Profile page', () => {
           }
         });
 
-        await wait(() => {
-          fireEvent.submit(getByTestId('profile-form'));
-        });
+        fireEvent.submit(getByTestId('profile-form'));
 
-        expect(container.querySelector('#email-error')).toHaveTextContent(
-          ERRORS.REQUIRED_FIELD
-        );
+        await waitFor(() => {
+          expect(container.querySelector('#email-error')).toHaveTextContent(
+            ERRORS.REQUIRED_FIELD
+          );
+        });
       });
 
       it('should display email error', async () => {
@@ -86,13 +86,13 @@ describe('Profile page', () => {
           }
         });
 
-        await wait(() => {
-          fireEvent.submit(getByTestId('profile-form'));
-        });
+        fireEvent.submit(getByTestId('profile-form'));
 
-        expect(container.querySelector('#email-error')).toHaveTextContent(
-          ERRORS.INVALID_EMAIL
-        );
+        await waitFor(() => {
+          expect(container.querySelector('#email-error')).toHaveTextContent(
+            ERRORS.INVALID_EMAIL
+          );
+        });
       });
 
       it('should not display any errors', async () => {
@@ -102,11 +102,13 @@ describe('Profile page', () => {
           </AuthProvider>
         );
 
-        await wait(() => {
-          fireEvent.submit(getByTestId('profile-form'));
-        });
+        fireEvent.submit(getByTestId('profile-form'));
 
-        expect(container.querySelector('#email-error')).not.toBeInTheDocument();
+        await waitFor(() => {
+          expect(
+            container.querySelector('#email-error')
+          ).not.toBeInTheDocument();
+        });
       });
     });
   });
@@ -148,29 +150,29 @@ describe('Profile page', () => {
         }
       });
 
-      await wait(() => {
-        fireEvent.submit(getByTestId('profile-form'));
-      });
+      fireEvent.submit(getByTestId('profile-form'));
 
       const { id, role, ...rest } = user;
 
-      expect(usersClient.updateProfile).toBeCalledTimes(1);
-      expect(usersClient.updateProfile).toBeCalledWith({
-        ...rest,
-        firstName,
-        lastName,
-        address: {
-          city: '',
-          country,
-          house: '',
-          street: ''
-        },
-        bankDetails: {
-          accountNumber: '',
-          bin: '',
-          name,
-          swift: ''
-        }
+      await waitFor(() => {
+        expect(usersClient.updateProfile).toBeCalledTimes(1);
+        expect(usersClient.updateProfile).toBeCalledWith({
+          ...rest,
+          firstName,
+          lastName,
+          address: {
+            city: '',
+            country,
+            house: '',
+            street: ''
+          },
+          bankDetails: {
+            accountNumber: '',
+            bin: '',
+            name,
+            swift: ''
+          }
+        });
       });
     });
 
@@ -193,13 +195,13 @@ describe('Profile page', () => {
         </AuthProvider>
       );
 
-      await wait(() => {
-        fireEvent.submit(getByTestId('profile-form'));
-      });
+      fireEvent.submit(getByTestId('profile-form'));
 
-      expect(container.querySelector('#email-error')).toHaveTextContent(
-        error.errors[0].message
-      );
+      await waitFor(() => {
+        expect(container.querySelector('#email-error')).toHaveTextContent(
+          error.errors[0].message
+        );
+      });
 
       fireEvent.change(getByTestId('email'), {
         target: {
@@ -207,7 +209,9 @@ describe('Profile page', () => {
         }
       });
 
-      expect(container.querySelector('#email-error')).not.toBeInTheDocument();
+      await waitFor(() => {
+        expect(container.querySelector('#email-error')).not.toBeInTheDocument();
+      });
     });
   });
 });

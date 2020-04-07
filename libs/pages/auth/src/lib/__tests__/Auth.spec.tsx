@@ -3,8 +3,8 @@ import {
   render,
   cleanup,
   fireEvent,
-  wait,
-  screen
+  screen,
+  waitFor
 } from '@testing-library/react';
 
 import { authPayload, useHistoryMock } from '@deliveryapp/testing';
@@ -88,12 +88,12 @@ describe('Auth Page', () => {
 
       fillForm();
 
-      await wait(() => {
-        fireEvent.click(getByTestId('submit'));
-      });
+      fireEvent.click(getByTestId('submit'));
 
-      expect(authClient.login).toBeCalledTimes(1);
-      expect(authClient.login).toBeCalledWith({ email, password });
+      await waitFor(() => {
+        expect(authClient.login).toBeCalledTimes(1);
+        expect(authClient.login).toBeCalledWith({ email, password });
+      });
     });
 
     it('should register', async () => {
@@ -103,18 +103,18 @@ describe('Auth Page', () => {
 
       fillForm();
 
-      await wait(() => {
-        fireEvent.click(getByTestId('submit'));
-      });
+      fireEvent.click(getByTestId('submit'));
 
-      expect(authClient.register).toBeCalledTimes(1);
-      expect(authClient.register).toBeCalledWith({
-        email,
-        password,
-        company: '',
-        phone: '',
-        firstName: '',
-        lastName: ''
+      await waitFor(() => {
+        expect(authClient.register).toBeCalledTimes(1);
+        expect(authClient.register).toBeCalledWith({
+          email,
+          password,
+          company: '',
+          phone: '',
+          firstName: '',
+          lastName: ''
+        });
       });
     });
 
@@ -128,12 +128,12 @@ describe('Auth Page', () => {
 
       fillForm();
 
-      await wait(() => {
-        fireEvent.click(getByTestId('submit'));
-      });
+      fireEvent.click(getByTestId('submit'));
 
-      expect(localStorageSpy).toBeCalledTimes(1);
-      expect(localStorageSpy).toBeCalledWith(ACCESS_TOKEN, authPayload.token);
+      await waitFor(() => {
+        expect(localStorageSpy).toBeCalledTimes(1);
+        expect(localStorageSpy).toBeCalledWith(ACCESS_TOKEN, authPayload.token);
+      });
     });
 
     it('should redirect to /', async () => {
@@ -141,12 +141,12 @@ describe('Auth Page', () => {
 
       fillForm();
 
-      await wait(() => {
-        fireEvent.click(getByTestId('submit'));
-      });
+      fireEvent.click(getByTestId('submit'));
 
-      expect(useHistoryMock.push).toBeCalledTimes(1);
-      expect(useHistoryMock.push).toBeCalledWith('/');
+      await waitFor(() => {
+        expect(useHistoryMock.push).toBeCalledTimes(1);
+        expect(useHistoryMock.push).toBeCalledWith('/');
+      });
     });
 
     it('should show server errors', async () => {
@@ -166,13 +166,13 @@ describe('Auth Page', () => {
 
       fillForm();
 
-      await wait(() => {
-        fireEvent.click(getByTestId('submit'));
-      });
+      fireEvent.click(getByTestId('submit'));
 
-      expect(container.querySelector('#error-message')).toHaveTextContent(
-        errorMessage
-      );
+      await waitFor(() => {
+        expect(container.querySelector('#error-message')).toHaveTextContent(
+          errorMessage
+        );
+      });
     });
   });
 });

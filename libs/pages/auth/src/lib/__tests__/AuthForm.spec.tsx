@@ -1,5 +1,6 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
 import React from 'react';
-import { render, fireEvent, cleanup, wait } from '@testing-library/react';
+import { render, fireEvent, cleanup, waitFor } from '@testing-library/react';
 
 import { ERRORS } from '@deliveryapp/common';
 import { ValidationError } from '@deliveryapp/data-access';
@@ -50,9 +51,9 @@ describe('AuthForm', () => {
         }
       });
 
-      await wait(() => {
-        fireEvent.click(getByTestId('submit'));
-      });
+      fireEvent.click(getByTestId('submit'));
+
+      await waitFor(() => {});
 
       const errorMessage = 'Error message';
 
@@ -114,11 +115,13 @@ describe('AuthForm', () => {
         }
       });
 
-      expect(container.querySelector('#email-error')).not.toBeInTheDocument();
+      await waitFor(() => {
+        expect(container.querySelector('#email-error')).not.toBeInTheDocument();
 
-      expect(
-        container.querySelector('#password-error')
-      ).not.toBeInTheDocument();
+        expect(
+          container.querySelector('#password-error')
+        ).not.toBeInTheDocument();
+      });
     });
   });
 
@@ -127,13 +130,13 @@ describe('AuthForm', () => {
       it('should display required error', async () => {
         const { getByTestId, container } = render(<AuthForm {...props} />);
 
-        await wait(() => {
-          fireEvent.click(getByTestId('submit'));
-        });
+        fireEvent.click(getByTestId('submit'));
 
-        expect(container.querySelector('#email-error')).toHaveTextContent(
-          ERRORS.REQUIRED_FIELD
-        );
+        await waitFor(() => {
+          expect(container.querySelector('#email-error')).toHaveTextContent(
+            ERRORS.REQUIRED_FIELD
+          );
+        });
       });
 
       it('should display invalid email error', async () => {
@@ -145,13 +148,13 @@ describe('AuthForm', () => {
           }
         });
 
-        await wait(() => {
-          fireEvent.click(getByTestId('submit'));
-        });
+        fireEvent.click(getByTestId('submit'));
 
-        expect(container.querySelector('#email-error')).toHaveTextContent(
-          ERRORS.INVALID_EMAIL
-        );
+        await waitFor(() => {
+          expect(container.querySelector('#email-error')).toHaveTextContent(
+            ERRORS.INVALID_EMAIL
+          );
+        });
       });
 
       it('should not display any errors', async () => {
@@ -163,11 +166,13 @@ describe('AuthForm', () => {
           }
         });
 
-        await wait(() => {
-          fireEvent.click(getByTestId('submit'));
-        });
+        fireEvent.click(getByTestId('submit'));
 
-        expect(container.querySelector('#email-error')).not.toBeInTheDocument();
+        await waitFor(() => {
+          expect(
+            container.querySelector('#email-error')
+          ).not.toBeInTheDocument();
+        });
       });
     });
 
@@ -175,13 +180,13 @@ describe('AuthForm', () => {
       it('should display required error', async () => {
         const { getByTestId, container } = render(<AuthForm {...props} />);
 
-        await wait(() => {
-          fireEvent.click(getByTestId('submit'));
-        });
+        fireEvent.click(getByTestId('submit'));
 
-        expect(container.querySelector('#password-error')).toHaveTextContent(
-          ERRORS.REQUIRED_FIELD
-        );
+        await waitFor(() => {
+          expect(container.querySelector('#password-error')).toHaveTextContent(
+            ERRORS.REQUIRED_FIELD
+          );
+        });
       });
 
       it('should not display any errors', async () => {
@@ -193,13 +198,13 @@ describe('AuthForm', () => {
           }
         });
 
-        await wait(() => {
-          fireEvent.click(getByTestId('submit'));
-        });
+        fireEvent.click(getByTestId('submit'));
 
-        expect(
-          container.querySelector('#password-error')
-        ).not.toBeInTheDocument();
+        await waitFor(() => {
+          expect(
+            container.querySelector('#password-error')
+          ).not.toBeInTheDocument();
+        });
       });
     });
 
@@ -208,13 +213,13 @@ describe('AuthForm', () => {
         <AuthForm {...props} />
       );
 
-      await wait(() => {
-        fireEvent.click(getByTestId('submit'));
-      });
+      fireEvent.click(getByTestId('submit'));
 
-      expect(container.querySelector('#email-error')).toHaveTextContent(
-        ERRORS.REQUIRED_FIELD
-      );
+      await waitFor(() => {
+        expect(container.querySelector('#email-error')).toHaveTextContent(
+          ERRORS.REQUIRED_FIELD
+        );
+      });
 
       rerender(<AuthForm {...props} isLoggingIn={false} />);
 
@@ -238,18 +243,18 @@ describe('AuthForm', () => {
         }
       });
 
-      await wait(() => {
-        fireEvent.click(getByTestId('submit'));
-      });
+      fireEvent.click(getByTestId('submit'));
 
-      expect(props.onFormSubmit).toBeCalledTimes(1);
-      expect(props.onFormSubmit).toBeCalledWith({
-        email,
-        password,
-        company: '',
-        firstName: '',
-        lastName: '',
-        phone: ''
+      await waitFor(() => {
+        expect(props.onFormSubmit).toBeCalledTimes(1);
+        expect(props.onFormSubmit).toBeCalledWith({
+          email,
+          password,
+          company: '',
+          firstName: '',
+          lastName: '',
+          phone: ''
+        });
       });
     });
 

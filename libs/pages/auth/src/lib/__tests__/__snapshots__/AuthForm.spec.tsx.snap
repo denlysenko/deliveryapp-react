@@ -4,7 +4,7 @@ exports[`AuthForm Login should render login form 1`] = `
 <body>
   <div>
     <div
-      class="sc-AykKC ctaKaJ"
+      class="sc-AxjAm kyfgSK"
     >
       <form
         autocomplete="off"
@@ -88,7 +88,7 @@ exports[`AuthForm Register should render register form 1`] = `
 <body>
   <div>
     <div
-      class="sc-AykKC ctaKaJ"
+      class="sc-AxjAm kyfgSK"
     >
       <form
         autocomplete="off"

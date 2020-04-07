@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, fireEvent, cleanup, wait } from '@testing-library/react';
+import { render, fireEvent, cleanup, waitFor } from '@testing-library/react';
 
 import { ERRORS } from '@deliveryapp/common';
 import { usersClient } from '@deliveryapp/data-access';
@@ -31,13 +31,13 @@ describe('[Profile] PasswordForm', () => {
       it('should display required error', async () => {
         const { getByTestId, container } = render(<PasswordForm />);
 
-        await wait(() => {
-          fireEvent.click(getByTestId('change-password'));
-        });
+        fireEvent.click(getByTestId('change-password'));
 
-        expect(container.querySelector('#oldPassword-error')).toHaveTextContent(
-          ERRORS.REQUIRED_FIELD
-        );
+        await waitFor(() => {
+          expect(
+            container.querySelector('#oldPassword-error')
+          ).toHaveTextContent(ERRORS.REQUIRED_FIELD);
+        });
       });
 
       it('should not display any errors', async () => {
@@ -49,13 +49,13 @@ describe('[Profile] PasswordForm', () => {
           }
         });
 
-        await wait(() => {
-          fireEvent.click(getByTestId('change-password'));
-        });
+        fireEvent.click(getByTestId('change-password'));
 
-        expect(
-          container.querySelector('#oldPassword-error')
-        ).not.toBeInTheDocument();
+        await waitFor(() => {
+          expect(
+            container.querySelector('#oldPassword-error')
+          ).not.toBeInTheDocument();
+        });
       });
     });
 
@@ -63,13 +63,13 @@ describe('[Profile] PasswordForm', () => {
       it('should display required error', async () => {
         const { getByTestId, container } = render(<PasswordForm />);
 
-        await wait(() => {
-          fireEvent.click(getByTestId('change-password'));
-        });
+        fireEvent.click(getByTestId('change-password'));
 
-        expect(container.querySelector('#newPassword-error')).toHaveTextContent(
-          ERRORS.REQUIRED_FIELD
-        );
+        await waitFor(() => {
+          expect(
+            container.querySelector('#newPassword-error')
+          ).toHaveTextContent(ERRORS.REQUIRED_FIELD);
+        });
       });
 
       it('should not display any errors', async () => {
@@ -81,13 +81,13 @@ describe('[Profile] PasswordForm', () => {
           }
         });
 
-        await wait(() => {
-          fireEvent.click(getByTestId('change-password'));
-        });
+        fireEvent.click(getByTestId('change-password'));
 
-        expect(
-          container.querySelector('#newPassword-error')
-        ).not.toBeInTheDocument();
+        await waitFor(() => {
+          expect(
+            container.querySelector('#newPassword-error')
+          ).not.toBeInTheDocument();
+        });
       });
     });
 
@@ -95,13 +95,13 @@ describe('[Profile] PasswordForm', () => {
       it('should display required error', async () => {
         const { getByTestId, container } = render(<PasswordForm />);
 
-        await wait(() => {
-          fireEvent.click(getByTestId('change-password'));
-        });
+        fireEvent.click(getByTestId('change-password'));
 
-        expect(
-          container.querySelector('#confirmPassword-error')
-        ).toHaveTextContent(ERRORS.REQUIRED_FIELD);
+        await waitFor(() => {
+          expect(
+            container.querySelector('#confirmPassword-error')
+          ).toHaveTextContent(ERRORS.REQUIRED_FIELD);
+        });
       });
 
       it('should display passwords do not match error', async () => {
@@ -119,13 +119,13 @@ describe('[Profile] PasswordForm', () => {
           }
         });
 
-        await wait(() => {
-          fireEvent.click(getByTestId('change-password'));
-        });
+        fireEvent.click(getByTestId('change-password'));
 
-        expect(
-          container.querySelector('#confirmPassword-error')
-        ).toHaveTextContent(ERRORS.PASSWORDS_DO_NOT_MATCH);
+        await waitFor(() => {
+          expect(
+            container.querySelector('#confirmPassword-error')
+          ).toHaveTextContent(ERRORS.PASSWORDS_DO_NOT_MATCH);
+        });
       });
 
       it('should not display any errors', async () => {
@@ -143,13 +143,13 @@ describe('[Profile] PasswordForm', () => {
           }
         });
 
-        await wait(() => {
-          fireEvent.click(getByTestId('change-password'));
-        });
+        fireEvent.click(getByTestId('change-password'));
 
-        expect(
-          container.querySelector('#confirmPassword-error')
-        ).not.toBeInTheDocument();
+        await waitFor(() => {
+          expect(
+            container.querySelector('#confirmPassword-error')
+          ).not.toBeInTheDocument();
+        });
       });
     });
   });
@@ -176,14 +176,14 @@ describe('[Profile] PasswordForm', () => {
         }
       });
 
-      await wait(() => {
-        fireEvent.click(getByTestId('change-password'));
-      });
+      fireEvent.click(getByTestId('change-password'));
 
-      expect(usersClient.updatePassword).toBeCalledTimes(1);
-      expect(usersClient.updatePassword).toBeCalledWith({
-        oldPassword,
-        newPassword
+      await waitFor(() => {
+        expect(usersClient.updatePassword).toBeCalledTimes(1);
+        expect(usersClient.updatePassword).toBeCalledWith({
+          oldPassword,
+          newPassword
+        });
       });
     });
 
@@ -220,13 +220,13 @@ describe('[Profile] PasswordForm', () => {
         }
       });
 
-      await wait(() => {
-        fireEvent.click(getByTestId('change-password'));
-      });
+      fireEvent.click(getByTestId('change-password'));
 
-      expect(container.querySelector('#oldPassword-error')).toHaveTextContent(
-        error.errors[0].message
-      );
+      await waitFor(() => {
+        expect(container.querySelector('#oldPassword-error')).toHaveTextContent(
+          error.errors[0].message
+        );
+      });
 
       fireEvent.change(getByTestId('oldPassword'), {
         target: {
@@ -234,9 +234,11 @@ describe('[Profile] PasswordForm', () => {
         }
       });
 
-      expect(
-        container.querySelector('#oldPassword-error')
-      ).not.toBeInTheDocument();
+      await waitFor(() => {
+        expect(
+          container.querySelector('#oldPassword-error')
+        ).not.toBeInTheDocument();
+      });
     });
   });
 });

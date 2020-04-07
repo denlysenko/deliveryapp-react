@@ -4,7 +4,7 @@ exports[`Profile page should not render address & bankDetails 1`] = `
 <body>
   <div>
     <div
-      class="sc-AykKC sc-AykKD eAcyFO"
+      class="sc-AxjAm sc-AxirZ fwLWdz"
     >
       <div
         class="p-growl p-component p-growl-topright"
@@ -36,7 +36,7 @@ exports[`Profile page should not render address & bankDetails 1`] = `
               class="card"
             >
               <div
-                class="sc-AykKC eKHpuZ"
+                class="sc-AxjAm icXODU"
               >
                 <h3>
                   Contacts
@@ -161,7 +161,7 @@ exports[`Profile page should not render address & bankDetails 1`] = `
                 </div>
               </div>
               <div
-                class="sc-AykKC eKHpuZ"
+                class="sc-AxjAm icXODU"
               >
                 <h3>
                   Change Password
@@ -289,7 +289,7 @@ exports[`Profile page should render successfully 1`] = `
 <body>
   <div>
     <div
-      class="sc-AykKC sc-AykKD eAcyFO"
+      class="sc-AxjAm sc-AxirZ fwLWdz"
     >
       <div
         class="p-growl p-component p-growl-topright"
@@ -321,7 +321,7 @@ exports[`Profile page should render successfully 1`] = `
               class="card"
             >
               <div
-                class="sc-AykKC eKHpuZ"
+                class="sc-AxjAm icXODU"
               >
                 <h3>
                   Contacts
@@ -446,7 +446,7 @@ exports[`Profile page should render successfully 1`] = `
                 </div>
               </div>
               <div
-                class="sc-AykKC eKHpuZ"
+                class="sc-AxjAm icXODU"
               >
                 <h3>
                   Change Password
@@ -550,7 +550,7 @@ exports[`Profile page should render successfully 1`] = `
               class="card"
             >
               <div
-                class="sc-AykKC eKHpuZ"
+                class="sc-AxjAm icXODU"
               >
                 <h3>
                   Address
@@ -665,7 +665,7 @@ exports[`Profile page should render successfully 1`] = `
               class="card"
             >
               <div
-                class="sc-AykKC eKHpuZ"
+                class="sc-AxjAm icXODU"
               >
                 <h3>
                   Bank Details

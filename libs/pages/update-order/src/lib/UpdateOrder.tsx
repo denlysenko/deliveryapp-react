@@ -49,7 +49,7 @@ export const UpdateOrder = () => {
   const [createDate, setCreateDate] = useState<string | undefined>(undefined);
   const [updateDate, setUpdateDate] = useState<string | undefined>(undefined);
   const { id } = useParams<{ id: string }>();
-  const { goBack } = useHistory();
+  const history = useHistory();
   const [{ user }] = useAuth();
   const formik = useFormik<UpdateOrderDTO>({
     initialValues: {
@@ -130,6 +130,8 @@ export const UpdateOrder = () => {
             if (user?.role !== Roles.CLIENT) {
               setClient(client);
             }
+          } else {
+            history.push('/orders/create');
           }
         }
       })
@@ -227,7 +229,7 @@ export const UpdateOrder = () => {
                 data-testid="back"
                 className="p-button-secondary"
                 disabled={pending}
-                onClick={goBack}
+                onClick={history.goBack}
               ></Button>
             </div>
           </div>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, cleanup, wait, fireEvent } from '@testing-library/react';
+import { render, cleanup, waitFor, fireEvent } from '@testing-library/react';
 
 import { ERRORS, Roles } from '@deliveryapp/common';
 import { ordersClient, useAuth } from '@deliveryapp/data-access';
@@ -34,7 +34,7 @@ describe('UpdateOrder', () => {
 
   it('should render successfully with data', async () => {
     const { baseElement, getByTestId } = render(<UpdateOrder />);
-    await wait(() => expect(getByTestId('id')).toHaveValue('1'));
+    await waitFor(() => expect(getByTestId('id')).toHaveValue('1'));
     expect(baseElement).toMatchSnapshot();
   });
 
@@ -42,7 +42,7 @@ describe('UpdateOrder', () => {
     describe('cargoName', () => {
       it('should have required error', async () => {
         const { container, getByTestId } = render(<UpdateOrder />);
-        await wait(() => expect(getByTestId('id')).toHaveValue('1'));
+        await waitFor(() => expect(getByTestId('id')).toHaveValue('1'));
 
         fireEvent.change(getByTestId('cargoName'), {
           target: {
@@ -50,20 +50,20 @@ describe('UpdateOrder', () => {
           }
         });
 
-        await wait(() => {
-          fireEvent.submit(getByTestId('updateOrderForm'));
-        });
+        fireEvent.submit(getByTestId('updateOrderForm'));
 
-        expect(container.querySelector('#cargoName-error')).toHaveTextContent(
-          ERRORS.REQUIRED_FIELD
-        );
+        await waitFor(() => {
+          expect(container.querySelector('#cargoName-error')).toHaveTextContent(
+            ERRORS.REQUIRED_FIELD
+          );
+        });
       });
     });
 
     describe('cargoWeight', () => {
       it('should have required error', async () => {
         const { container, getByTestId } = render(<UpdateOrder />);
-        await wait(() => expect(getByTestId('id')).toHaveValue('1'));
+        await waitFor(() => expect(getByTestId('id')).toHaveValue('1'));
 
         fireEvent.change(
           // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
@@ -75,20 +75,20 @@ describe('UpdateOrder', () => {
           }
         );
 
-        await wait(() => {
-          fireEvent.submit(getByTestId('updateOrderForm'));
-        });
+        fireEvent.submit(getByTestId('updateOrderForm'));
 
-        expect(container.querySelector('#cargoWeight-error')).toHaveTextContent(
-          ERRORS.REQUIRED_FIELD
-        );
+        await waitFor(() => {
+          expect(
+            container.querySelector('#cargoWeight-error')
+          ).toHaveTextContent(ERRORS.REQUIRED_FIELD);
+        });
       });
     });
 
     describe('cityFrom', () => {
       it('should have required error', async () => {
         const { container, getByTestId } = render(<UpdateOrder />);
-        await wait(() => expect(getByTestId('id')).toHaveValue('1'));
+        await waitFor(() => expect(getByTestId('id')).toHaveValue('1'));
 
         fireEvent.change(getByTestId('cityFrom'), {
           target: {
@@ -96,20 +96,20 @@ describe('UpdateOrder', () => {
           }
         });
 
-        await wait(() => {
-          fireEvent.submit(getByTestId('updateOrderForm'));
-        });
+        fireEvent.submit(getByTestId('updateOrderForm'));
 
-        expect(container.querySelector('#cityFrom-error')).toHaveTextContent(
-          ERRORS.REQUIRED_FIELD
-        );
+        await waitFor(() => {
+          expect(container.querySelector('#cityFrom-error')).toHaveTextContent(
+            ERRORS.REQUIRED_FIELD
+          );
+        });
       });
     });
 
     describe('cityTo', () => {
       it('should have required error', async () => {
         const { container, getByTestId } = render(<UpdateOrder />);
-        await wait(() => expect(getByTestId('id')).toHaveValue('1'));
+        await waitFor(() => expect(getByTestId('id')).toHaveValue('1'));
 
         fireEvent.change(getByTestId('cityTo'), {
           target: {
@@ -117,20 +117,20 @@ describe('UpdateOrder', () => {
           }
         });
 
-        await wait(() => {
-          fireEvent.submit(getByTestId('updateOrderForm'));
-        });
+        fireEvent.submit(getByTestId('updateOrderForm'));
 
-        expect(container.querySelector('#cityTo-error')).toHaveTextContent(
-          ERRORS.REQUIRED_FIELD
-        );
+        await waitFor(() => {
+          expect(container.querySelector('#cityTo-error')).toHaveTextContent(
+            ERRORS.REQUIRED_FIELD
+          );
+        });
       });
     });
 
     describe('addressFrom', () => {
       it('should have required error', async () => {
         const { container, getByTestId } = render(<UpdateOrder />);
-        await wait(() => expect(getByTestId('id')).toHaveValue('1'));
+        await waitFor(() => expect(getByTestId('id')).toHaveValue('1'));
 
         fireEvent.change(getByTestId('addressFrom'), {
           target: {
@@ -138,20 +138,20 @@ describe('UpdateOrder', () => {
           }
         });
 
-        await wait(() => {
-          fireEvent.submit(getByTestId('updateOrderForm'));
-        });
+        fireEvent.submit(getByTestId('updateOrderForm'));
 
-        expect(container.querySelector('#addressFrom-error')).toHaveTextContent(
-          ERRORS.REQUIRED_FIELD
-        );
+        await waitFor(() => {
+          expect(
+            container.querySelector('#addressFrom-error')
+          ).toHaveTextContent(ERRORS.REQUIRED_FIELD);
+        });
       });
     });
 
     describe('addressTo', () => {
       it('should have required error', async () => {
         const { container, getByTestId } = render(<UpdateOrder />);
-        await wait(() => expect(getByTestId('id')).toHaveValue('1'));
+        await waitFor(() => expect(getByTestId('id')).toHaveValue('1'));
 
         fireEvent.change(getByTestId('addressTo'), {
           target: {
@@ -159,20 +159,20 @@ describe('UpdateOrder', () => {
           }
         });
 
-        await wait(() => {
-          fireEvent.submit(getByTestId('updateOrderForm'));
-        });
+        fireEvent.submit(getByTestId('updateOrderForm'));
 
-        expect(container.querySelector('#addressTo-error')).toHaveTextContent(
-          ERRORS.REQUIRED_FIELD
-        );
+        await waitFor(() => {
+          expect(container.querySelector('#addressTo-error')).toHaveTextContent(
+            ERRORS.REQUIRED_FIELD
+          );
+        });
       });
     });
 
     describe('senderEmail', () => {
       it('should have required error', async () => {
         const { container, getByTestId } = render(<UpdateOrder />);
-        await wait(() => expect(getByTestId('id')).toHaveValue('1'));
+        await waitFor(() => expect(getByTestId('id')).toHaveValue('1'));
 
         fireEvent.change(getByTestId('senderEmail'), {
           target: {
@@ -180,18 +180,18 @@ describe('UpdateOrder', () => {
           }
         });
 
-        await wait(() => {
-          fireEvent.submit(getByTestId('updateOrderForm'));
-        });
+        fireEvent.submit(getByTestId('updateOrderForm'));
 
-        expect(container.querySelector('#senderEmail-error')).toHaveTextContent(
-          ERRORS.REQUIRED_FIELD
-        );
+        await waitFor(() => {
+          expect(
+            container.querySelector('#senderEmail-error')
+          ).toHaveTextContent(ERRORS.REQUIRED_FIELD);
+        });
       });
 
       it('should have email error', async () => {
         const { container, getByTestId } = render(<UpdateOrder />);
-        await wait(() => expect(getByTestId('id')).toHaveValue('1'));
+        await waitFor(() => expect(getByTestId('id')).toHaveValue('1'));
 
         fireEvent.change(getByTestId('senderEmail'), {
           target: {
@@ -199,20 +199,20 @@ describe('UpdateOrder', () => {
           }
         });
 
-        await wait(() => {
-          fireEvent.submit(getByTestId('updateOrderForm'));
-        });
+        fireEvent.submit(getByTestId('updateOrderForm'));
 
-        expect(container.querySelector('#senderEmail-error')).toHaveTextContent(
-          ERRORS.INVALID_EMAIL
-        );
+        await waitFor(() => {
+          expect(
+            container.querySelector('#senderEmail-error')
+          ).toHaveTextContent(ERRORS.INVALID_EMAIL);
+        });
       });
     });
 
     describe('senderPhone', () => {
       it('should have required error', async () => {
         const { container, getByTestId } = render(<UpdateOrder />);
-        await wait(() => expect(getByTestId('id')).toHaveValue('1'));
+        await waitFor(() => expect(getByTestId('id')).toHaveValue('1'));
 
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         fireEvent.input(container.querySelector('#senderPhone')!, {
@@ -221,13 +221,13 @@ describe('UpdateOrder', () => {
           }
         });
 
-        await wait(() => {
-          fireEvent.submit(getByTestId('updateOrderForm'));
-        });
+        fireEvent.submit(getByTestId('updateOrderForm'));
 
-        expect(container.querySelector('#senderPhone-error')).toHaveTextContent(
-          ERRORS.REQUIRED_FIELD
-        );
+        await waitFor(() => {
+          expect(
+            container.querySelector('#senderPhone-error')
+          ).toHaveTextContent(ERRORS.REQUIRED_FIELD);
+        });
       });
     });
   });
@@ -235,13 +235,13 @@ describe('UpdateOrder', () => {
   describe('Role Client', () => {
     it('should hide client info block', async () => {
       const { getByTestId, container } = render(<UpdateOrder />);
-      await wait(() => expect(getByTestId('id')).toHaveValue('1'));
+      await waitFor(() => expect(getByTestId('id')).toHaveValue('1'));
       expect(container.querySelector('.client-block')).not.toBeInTheDocument();
     });
 
     it('should disable unallowed fields', async () => {
       const { getByTestId, container } = render(<UpdateOrder />);
-      await wait(() => expect(getByTestId('id')).toHaveValue('1'));
+      await waitFor(() => expect(getByTestId('id')).toHaveValue('1'));
       expect(container.querySelector('#deliveryCosts input')).toBeDisabled();
       expect(container.querySelector('#paid input')).toBeDisabled();
       expect(container.querySelector('#paymentDate input')).toBeDisabled();
@@ -263,13 +263,13 @@ describe('UpdateOrder', () => {
 
     it('should not hide client info block', async () => {
       const { getByTestId, container } = render(<UpdateOrder />);
-      await wait(() => expect(getByTestId('id')).toHaveValue('1'));
+      await waitFor(() => expect(getByTestId('id')).toHaveValue('1'));
       expect(container.querySelector('.client-block')).toBeInTheDocument();
     });
 
     it('should enable fields', async () => {
       const { getByTestId, container } = render(<UpdateOrder />);
-      await wait(() => expect(getByTestId('id')).toHaveValue('1'));
+      await waitFor(() => expect(getByTestId('id')).toHaveValue('1'));
       expect(container.querySelector('#deliveryCosts input')).toBeEnabled();
       expect(container.querySelector('#paid input')).toBeEnabled();
       expect(container.querySelector('#paymentDate input')).toBeEnabled();
@@ -282,7 +282,7 @@ describe('UpdateOrder', () => {
   describe('Back', () => {
     it('should call goBack', async () => {
       const { getByTestId } = render(<UpdateOrder />);
-      await wait(() => expect(getByTestId('id')).toHaveValue('1'));
+      await waitFor(() => expect(getByTestId('id')).toHaveValue('1'));
       fireEvent.click(getByTestId('back'));
       expect(useHistoryMock.goBack).toBeCalledTimes(1);
     });
@@ -297,33 +297,33 @@ describe('UpdateOrder', () => {
 
     it('should call ordersClient method', async () => {
       const { getByTestId } = render(<UpdateOrder />);
-      await wait(() => expect(getByTestId('id')).toHaveValue('1'));
+      await waitFor(() => expect(getByTestId('id')).toHaveValue('1'));
 
-      await wait(() => {
-        fireEvent.submit(getByTestId('updateOrderForm'));
-      });
+      fireEvent.submit(getByTestId('updateOrderForm'));
 
-      expect(ordersClient.updateOrderSelf).toBeCalledWith(1, {
-        additionalData: 'test',
-        addressFrom: 'From, 12',
-        addressTo: 'To, 1',
-        cargoName: 'Computers',
-        cargoVolume: null,
-        cargoWeight: 12,
-        cityFrom: 'Kyiv',
-        cityTo: 'Dnipro',
-        comment: 'fragile',
-        deliveryCosts: null,
-        deliveryDate: null,
-        id: 1,
-        invoiceId: null,
-        paid: false,
-        paymentDate: null,
-        senderCompany: 'Computers LTD',
-        senderEmail: 'sender@test.com',
-        senderName: 'Jane Lane',
-        senderPhone: '(123) 121-1212',
-        status: 0
+      await waitFor(() => {
+        expect(ordersClient.updateOrderSelf).toBeCalledWith(1, {
+          additionalData: 'test',
+          addressFrom: 'From, 12',
+          addressTo: 'To, 1',
+          cargoName: 'Computers',
+          cargoVolume: null,
+          cargoWeight: 12,
+          cityFrom: 'Kyiv',
+          cityTo: 'Dnipro',
+          comment: 'fragile',
+          deliveryCosts: null,
+          deliveryDate: null,
+          id: 1,
+          invoiceId: null,
+          paid: false,
+          paymentDate: null,
+          senderCompany: 'Computers LTD',
+          senderEmail: 'sender@test.com',
+          senderName: 'Jane Lane',
+          senderPhone: '(123) 121-1212',
+          status: 0
+        });
       });
     });
 
@@ -350,32 +350,32 @@ describe('UpdateOrder', () => {
       });
 
       const { getByTestId, container } = render(<UpdateOrder />);
-      await wait(() => expect(getByTestId('id')).toHaveValue('1'));
+      await waitFor(() => expect(getByTestId('id')).toHaveValue('1'));
 
-      await wait(() => {
-        fireEvent.submit(getByTestId('updateOrderForm'));
+      fireEvent.submit(getByTestId('updateOrderForm'));
+
+      await waitFor(() => {
+        expect(container.querySelector('#cityFrom-error')).toHaveTextContent(
+          'Error'
+        );
+
+        expect(container.querySelector('#cargoName-error')).toHaveTextContent(
+          'Error'
+        );
+
+        expect(container.querySelector('#senderEmail-error')).toHaveTextContent(
+          'Error'
+        );
       });
-
-      expect(container.querySelector('#cityFrom-error')).toHaveTextContent(
-        'Error'
-      );
-
-      expect(container.querySelector('#cargoName-error')).toHaveTextContent(
-        'Error'
-      );
-
-      expect(container.querySelector('#senderEmail-error')).toHaveTextContent(
-        'Error'
-      );
 
       // should not allow to submit while error is not fixed
       jest.clearAllMocks();
 
-      await wait(() => {
-        fireEvent.submit(getByTestId('updateOrderForm'));
-      });
+      fireEvent.submit(getByTestId('updateOrderForm'));
 
-      expect(ordersClient.updateOrderSelf).toBeCalledTimes(0);
+      await waitFor(() => {
+        expect(ordersClient.updateOrderSelf).toBeCalledTimes(0);
+      });
 
       // should clear api errors
       fireEvent.change(getByTestId('cityFrom'), {
@@ -384,9 +384,11 @@ describe('UpdateOrder', () => {
         }
       });
 
-      expect(
-        container.querySelector('#cityFrom-error')
-      ).not.toBeInTheDocument();
+      await waitFor(() => {
+        expect(
+          container.querySelector('#cityFrom-error')
+        ).not.toBeInTheDocument();
+      });
     });
   });
 });

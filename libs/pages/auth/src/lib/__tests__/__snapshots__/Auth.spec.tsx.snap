@@ -4,7 +4,7 @@ exports[`Auth Page Login should render login form 1`] = `
 <body>
   <div>
     <div
-      class="sc-AykKD AhzHh"
+      class="sc-AxirZ cfJZta"
     >
       <div
         class="login-panel"
@@ -31,7 +31,7 @@ exports[`Auth Page Login should render login form 1`] = `
           </h2>
         </div>
         <div
-          class="sc-AykKC ctaKaJ"
+          class="sc-AxjAm kyfgSK"
         >
           <form
             autocomplete="off"
@@ -117,7 +117,7 @@ exports[`Auth Page Register should render register form 1`] = `
 <body>
   <div>
     <div
-      class="sc-AykKD AhzHh"
+      class="sc-AxirZ cfJZta"
     >
       <div
         class="login-panel"
@@ -144,7 +144,7 @@ exports[`Auth Page Register should render register form 1`] = `
           </h2>
         </div>
         <div
-          class="sc-AykKC ctaKaJ"
+          class="sc-AxjAm kyfgSK"
         >
           <form
             autocomplete="off"
