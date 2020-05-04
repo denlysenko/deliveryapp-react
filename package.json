@@ -24,6 +24,10 @@
     "workspace-schematic": "nx workspace-schematic",
     "dep-graph": "nx dep-graph",
     "help": "nx help",
+    "api-dev:up": "docker-compose -f \"docker-compose.yml\" --env-file .env up -d",
+    "api-dev:down": "docker-compose -f \"docker-compose.yml\" down",
+    "api-test:up": "docker-compose -f \"docker-compose.test.yml\" --env-file .env.testing up -d",
+    "api-test:down": "docker-compose -f \"docker-compose.test.yml\" down",
     "seed:db": "sequelize db:seed:all",
     "clear:db": "sequelize db:seed:undo:all"
   },
