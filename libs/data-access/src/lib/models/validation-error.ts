@@ -4,14 +4,9 @@ export interface ValidationError {
 }
 
 export interface ValidationErrorItem {
-  message: string;
-  type: string;
+  message: string[];
   path: string;
   value: string;
-  origin: string;
-  validatorKey: string;
-  validatorName: string;
-  validatorArgs: string[];
 }
 
 export interface LoginError {

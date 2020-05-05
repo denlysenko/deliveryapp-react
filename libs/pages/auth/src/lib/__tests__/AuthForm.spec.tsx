@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import React from 'react';
-import { render, fireEvent, cleanup, waitFor } from '@testing-library/react';
+import { render, fireEvent, screen, waitFor } from '@testing-library/react';
 
 import { ERRORS } from '@deliveryapp/common';
 import { ValidationError } from '@deliveryapp/data-access';
@@ -19,7 +19,6 @@ const props = {
 
 describe('AuthForm', () => {
   afterEach(() => {
-    cleanup();
     jest.clearAllMocks();
   });
 
@@ -30,38 +29,34 @@ describe('AuthForm', () => {
     });
 
     it('should have Login label on submit button', () => {
-      const { getByTestId } = render(<AuthForm {...props} />);
-      expect(getByTestId('submit')).toHaveTextContent('Login');
+      render(<AuthForm {...props} />);
+      expect(
+        screen.getByRole('button', { name: /login/i })
+      ).toBeInTheDocument();
     });
 
     it('should show error message when error prop passed', async () => {
-      const { container, rerender, getByTestId } = render(
-        <AuthForm {...props} />
-      );
+      const { rerender } = render(<AuthForm {...props} />);
 
-      fireEvent.change(getByTestId('email'), {
+      fireEvent.change(screen.getByTestId('email'), {
         target: {
           value: email
         }
       });
 
-      fireEvent.change(getByTestId('password'), {
+      fireEvent.change(screen.getByTestId('password'), {
         target: {
           value: password
         }
       });
 
-      fireEvent.click(getByTestId('submit'));
-
-      await waitFor(() => {});
+      fireEvent.click(screen.getByTestId('submit'));
 
       const errorMessage = 'Error message';
 
       rerender(<AuthForm {...props} error={{ message: errorMessage }} />);
 
-      expect(container.querySelector('#error-message')).toHaveTextContent(
-        errorMessage
-      );
+      expect(await screen.findByText(errorMessage)).toBeInTheDocument();
     });
   });
 
@@ -74,63 +69,54 @@ describe('AuthForm', () => {
     });
 
     it('should have Register label on submit button', () => {
-      const { getByTestId } = render(
-        <AuthForm {...props} isLoggingIn={false} />
-      );
-      expect(getByTestId('submit')).toHaveTextContent('Register');
+      render(<AuthForm {...props} isLoggingIn={false} />);
+      expect(
+        screen.getByRole('button', { name: /register/i })
+      ).toBeInTheDocument();
     });
 
-    it('should show error messages when error prop passed', async () => {
+    it('should show error messages when error prop passed and hide when input values were changed', async () => {
       const emailErrorMessage = 'Email error';
       const passwordErrorMessage = 'Password error';
 
       const error = {
         errors: [
-          { path: 'email', message: emailErrorMessage },
-          { path: 'password', message: passwordErrorMessage }
+          { path: 'email', message: [emailErrorMessage] },
+          { path: 'password', message: [passwordErrorMessage] }
         ]
       } as ValidationError;
 
-      const { container, getByTestId } = render(
-        <AuthForm {...props} isLoggingIn={false} error={error} />
-      );
+      render(<AuthForm {...props} isLoggingIn={false} error={error} />);
 
-      expect(container.querySelector('#email-error')).toHaveTextContent(
-        emailErrorMessage
-      );
+      expect(screen.getByText(emailErrorMessage)).toBeInTheDocument();
+      expect(screen.getByText(passwordErrorMessage)).toBeInTheDocument();
 
-      expect(container.querySelector('#password-error')).toHaveTextContent(
-        passwordErrorMessage
-      );
-
-      fireEvent.change(getByTestId('email'), {
+      fireEvent.change(screen.getByTestId('email'), {
         target: {
           value: email
         }
       });
 
-      fireEvent.change(getByTestId('password'), {
+      fireEvent.change(screen.getByTestId('password'), {
         target: {
           value: password
         }
       });
 
-      await waitFor(() => {
-        expect(container.querySelector('#email-error')).not.toBeInTheDocument();
+      await waitFor(() =>
+        expect(screen.queryByText(emailErrorMessage)).not.toBeInTheDocument()
+      );
 
-        expect(
-          container.querySelector('#password-error')
-        ).not.toBeInTheDocument();
-      });
+      expect(screen.queryByText(passwordErrorMessage)).not.toBeInTheDocument();
     });
   });
 
   describe('Validations', () => {
     describe('email', () => {
       it('should display required error', async () => {
-        const { getByTestId, container } = render(<AuthForm {...props} />);
+        const { container } = render(<AuthForm {...props} />);
 
-        fireEvent.click(getByTestId('submit'));
+        fireEvent.click(screen.getByTestId('submit'));
 
         await waitFor(() => {
           expect(container.querySelector('#email-error')).toHaveTextContent(
@@ -140,15 +126,15 @@ describe('AuthForm', () => {
       });
 
       it('should display invalid email error', async () => {
-        const { getByTestId, container } = render(<AuthForm {...props} />);
+        const { container } = render(<AuthForm {...props} />);
 
-        fireEvent.change(getByTestId('email'), {
+        fireEvent.change(screen.getByTestId('email'), {
           target: {
             value: 'test'
           }
         });
 
-        fireEvent.click(getByTestId('submit'));
+        fireEvent.click(screen.getByTestId('submit'));
 
         await waitFor(() => {
           expect(container.querySelector('#email-error')).toHaveTextContent(
@@ -158,15 +144,15 @@ describe('AuthForm', () => {
       });
 
       it('should not display any errors', async () => {
-        const { getByTestId, container } = render(<AuthForm {...props} />);
+        const { container } = render(<AuthForm {...props} />);
 
-        fireEvent.change(getByTestId('email'), {
+        fireEvent.change(screen.getByTestId('email'), {
           target: {
             value: email
           }
         });
 
-        fireEvent.click(getByTestId('submit'));
+        fireEvent.click(screen.getByTestId('submit'));
 
         await waitFor(() => {
           expect(
@@ -178,9 +164,9 @@ describe('AuthForm', () => {
 
     describe('password', () => {
       it('should display required error', async () => {
-        const { getByTestId, container } = render(<AuthForm {...props} />);
+        const { container } = render(<AuthForm {...props} />);
 
-        fireEvent.click(getByTestId('submit'));
+        fireEvent.click(screen.getByTestId('submit'));
 
         await waitFor(() => {
           expect(container.querySelector('#password-error')).toHaveTextContent(
@@ -190,15 +176,15 @@ describe('AuthForm', () => {
       });
 
       it('should not display any errors', async () => {
-        const { getByTestId, container } = render(<AuthForm {...props} />);
+        const { container } = render(<AuthForm {...props} />);
 
-        fireEvent.change(getByTestId('password'), {
+        fireEvent.change(screen.getByTestId('password'), {
           target: {
             value: password
           }
         });
 
-        fireEvent.click(getByTestId('submit'));
+        fireEvent.click(screen.getByTestId('submit'));
 
         await waitFor(() => {
           expect(
@@ -209,11 +195,9 @@ describe('AuthForm', () => {
     });
 
     it('should reset errors when isLogginIn prop has changed', async () => {
-      const { getByTestId, container, rerender } = render(
-        <AuthForm {...props} />
-      );
+      const { container, rerender } = render(<AuthForm {...props} />);
 
-      fireEvent.click(getByTestId('submit'));
+      fireEvent.click(screen.getByTestId('submit'));
 
       await waitFor(() => {
         expect(container.querySelector('#email-error')).toHaveTextContent(
@@ -229,38 +213,39 @@ describe('AuthForm', () => {
 
   describe('Submitting', () => {
     it('should call onFormSubmit prop', async () => {
-      const { getByTestId } = render(<AuthForm {...props} />);
+      render(<AuthForm {...props} />);
 
-      fireEvent.change(getByTestId('email'), {
+      fireEvent.change(screen.getByTestId('email'), {
         target: {
           value: email
         }
       });
 
-      fireEvent.change(getByTestId('password'), {
+      fireEvent.change(screen.getByTestId('password'), {
         target: {
           value: password
         }
       });
 
-      fireEvent.click(getByTestId('submit'));
+      fireEvent.click(screen.getByTestId('submit'));
 
       await waitFor(() => {
         expect(props.onFormSubmit).toBeCalledTimes(1);
-        expect(props.onFormSubmit).toBeCalledWith({
-          email,
-          password,
-          company: '',
-          firstName: '',
-          lastName: '',
-          phone: ''
-        });
+      });
+
+      expect(props.onFormSubmit).toBeCalledWith({
+        email,
+        password,
+        company: '',
+        firstName: '',
+        lastName: '',
+        phone: ''
       });
     });
 
     it('should disable button when loading prop passed', async () => {
-      const { getByTestId } = render(<AuthForm {...props} loading={true} />);
-      expect(getByTestId('submit')).toBeDisabled();
+      render(<AuthForm {...props} loading={true} />);
+      expect(screen.getByTestId('submit')).toBeDisabled();
     });
   });
 });

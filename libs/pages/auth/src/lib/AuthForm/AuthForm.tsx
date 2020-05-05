@@ -64,7 +64,7 @@ export const AuthForm: React.FC<AuthFormProps> = ({
       apiErrors: {}
     },
     validationSchema: ValidationSchema,
-    onSubmit: values => {
+    onSubmit: (values) => {
       onFormSubmit(values);
     }
   });
@@ -167,7 +167,7 @@ export const AuthForm: React.FC<AuthFormProps> = ({
                   mask="(999) 999-9999"
                   name="phone"
                   value={formik.values.phone}
-                  onChange={e => formik.setFieldValue('phone', e.value)}
+                  onChange={(e) => formik.setFieldValue('phone', e.value)}
                 />
                 <label htmlFor="phone">Phone</label>
                 <i className="fa fa-phone"></i>

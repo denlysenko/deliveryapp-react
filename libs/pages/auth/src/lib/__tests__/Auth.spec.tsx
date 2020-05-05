@@ -1,11 +1,5 @@
 import React from 'react';
-import {
-  render,
-  cleanup,
-  fireEvent,
-  screen,
-  waitFor
-} from '@testing-library/react';
+import { render, fireEvent, screen, waitFor } from '@testing-library/react';
 
 import { authPayload, useHistoryMock } from '@deliveryapp/testing';
 import { ACCESS_TOKEN } from '@deliveryapp/common';
@@ -41,7 +35,6 @@ describe('Auth Page', () => {
   });
 
   afterEach(() => {
-    cleanup();
     jest.clearAllMocks();
   });
 
@@ -52,69 +45,71 @@ describe('Auth Page', () => {
     });
 
     it('should render correct title', () => {
-      const { getByTestId } = render(<Auth />);
-      expect(getByTestId('title')).toHaveTextContent('Login');
+      render(<Auth />);
+      expect(screen.getByTestId('title')).toHaveTextContent('Login');
     });
 
     it('should render correct toggler', () => {
-      const { getByTestId } = render(<Auth />);
-      expect(getByTestId('mode-toggler')).toHaveTextContent('Register');
+      render(<Auth />);
+      expect(screen.getByTestId('mode-toggler')).toHaveTextContent('Register');
     });
   });
 
   describe('Register', () => {
     it('should render register form', () => {
-      const { baseElement, getByTestId } = render(<Auth />);
-      fireEvent.click(getByTestId('mode-toggler'));
+      const { baseElement } = render(<Auth />);
+      fireEvent.click(screen.getByTestId('mode-toggler'));
       expect(baseElement).toMatchSnapshot();
     });
 
     it('should render correct title', () => {
-      const { getByTestId } = render(<Auth />);
-      fireEvent.click(getByTestId('mode-toggler'));
-      expect(getByTestId('title')).toHaveTextContent('Register');
+      render(<Auth />);
+      fireEvent.click(screen.getByTestId('mode-toggler'));
+      expect(screen.getByTestId('title')).toHaveTextContent('Register');
     });
 
     it('should render correct toggler', () => {
-      const { getByTestId } = render(<Auth />);
-      fireEvent.click(getByTestId('mode-toggler'));
-      expect(getByTestId('mode-toggler')).toHaveTextContent('Login');
+      render(<Auth />);
+      fireEvent.click(screen.getByTestId('mode-toggler'));
+      expect(screen.getByTestId('mode-toggler')).toHaveTextContent('Login');
     });
   });
 
   describe('Submitting', () => {
     it('should login', async () => {
-      const { getByTestId } = render(<Auth />);
+      render(<Auth />);
 
       fillForm();
 
-      fireEvent.click(getByTestId('submit'));
+      fireEvent.click(screen.getByTestId('submit'));
 
       await waitFor(() => {
         expect(authClient.login).toBeCalledTimes(1);
-        expect(authClient.login).toBeCalledWith({ email, password });
       });
+
+      expect(authClient.login).toBeCalledWith({ email, password });
     });
 
     it('should register', async () => {
-      const { getByTestId } = render(<Auth />);
+      render(<Auth />);
 
-      fireEvent.click(getByTestId('mode-toggler'));
+      fireEvent.click(screen.getByTestId('mode-toggler'));
 
       fillForm();
 
-      fireEvent.click(getByTestId('submit'));
+      fireEvent.click(screen.getByTestId('submit'));
 
       await waitFor(() => {
         expect(authClient.register).toBeCalledTimes(1);
-        expect(authClient.register).toBeCalledWith({
-          email,
-          password,
-          company: '',
-          phone: '',
-          firstName: '',
-          lastName: ''
-        });
+      });
+
+      expect(authClient.register).toBeCalledWith({
+        email,
+        password,
+        company: '',
+        phone: '',
+        firstName: '',
+        lastName: ''
       });
     });
 
@@ -124,29 +119,31 @@ describe('Auth Page', () => {
         'setItem'
       );
 
-      const { getByTestId } = render(<Auth />);
+      render(<Auth />);
 
       fillForm();
 
-      fireEvent.click(getByTestId('submit'));
+      fireEvent.click(screen.getByTestId('submit'));
 
       await waitFor(() => {
         expect(localStorageSpy).toBeCalledTimes(1);
-        expect(localStorageSpy).toBeCalledWith(ACCESS_TOKEN, authPayload.token);
       });
+
+      expect(localStorageSpy).toBeCalledWith(ACCESS_TOKEN, authPayload.token);
     });
 
     it('should redirect to /', async () => {
-      const { getByTestId } = render(<Auth />);
+      render(<Auth />);
 
       fillForm();
 
-      fireEvent.click(getByTestId('submit'));
+      fireEvent.click(screen.getByTestId('submit'));
 
       await waitFor(() => {
         expect(useHistoryMock.push).toBeCalledTimes(1);
-        expect(useHistoryMock.push).toBeCalledWith('/');
       });
+
+      expect(useHistoryMock.push).toBeCalledWith('/');
     });
 
     it('should show server errors', async () => {
@@ -162,16 +159,14 @@ describe('Auth Page', () => {
         })
       );
 
-      const { getByTestId, container } = render(<Auth />);
+      render(<Auth />);
 
       fillForm();
 
-      fireEvent.click(getByTestId('submit'));
+      fireEvent.click(screen.getByTestId('submit'));
 
       await waitFor(() => {
-        expect(container.querySelector('#error-message')).toHaveTextContent(
-          errorMessage
-        );
+        expect(screen.getByText(errorMessage)).toBeInTheDocument();
       });
     });
   });

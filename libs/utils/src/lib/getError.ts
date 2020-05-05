@@ -19,7 +19,7 @@ export function getError<T>(
   }
 
   if (apiError) {
-    return apiError;
+    return apiError.join('\n');
   }
 
   return undefined;
