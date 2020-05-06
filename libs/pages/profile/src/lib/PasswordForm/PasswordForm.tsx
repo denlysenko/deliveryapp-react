@@ -41,7 +41,7 @@ export const PasswordForm: React.FC<{}> = () => {
       apiErrors: {}
     },
     validationSchema: ValidationSchema,
-    onSubmit: async values => {
+    onSubmit: async (values) => {
       setLoading(true);
 
       try {

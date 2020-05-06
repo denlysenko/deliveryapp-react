@@ -43,11 +43,11 @@ export const Profile = () => {
 
   const formik = useFormik<ProfileFormValues>({
     initialValues: {
-      firstName: !isNil(user) && !isNil(user.firstName) ? user.firstName : '',
-      lastName: !isNil(user) && !isNil(user.lastName) ? user.lastName : '',
-      email: !isNil(user) ? user.email : '',
-      company: !isNil(user) && !isNil(user.company) ? user.company : '',
-      phone: !isNil(user) && !isNil(user.phone) ? user.phone : '',
+      firstName: !isNil(user!.firstName) ? user!.firstName : '',
+      lastName: !isNil(user!.lastName) ? user!.lastName : '',
+      email: user!.email || '',
+      company: !isNil(user!.company) ? user!.company : '',
+      phone: !isNil(user!.phone) ? user!.phone : '',
       ...(!isNil(user) &&
         user.role === Roles.CLIENT && {
           address: {
@@ -70,14 +70,27 @@ export const Profile = () => {
       apiErrors: {}
     },
     validationSchema: ValidationSchema,
-    onSubmit: async values => {
+    onSubmit: async (values) => {
       setLoading(true);
 
       try {
-        const { data } = await usersClient.updateProfile(values);
+        await usersClient.updateProfile(values);
         dispatch({
           type: AuthActionTypes.USER_LOADED,
-          payload: data
+          payload: {
+            ...user!,
+            ...values,
+            ...(user!.role === Roles.CLIENT && {
+              address: {
+                ...user!.address,
+                ...values.address!
+              },
+              bankDetails: {
+                ...user!.bankDetails,
+                ...values.bankDetails!
+              }
+            })
+          }
         });
         setLoading(false);
         !isNil(growl.current) &&

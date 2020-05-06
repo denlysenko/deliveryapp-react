@@ -1,9 +1,10 @@
 import React from 'react';
-import { render, fireEvent, cleanup, waitFor } from '@testing-library/react';
+
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 
 import { ERRORS } from '@deliveryapp/common';
-import { usersClient } from '@deliveryapp/data-access';
 
+import { usersClient } from '@deliveryapp/data-access';
 import { PasswordForm } from '../PasswordForm/PasswordForm';
 
 const oldPassword = 'oldPassword';
@@ -17,7 +18,6 @@ describe('[Profile] PasswordForm', () => {
   });
 
   afterEach(() => {
-    cleanup();
     jest.clearAllMocks();
   });
 
@@ -29,9 +29,9 @@ describe('[Profile] PasswordForm', () => {
   describe('Validations', () => {
     describe('oldPassword', () => {
       it('should display required error', async () => {
-        const { getByTestId, container } = render(<PasswordForm />);
+        const { container } = render(<PasswordForm />);
 
-        fireEvent.click(getByTestId('change-password'));
+        fireEvent.click(screen.getByTestId('change-password'));
 
         await waitFor(() => {
           expect(
@@ -41,15 +41,15 @@ describe('[Profile] PasswordForm', () => {
       });
 
       it('should not display any errors', async () => {
-        const { getByTestId, container } = render(<PasswordForm />);
+        const { container } = render(<PasswordForm />);
 
-        fireEvent.change(getByTestId('oldPassword'), {
+        fireEvent.change(screen.getByTestId('oldPassword'), {
           target: {
             value: oldPassword
           }
         });
 
-        fireEvent.click(getByTestId('change-password'));
+        fireEvent.click(screen.getByTestId('change-password'));
 
         await waitFor(() => {
           expect(
@@ -61,9 +61,9 @@ describe('[Profile] PasswordForm', () => {
 
     describe('newPassword', () => {
       it('should display required error', async () => {
-        const { getByTestId, container } = render(<PasswordForm />);
+        const { container } = render(<PasswordForm />);
 
-        fireEvent.click(getByTestId('change-password'));
+        fireEvent.click(screen.getByTestId('change-password'));
 
         await waitFor(() => {
           expect(
@@ -73,15 +73,15 @@ describe('[Profile] PasswordForm', () => {
       });
 
       it('should not display any errors', async () => {
-        const { getByTestId, container } = render(<PasswordForm />);
+        const { container } = render(<PasswordForm />);
 
-        fireEvent.change(getByTestId('newPassword'), {
+        fireEvent.change(screen.getByTestId('newPassword'), {
           target: {
             value: newPassword
           }
         });
 
-        fireEvent.click(getByTestId('change-password'));
+        fireEvent.click(screen.getByTestId('change-password'));
 
         await waitFor(() => {
           expect(
@@ -93,9 +93,9 @@ describe('[Profile] PasswordForm', () => {
 
     describe('confirmPassword', () => {
       it('should display required error', async () => {
-        const { getByTestId, container } = render(<PasswordForm />);
+        const { container } = render(<PasswordForm />);
 
-        fireEvent.click(getByTestId('change-password'));
+        fireEvent.click(screen.getByTestId('change-password'));
 
         await waitFor(() => {
           expect(
@@ -105,21 +105,21 @@ describe('[Profile] PasswordForm', () => {
       });
 
       it('should display passwords do not match error', async () => {
-        const { getByTestId, container } = render(<PasswordForm />);
+        const { container } = render(<PasswordForm />);
 
-        fireEvent.change(getByTestId('newPassword'), {
+        fireEvent.change(screen.getByTestId('newPassword'), {
           target: {
             value: newPassword
           }
         });
 
-        fireEvent.change(getByTestId('confirmPassword'), {
+        fireEvent.change(screen.getByTestId('confirmPassword'), {
           target: {
             value: 'wrong'
           }
         });
 
-        fireEvent.click(getByTestId('change-password'));
+        fireEvent.click(screen.getByTestId('change-password'));
 
         await waitFor(() => {
           expect(
@@ -129,21 +129,21 @@ describe('[Profile] PasswordForm', () => {
       });
 
       it('should not display any errors', async () => {
-        const { getByTestId, container } = render(<PasswordForm />);
+        const { container } = render(<PasswordForm />);
 
-        fireEvent.change(getByTestId('newPassword'), {
+        fireEvent.change(screen.getByTestId('newPassword'), {
           target: {
             value: newPassword
           }
         });
 
-        fireEvent.change(getByTestId('confirmPassword'), {
+        fireEvent.change(screen.getByTestId('confirmPassword'), {
           target: {
             value: newPassword
           }
         });
 
-        fireEvent.click(getByTestId('change-password'));
+        fireEvent.click(screen.getByTestId('change-password'));
 
         await waitFor(() => {
           expect(
@@ -156,40 +156,41 @@ describe('[Profile] PasswordForm', () => {
 
   describe('Submitting', () => {
     it('should be successful', async () => {
-      const { getByTestId } = render(<PasswordForm />);
+      render(<PasswordForm />);
 
-      fireEvent.change(getByTestId('oldPassword'), {
+      fireEvent.change(screen.getByTestId('oldPassword'), {
         target: {
           value: oldPassword
         }
       });
 
-      fireEvent.change(getByTestId('newPassword'), {
+      fireEvent.change(screen.getByTestId('newPassword'), {
         target: {
           value: newPassword
         }
       });
 
-      fireEvent.change(getByTestId('confirmPassword'), {
+      fireEvent.change(screen.getByTestId('confirmPassword'), {
         target: {
           value: newPassword
         }
       });
 
-      fireEvent.click(getByTestId('change-password'));
+      fireEvent.click(screen.getByTestId('change-password'));
 
       await waitFor(() => {
         expect(usersClient.updatePassword).toBeCalledTimes(1);
-        expect(usersClient.updatePassword).toBeCalledWith({
-          oldPassword,
-          newPassword
-        });
+      });
+
+      expect(usersClient.updatePassword).toBeCalledWith({
+        oldPassword,
+        newPassword
       });
     });
 
     it('should have error', async () => {
       const error = {
-        errors: [{ path: 'oldPassword', message: 'Error' }]
+        errors: [{ path: 'oldPassword', message: ['Error'] }]
       };
 
       jest.spyOn(usersClient, 'updatePassword').mockImplementationOnce(() =>
@@ -200,35 +201,33 @@ describe('[Profile] PasswordForm', () => {
         })
       );
 
-      const { getByTestId, container } = render(<PasswordForm />);
+      render(<PasswordForm />);
 
-      fireEvent.change(getByTestId('oldPassword'), {
+      fireEvent.change(screen.getByTestId('oldPassword'), {
         target: {
           value: oldPassword
         }
       });
 
-      fireEvent.change(getByTestId('newPassword'), {
+      fireEvent.change(screen.getByTestId('newPassword'), {
         target: {
           value: newPassword
         }
       });
 
-      fireEvent.change(getByTestId('confirmPassword'), {
+      fireEvent.change(screen.getByTestId('confirmPassword'), {
         target: {
           value: newPassword
         }
       });
 
-      fireEvent.click(getByTestId('change-password'));
+      fireEvent.click(screen.getByTestId('change-password'));
 
-      await waitFor(() => {
-        expect(container.querySelector('#oldPassword-error')).toHaveTextContent(
-          error.errors[0].message
-        );
-      });
+      expect(
+        await screen.findByText(error.errors[0].message[0])
+      ).toBeInTheDocument();
 
-      fireEvent.change(getByTestId('oldPassword'), {
+      fireEvent.change(screen.getByTestId('oldPassword'), {
         target: {
           value: 'fixed'
         }
@@ -236,7 +235,7 @@ describe('[Profile] PasswordForm', () => {
 
       await waitFor(() => {
         expect(
-          container.querySelector('#oldPassword-error')
+          screen.queryByText(error.errors[0].message[0])
         ).not.toBeInTheDocument();
       });
     });

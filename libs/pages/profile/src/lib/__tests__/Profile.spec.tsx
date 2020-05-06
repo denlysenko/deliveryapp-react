@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, fireEvent, waitFor, cleanup } from '@testing-library/react';
+import { render, fireEvent, waitFor, screen } from '@testing-library/react';
 
 import { ERRORS, Roles } from '@deliveryapp/common';
 import { AuthProvider, usersClient, useAuth } from '@deliveryapp/data-access';
@@ -21,7 +21,6 @@ describe('Profile page', () => {
 
   afterEach(() => {
     jest.clearAllMocks();
-    cleanup();
   });
 
   it('should render successfully', () => {
@@ -52,19 +51,19 @@ describe('Profile page', () => {
   describe('Validations', () => {
     describe('email', () => {
       it('should display required error', async () => {
-        const { getByTestId, container } = render(
+        const { container } = render(
           <AuthProvider>
             <Profile />
           </AuthProvider>
         );
 
-        fireEvent.change(getByTestId('email'), {
+        fireEvent.change(screen.getByTestId('email'), {
           target: {
             value: ''
           }
         });
 
-        fireEvent.submit(getByTestId('profile-form'));
+        fireEvent.submit(screen.getByTestId('profile-form'));
 
         await waitFor(() => {
           expect(container.querySelector('#email-error')).toHaveTextContent(
@@ -74,19 +73,19 @@ describe('Profile page', () => {
       });
 
       it('should display email error', async () => {
-        const { getByTestId, container } = render(
+        const { container } = render(
           <AuthProvider>
             <Profile />
           </AuthProvider>
         );
 
-        fireEvent.change(getByTestId('email'), {
+        fireEvent.change(screen.getByTestId('email'), {
           target: {
             value: 'test'
           }
         });
 
-        fireEvent.submit(getByTestId('profile-form'));
+        fireEvent.submit(screen.getByTestId('profile-form'));
 
         await waitFor(() => {
           expect(container.querySelector('#email-error')).toHaveTextContent(
@@ -96,13 +95,13 @@ describe('Profile page', () => {
       });
 
       it('should not display any errors', async () => {
-        const { getByTestId, container } = render(
+        const { container } = render(
           <AuthProvider>
             <Profile />
           </AuthProvider>
         );
 
-        fireEvent.submit(getByTestId('profile-form'));
+        fireEvent.submit(screen.getByTestId('profile-form'));
 
         await waitFor(() => {
           expect(
@@ -120,65 +119,66 @@ describe('Profile page', () => {
       const country = 'Ukraine';
       const name = 'The Bank';
 
-      const { getByTestId } = render(
+      render(
         <AuthProvider>
           <Profile />
         </AuthProvider>
       );
 
-      fireEvent.change(getByTestId('firstName'), {
+      fireEvent.change(screen.getByTestId('firstName'), {
         target: {
           value: 'John'
         }
       });
 
-      fireEvent.change(getByTestId('lastName'), {
+      fireEvent.change(screen.getByTestId('lastName'), {
         target: {
           value: 'Doe'
         }
       });
 
-      fireEvent.change(getByTestId('country'), {
+      fireEvent.change(screen.getByTestId('country'), {
         target: {
           value: 'Ukraine'
         }
       });
 
-      fireEvent.change(getByTestId('name'), {
+      fireEvent.change(screen.getByTestId('name'), {
         target: {
           value: 'The Bank'
         }
       });
 
-      fireEvent.submit(getByTestId('profile-form'));
+      fireEvent.submit(screen.getByTestId('profile-form'));
 
       const { id, role, ...rest } = user;
 
       await waitFor(() => {
         expect(usersClient.updateProfile).toBeCalledTimes(1);
-        expect(usersClient.updateProfile).toBeCalledWith({
-          ...rest,
-          firstName,
-          lastName,
-          address: {
-            city: '',
-            country,
-            house: '',
-            street: ''
-          },
-          bankDetails: {
-            accountNumber: '',
-            bin: '',
-            name,
-            swift: ''
-          }
-        });
+      });
+
+      expect(usersClient.updateProfile).toBeCalledWith({
+        ...rest,
+        firstName,
+        lastName,
+        address: {
+          city: '',
+          country,
+          house: '',
+          street: ''
+        },
+        bankDetails: {
+          accountNumber: '',
+          bin: '',
+          name,
+          swift: ''
+        }
       });
     });
 
     it('should have API error', async () => {
       const error = {
-        errors: [{ path: 'email', message: 'Error' }]
+        errors: [{ path: 'email', message: ['Error'] }]
       };
 
       jest.spyOn(usersClient, 'updateProfile').mockImplementationOnce(() =>
@@ -189,28 +189,28 @@ describe('Profile page', () => {
         })
       );
 
-      const { getByTestId, container } = render(
+      render(
         <AuthProvider>
           <Profile />
         </AuthProvider>
       );
 
-      fireEvent.submit(getByTestId('profile-form'));
+      fireEvent.submit(screen.getByTestId('profile-form'));
 
-      await waitFor(() => {
-        expect(container.querySelector('#email-error')).toHaveTextContent(
-          error.errors[0].message
-        );
-      });
+      expect(
+        await screen.findByText(error.errors[0].message[0])
+      ).toBeInTheDocument();
 
-      fireEvent.change(getByTestId('email'), {
+      fireEvent.change(screen.getByTestId('email'), {
         target: {
           value: 'fixed@test.com'
         }
       });
 
       await waitFor(() => {
-        expect(container.querySelector('#email-error')).not.toBeInTheDocument();
+        expect(
+          screen.queryByText(error.errors[0].message[0])
+        ).not.toBeInTheDocument();
       });
     });
   });
