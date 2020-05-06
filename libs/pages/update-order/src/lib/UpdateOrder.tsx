@@ -77,7 +77,7 @@ export const UpdateOrder = () => {
       apiErrors: {}
     },
     validationSchema: ValidationSchema,
-    onSubmit: async values => {
+    onSubmit: async (values) => {
       if (!isEmpty(formik.status.apiErrors)) {
         return;
       }
@@ -86,7 +86,7 @@ export const UpdateOrder = () => {
 
       try {
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        await ordersClient.updateOrderSelf(values.id!, values);
+        await ordersClient.updateOrder(values.id!, values);
         setPending(false);
         !isNil(growl.current) &&
           growl.current.show({
@@ -105,12 +105,12 @@ export const UpdateOrder = () => {
     setLoading(true);
 
     ordersClient
-      .getOrdersSelf({ 'filter[id]': parseInt(id, 10) })
+      .getOrder(parseInt(id, 10))
       .then(({ data }) => {
         if (isMounted.current) {
           setLoading(false);
 
-          if (!isNil(data.rows[0])) {
+          if (!isNil(data)) {
             const {
               createdAt,
               updatedAt,
@@ -121,7 +121,7 @@ export const UpdateOrder = () => {
               client,
               payment,
               ...rest
-            } = data.rows[0];
+            } = data;
 
             formik.setValues(rest);
             setCreateDate(createdAt);
@@ -136,7 +136,7 @@ export const UpdateOrder = () => {
         }
       })
       .catch(() => {
-        setLoading(false);
+        history.push('/orders/create');
       });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);

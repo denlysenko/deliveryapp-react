@@ -7,15 +7,13 @@
     "project": "./tsconfig.json"
   },
   "ignorePatterns": ["**/*"],
-  "plugins": ["@typescript-eslint", "@nrwl/nx"],
+  "plugins": ["@typescript-eslint", "@nrwl/nx", "testing-library", "jest-dom"],
   "extends": [
     "eslint:recommended",
     "plugin:@typescript-eslint/eslint-recommended",
     "plugin:@typescript-eslint/recommended",
     "prettier",
-    "prettier/@typescript-eslint",
-    "testing-library",
-    "jest-dom"
+    "prettier/@typescript-eslint"
   ],
   "rules": {
     "@typescript-eslint/explicit-member-accessibility": "off",

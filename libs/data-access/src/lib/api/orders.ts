@@ -16,6 +16,10 @@ export function getOrders(
   return apiClient.get('/orders', query);
 }
 
+export function getOrder(id: number): Promise<{ data: Order }> {
+  return apiClient.get(`/orders/${id}`);
+}
+
 export function updateOrder(
   id: number,
   order: UpdateOrderDTO

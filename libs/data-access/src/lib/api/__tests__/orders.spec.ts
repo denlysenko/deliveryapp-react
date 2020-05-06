@@ -5,7 +5,7 @@ import {
   savedOrder
 } from '@deliveryapp/testing';
 
-import { createOrder, updateOrder } from '../orders';
+import { createOrder, updateOrder, getOrder } from '../orders';
 
 describe('API Orders', () => {
   afterEach(() => {
@@ -78,5 +78,36 @@ describe('API Orders', () => {
     });
   });
 
-  // TODO: add tests for getOrdersSelf
+  describe('getOrder', () => {
+    beforeEach(() => {
+      jest.spyOn(apiClient, 'get').mockResolvedValue({ data: savedOrder });
+    });
+
+    it('should send GET request', () => {
+      getOrder(1);
+      expect(apiClient.get).toBeCalledWith('/orders/1');
+    });
+
+    it('should return order', async () => {
+      expect(await getOrder(1)).toEqual({
+        data: savedOrder
+      });
+    });
+
+    it('should return error if updating failed', async () => {
+      const error = { message: 'Error' };
+
+      jest
+        .spyOn(apiClient, 'get')
+        .mockImplementation(() => Promise.reject(error));
+
+      try {
+        await getOrder(1);
+      } catch (err) {
+        expect(err).toEqual(error);
+      }
+    });
+  });
+
+  // TODO: add tests for getOrders
 });

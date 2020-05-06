@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, cleanup, waitFor, fireEvent } from '@testing-library/react';
+import { render, waitFor, fireEvent, screen } from '@testing-library/react';
 
 import { ERRORS, Roles } from '@deliveryapp/common';
 import { ordersClient, useAuth } from '@deliveryapp/data-access';
@@ -19,38 +19,34 @@ jest.mock('@deliveryapp/data-access', () => ({
 
 describe('UpdateOrder', () => {
   beforeEach(() => {
-    jest.spyOn(ordersClient, 'getOrdersSelf').mockResolvedValue({
-      data: {
-        count: 1,
-        rows: [savedOrder]
-      }
+    jest.spyOn(ordersClient, 'getOrder').mockResolvedValue({
+      data: savedOrder
     });
   });
 
   afterEach(() => {
-    cleanup();
     jest.clearAllMocks();
   });
 
   it('should render successfully with data', async () => {
-    const { baseElement, getByTestId } = render(<UpdateOrder />);
-    await waitFor(() => expect(getByTestId('id')).toHaveValue('1'));
-    expect(baseElement).toMatchSnapshot();
+    const { baseElement } = render(<UpdateOrder />);
+    await waitFor(() => expect(screen.getByTestId('id')).toHaveValue('1'));
+    expect(baseElement).toBeTruthy();
   });
 
   describe('Validations', () => {
     describe('cargoName', () => {
       it('should have required error', async () => {
-        const { container, getByTestId } = render(<UpdateOrder />);
-        await waitFor(() => expect(getByTestId('id')).toHaveValue('1'));
+        const { container } = render(<UpdateOrder />);
+        await waitFor(() => expect(screen.getByTestId('id')).toHaveValue('1'));
 
-        fireEvent.change(getByTestId('cargoName'), {
+        fireEvent.change(screen.getByTestId('cargoName'), {
           target: {
             value: ''
           }
         });
 
-        fireEvent.submit(getByTestId('updateOrderForm'));
+        fireEvent.submit(screen.getByTestId('updateOrderForm'));
 
         await waitFor(() => {
           expect(container.querySelector('#cargoName-error')).toHaveTextContent(
@@ -62,11 +58,10 @@ describe('UpdateOrder', () => {
 
     describe('cargoWeight', () => {
       it('should have required error', async () => {
-        const { container, getByTestId } = render(<UpdateOrder />);
-        await waitFor(() => expect(getByTestId('id')).toHaveValue('1'));
+        const { container } = render(<UpdateOrder />);
+        await waitFor(() => expect(screen.getByTestId('id')).toHaveValue('1'));
 
         fireEvent.change(
-          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
           container.querySelector('#cargoWeight')?.querySelector('input')!,
           {
             target: {
@@ -75,7 +70,7 @@ describe('UpdateOrder', () => {
           }
         );
 
-        fireEvent.submit(getByTestId('updateOrderForm'));
+        fireEvent.submit(screen.getByTestId('updateOrderForm'));
 
         await waitFor(() => {
           expect(
@@ -87,16 +82,16 @@ describe('UpdateOrder', () => {
 
     describe('cityFrom', () => {
       it('should have required error', async () => {
-        const { container, getByTestId } = render(<UpdateOrder />);
-        await waitFor(() => expect(getByTestId('id')).toHaveValue('1'));
+        const { container } = render(<UpdateOrder />);
+        await waitFor(() => expect(screen.getByTestId('id')).toHaveValue('1'));
 
-        fireEvent.change(getByTestId('cityFrom'), {
+        fireEvent.change(screen.getByTestId('cityFrom'), {
           target: {
             value: ''
           }
         });
 
-        fireEvent.submit(getByTestId('updateOrderForm'));
+        fireEvent.submit(screen.getByTestId('updateOrderForm'));
 
         await waitFor(() => {
           expect(container.querySelector('#cityFrom-error')).toHaveTextContent(
@@ -108,16 +103,16 @@ describe('UpdateOrder', () => {
 
     describe('cityTo', () => {
       it('should have required error', async () => {
-        const { container, getByTestId } = render(<UpdateOrder />);
-        await waitFor(() => expect(getByTestId('id')).toHaveValue('1'));
+        const { container } = render(<UpdateOrder />);
+        await waitFor(() => expect(screen.getByTestId('id')).toHaveValue('1'));
 
-        fireEvent.change(getByTestId('cityTo'), {
+        fireEvent.change(screen.getByTestId('cityTo'), {
           target: {
             value: ''
           }
         });
 
-        fireEvent.submit(getByTestId('updateOrderForm'));
+        fireEvent.submit(screen.getByTestId('updateOrderForm'));
 
         await waitFor(() => {
           expect(container.querySelector('#cityTo-error')).toHaveTextContent(
@@ -129,16 +124,16 @@ describe('UpdateOrder', () => {
 
     describe('addressFrom', () => {
       it('should have required error', async () => {
-        const { container, getByTestId } = render(<UpdateOrder />);
-        await waitFor(() => expect(getByTestId('id')).toHaveValue('1'));
+        const { container } = render(<UpdateOrder />);
+        await waitFor(() => expect(screen.getByTestId('id')).toHaveValue('1'));
 
-        fireEvent.change(getByTestId('addressFrom'), {
+        fireEvent.change(screen.getByTestId('addressFrom'), {
           target: {
             value: ''
           }
         });
 
-        fireEvent.submit(getByTestId('updateOrderForm'));
+        fireEvent.submit(screen.getByTestId('updateOrderForm'));
 
         await waitFor(() => {
           expect(
@@ -150,16 +145,16 @@ describe('UpdateOrder', () => {
 
     describe('addressTo', () => {
       it('should have required error', async () => {
-        const { container, getByTestId } = render(<UpdateOrder />);
-        await waitFor(() => expect(getByTestId('id')).toHaveValue('1'));
+        const { container } = render(<UpdateOrder />);
+        await waitFor(() => expect(screen.getByTestId('id')).toHaveValue('1'));
 
-        fireEvent.change(getByTestId('addressTo'), {
+        fireEvent.change(screen.getByTestId('addressTo'), {
           target: {
             value: ''
           }
         });
 
-        fireEvent.submit(getByTestId('updateOrderForm'));
+        fireEvent.submit(screen.getByTestId('updateOrderForm'));
 
         await waitFor(() => {
           expect(container.querySelector('#addressTo-error')).toHaveTextContent(
@@ -171,16 +166,16 @@ describe('UpdateOrder', () => {
 
     describe('senderEmail', () => {
       it('should have required error', async () => {
-        const { container, getByTestId } = render(<UpdateOrder />);
-        await waitFor(() => expect(getByTestId('id')).toHaveValue('1'));
+        const { container } = render(<UpdateOrder />);
+        await waitFor(() => expect(screen.getByTestId('id')).toHaveValue('1'));
 
-        fireEvent.change(getByTestId('senderEmail'), {
+        fireEvent.change(screen.getByTestId('senderEmail'), {
           target: {
             value: ''
           }
         });
 
-        fireEvent.submit(getByTestId('updateOrderForm'));
+        fireEvent.submit(screen.getByTestId('updateOrderForm'));
 
         await waitFor(() => {
           expect(
@@ -190,16 +185,16 @@ describe('UpdateOrder', () => {
       });
 
       it('should have email error', async () => {
-        const { container, getByTestId } = render(<UpdateOrder />);
-        await waitFor(() => expect(getByTestId('id')).toHaveValue('1'));
+        const { container } = render(<UpdateOrder />);
+        await waitFor(() => expect(screen.getByTestId('id')).toHaveValue('1'));
 
-        fireEvent.change(getByTestId('senderEmail'), {
+        fireEvent.change(screen.getByTestId('senderEmail'), {
           target: {
             value: 'invalid'
           }
         });
 
-        fireEvent.submit(getByTestId('updateOrderForm'));
+        fireEvent.submit(screen.getByTestId('updateOrderForm'));
 
         await waitFor(() => {
           expect(
@@ -211,17 +206,16 @@ describe('UpdateOrder', () => {
 
     describe('senderPhone', () => {
       it('should have required error', async () => {
-        const { container, getByTestId } = render(<UpdateOrder />);
-        await waitFor(() => expect(getByTestId('id')).toHaveValue('1'));
+        const { container } = render(<UpdateOrder />);
+        await waitFor(() => expect(screen.getByTestId('id')).toHaveValue('1'));
 
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         fireEvent.input(container.querySelector('#senderPhone')!, {
           target: {
             value: ''
           }
         });
 
-        fireEvent.submit(getByTestId('updateOrderForm'));
+        fireEvent.submit(screen.getByTestId('updateOrderForm'));
 
         await waitFor(() => {
           expect(
@@ -234,18 +228,18 @@ describe('UpdateOrder', () => {
 
   describe('Role Client', () => {
     it('should hide client info block', async () => {
-      const { getByTestId, container } = render(<UpdateOrder />);
-      await waitFor(() => expect(getByTestId('id')).toHaveValue('1'));
+      const { container } = render(<UpdateOrder />);
+      await waitFor(() => expect(screen.getByTestId('id')).toHaveValue('1'));
       expect(container.querySelector('.client-block')).not.toBeInTheDocument();
     });
 
     it('should disable unallowed fields', async () => {
-      const { getByTestId, container } = render(<UpdateOrder />);
-      await waitFor(() => expect(getByTestId('id')).toHaveValue('1'));
+      const { container } = render(<UpdateOrder />);
+      await waitFor(() => expect(screen.getByTestId('id')).toHaveValue('1'));
       expect(container.querySelector('#deliveryCosts input')).toBeDisabled();
       expect(container.querySelector('#paid input')).toBeDisabled();
       expect(container.querySelector('#paymentDate input')).toBeDisabled();
-      expect(getByTestId('invoiceId')).toBeDisabled();
+      expect(screen.getByTestId('invoiceId')).toBeDisabled();
       expect(container.querySelector('#status input')).toBeDisabled();
       expect(container.querySelector('#deliveryDate input')).toBeDisabled();
     });
@@ -262,18 +256,18 @@ describe('UpdateOrder', () => {
     });
 
     it('should not hide client info block', async () => {
-      const { getByTestId, container } = render(<UpdateOrder />);
-      await waitFor(() => expect(getByTestId('id')).toHaveValue('1'));
+      const { container } = render(<UpdateOrder />);
+      await waitFor(() => expect(screen.getByTestId('id')).toHaveValue('1'));
       expect(container.querySelector('.client-block')).toBeInTheDocument();
     });
 
     it('should enable fields', async () => {
-      const { getByTestId, container } = render(<UpdateOrder />);
-      await waitFor(() => expect(getByTestId('id')).toHaveValue('1'));
+      const { container } = render(<UpdateOrder />);
+      await waitFor(() => expect(screen.getByTestId('id')).toHaveValue('1'));
       expect(container.querySelector('#deliveryCosts input')).toBeEnabled();
       expect(container.querySelector('#paid input')).toBeEnabled();
       expect(container.querySelector('#paymentDate input')).toBeEnabled();
-      expect(getByTestId('invoiceId')).toBeEnabled();
+      expect(screen.getByTestId('invoiceId')).toBeEnabled();
       expect(container.querySelector('#status input')).toBeEnabled();
       expect(container.querySelector('#deliveryDate input')).toBeEnabled();
     });
@@ -281,28 +275,28 @@ describe('UpdateOrder', () => {
 
   describe('Back', () => {
     it('should call goBack', async () => {
-      const { getByTestId } = render(<UpdateOrder />);
-      await waitFor(() => expect(getByTestId('id')).toHaveValue('1'));
-      fireEvent.click(getByTestId('back'));
+      render(<UpdateOrder />);
+      await waitFor(() => expect(screen.getByTestId('id')).toHaveValue('1'));
+      fireEvent.click(screen.getByTestId('back'));
       expect(useHistoryMock.goBack).toBeCalledTimes(1);
     });
   });
 
   describe('Submitting', () => {
     beforeEach(() => {
-      jest.spyOn(ordersClient, 'updateOrderSelf').mockResolvedValue({
-        data: savedOrder
+      jest.spyOn(ordersClient, 'updateOrder').mockResolvedValue({
+        data: { id: savedOrder.id }
       });
     });
 
     it('should call ordersClient method', async () => {
-      const { getByTestId } = render(<UpdateOrder />);
-      await waitFor(() => expect(getByTestId('id')).toHaveValue('1'));
+      render(<UpdateOrder />);
+      await waitFor(() => expect(screen.getByTestId('id')).toHaveValue('1'));
 
-      fireEvent.submit(getByTestId('updateOrderForm'));
+      fireEvent.submit(screen.getByTestId('updateOrderForm'));
 
       await waitFor(() => {
-        expect(ordersClient.updateOrderSelf).toBeCalledWith(1, {
+        expect(ordersClient.updateOrder).toBeCalledWith(1, {
           additionalData: 'test',
           addressFrom: 'From, 12',
           addressTo: 'To, 1',
@@ -328,57 +322,57 @@ describe('UpdateOrder', () => {
     });
 
     it('should handle API errors and not allow to submit', async () => {
-      jest.spyOn(ordersClient, 'updateOrderSelf').mockRejectedValueOnce({
+      jest.spyOn(ordersClient, 'updateOrder').mockRejectedValueOnce({
         response: {
           data: {
             errors: [
               {
                 path: 'cityFrom',
-                message: 'Error'
+                message: ['Error']
               },
               {
                 path: 'cargoName',
-                message: 'Error'
+                message: ['Error']
               },
               {
                 path: 'senderEmail',
-                message: 'Error'
+                message: ['Error']
               }
             ]
           }
         }
       });
 
-      const { getByTestId, container } = render(<UpdateOrder />);
-      await waitFor(() => expect(getByTestId('id')).toHaveValue('1'));
+      const { container } = render(<UpdateOrder />);
+      await waitFor(() => expect(screen.getByTestId('id')).toHaveValue('1'));
 
-      fireEvent.submit(getByTestId('updateOrderForm'));
+      fireEvent.submit(screen.getByTestId('updateOrderForm'));
 
       await waitFor(() => {
         expect(container.querySelector('#cityFrom-error')).toHaveTextContent(
           'Error'
         );
-
-        expect(container.querySelector('#cargoName-error')).toHaveTextContent(
-          'Error'
-        );
-
-        expect(container.querySelector('#senderEmail-error')).toHaveTextContent(
-          'Error'
-        );
       });
+
+      expect(container.querySelector('#cargoName-error')).toHaveTextContent(
+        'Error'
+      );
+
+      expect(container.querySelector('#senderEmail-error')).toHaveTextContent(
+        'Error'
+      );
 
       // should not allow to submit while error is not fixed
       jest.clearAllMocks();
 
-      fireEvent.submit(getByTestId('updateOrderForm'));
+      fireEvent.submit(screen.getByTestId('updateOrderForm'));
 
       await waitFor(() => {
-        expect(ordersClient.updateOrderSelf).toBeCalledTimes(0);
+        expect(ordersClient.updateOrder).toBeCalledTimes(0);
       });
 
       // should clear api errors
-      fireEvent.change(getByTestId('cityFrom'), {
+      fireEvent.change(screen.getByTestId('cityFrom'), {
         target: {
           value: 'changed'
         }
