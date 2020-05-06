@@ -58,7 +58,7 @@ export const CreateOrder = () => {
       apiErrors: {}
     },
     validationSchema: ValidationSchema,
-    onSubmit: async values => {
+    onSubmit: async (values) => {
       if (!isNil(formik.status.apiErrors[steps[activeIndex]])) {
         return;
       }
@@ -72,7 +72,7 @@ export const CreateOrder = () => {
       setLoading(true);
 
       try {
-        await ordersClient.createOrderSelf(order);
+        await ordersClient.createOrder(order);
         history.push('/orders');
       } catch (error) {
         setLoading(false);

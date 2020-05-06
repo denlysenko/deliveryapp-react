@@ -4,21 +4,21 @@ import { Order, CreateOrderDTO, UpdateOrderDTO } from '../models/order';
 import { ListResponse } from '../models/list-response';
 import { OrdersFilter } from '../models/orders-filter';
 
-export function createOrderSelf(
+export function createOrder(
   order: CreateOrderDTO
-): Promise<{ data: Order }> {
-  return apiClient.post('/users/self/orders', order);
+): Promise<{ data: { id: number } }> {
+  return apiClient.post('/orders', order);
 }
 
-export function getOrdersSelf(
+export function getOrders(
   query: OrdersFilter
 ): Promise<{ data: ListResponse<Order> }> {
-  return apiClient.get('/users/self/orders', query);
+  return apiClient.get('/orders', query);
 }
 
-export function updateOrderSelf(
+export function updateOrder(
   id: number,
   order: UpdateOrderDTO
-): Promise<{ data: Order }> {
-  return apiClient.patch(`/users/self/orders/${id}`, order);
+): Promise<{ data: { id: number } }> {
+  return apiClient.patch(`/orders/${id}`, order);
 }

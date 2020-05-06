@@ -1,12 +1,5 @@
-/* eslint-disable @typescript-eslint/no-empty-function */
 import React from 'react';
-import {
-  render,
-  fireEvent,
-  waitFor,
-  screen,
-  cleanup
-} from '@testing-library/react';
+import { render, fireEvent, waitFor, screen } from '@testing-library/react';
 
 import { ERRORS } from '@deliveryapp/common';
 import { ordersClient } from '@deliveryapp/data-access';
@@ -48,7 +41,6 @@ const fillCargoForm = (container: HTMLElement) => {
   });
 
   fireEvent.change(
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     container.querySelector('#cargoWeight')?.querySelector('input')!,
     {
       target: {
@@ -79,7 +71,6 @@ jest.mock('react-router-dom', () => ({
 
 describe('CreateOrder', () => {
   afterEach(() => {
-    cleanup();
     jest.clearAllMocks();
   });
 
@@ -92,9 +83,9 @@ describe('CreateOrder', () => {
     describe('Validations', () => {
       describe('cityFrom', () => {
         it('should display required error', async () => {
-          const { getByTestId, container } = render(<CreateOrder />);
+          const { container } = render(<CreateOrder />);
 
-          fireEvent.click(getByTestId('next'));
+          fireEvent.click(screen.getByTestId('next'));
 
           await waitFor(() => {
             expect(
@@ -104,15 +95,15 @@ describe('CreateOrder', () => {
         });
 
         it('should not display required error', async () => {
-          const { getByTestId, container } = render(<CreateOrder />);
+          const { container } = render(<CreateOrder />);
 
-          fireEvent.change(getByTestId('cityFrom'), {
+          fireEvent.change(screen.getByTestId('cityFrom'), {
             target: {
               value: 'test'
             }
           });
 
-          fireEvent.click(getByTestId('next'));
+          fireEvent.click(screen.getByTestId('next'));
 
           await waitFor(() => {
             expect(
@@ -124,9 +115,9 @@ describe('CreateOrder', () => {
 
       describe('cityTo', () => {
         it('should display required error', async () => {
-          const { getByTestId, container } = render(<CreateOrder />);
+          const { container } = render(<CreateOrder />);
 
-          fireEvent.click(getByTestId('next'));
+          fireEvent.click(screen.getByTestId('next'));
 
           await waitFor(() => {
             expect(container.querySelector('#cityTo-error')).toHaveTextContent(
@@ -136,15 +127,15 @@ describe('CreateOrder', () => {
         });
 
         it('should not display required error', async () => {
-          const { getByTestId, container } = render(<CreateOrder />);
+          const { container } = render(<CreateOrder />);
 
-          fireEvent.change(getByTestId('cityTo'), {
+          fireEvent.change(screen.getByTestId('cityTo'), {
             target: {
               value: 'test'
             }
           });
 
-          fireEvent.click(getByTestId('next'));
+          fireEvent.click(screen.getByTestId('next'));
 
           await waitFor(() => {
             expect(
@@ -156,9 +147,9 @@ describe('CreateOrder', () => {
 
       describe('addressFrom', () => {
         it('should display required error', async () => {
-          const { getByTestId, container } = render(<CreateOrder />);
+          const { container } = render(<CreateOrder />);
 
-          fireEvent.click(getByTestId('next'));
+          fireEvent.click(screen.getByTestId('next'));
 
           await waitFor(() => {
             expect(
@@ -168,15 +159,15 @@ describe('CreateOrder', () => {
         });
 
         it('should not display required error', async () => {
-          const { getByTestId, container } = render(<CreateOrder />);
+          const { container } = render(<CreateOrder />);
 
-          fireEvent.change(getByTestId('addressFrom'), {
+          fireEvent.change(screen.getByTestId('addressFrom'), {
             target: {
               value: 'test'
             }
           });
 
-          fireEvent.click(getByTestId('next'));
+          fireEvent.click(screen.getByTestId('next'));
 
           await waitFor(() => {
             expect(
@@ -188,9 +179,9 @@ describe('CreateOrder', () => {
 
       describe('addressTo', () => {
         it('should display required error', async () => {
-          const { getByTestId, container } = render(<CreateOrder />);
+          const { container } = render(<CreateOrder />);
 
-          fireEvent.click(getByTestId('next'));
+          fireEvent.click(screen.getByTestId('next'));
 
           await waitFor(() => {
             expect(
@@ -200,15 +191,15 @@ describe('CreateOrder', () => {
         });
 
         it('should not display required error', async () => {
-          const { getByTestId, container } = render(<CreateOrder />);
+          const { container } = render(<CreateOrder />);
 
-          fireEvent.change(getByTestId('addressTo'), {
+          fireEvent.change(screen.getByTestId('addressTo'), {
             target: {
               value: 'test'
             }
           });
 
-          fireEvent.click(getByTestId('next'));
+          fireEvent.click(screen.getByTestId('next'));
 
           await waitFor(() => {
             expect(
@@ -221,9 +212,9 @@ describe('CreateOrder', () => {
 
     describe('Next step', () => {
       it('should not move to CargoForm if current form is invalid', async () => {
-        const { getByTestId, container } = render(<CreateOrder />);
+        const { container } = render(<CreateOrder />);
 
-        fireEvent.click(getByTestId('next'));
+        fireEvent.click(screen.getByTestId('next'));
 
         await waitFor(() => {
           expect(container.querySelector('.p-steps-current')).toContainHTML(
@@ -233,11 +224,11 @@ describe('CreateOrder', () => {
       });
 
       it('should move to CargoForm if current form is valid', async () => {
-        const { getByTestId, container } = render(<CreateOrder />);
+        const { container } = render(<CreateOrder />);
 
         fillDestinationForm();
 
-        fireEvent.click(getByTestId('next'));
+        fireEvent.click(screen.getByTestId('next'));
 
         await waitFor(() => {
           expect(container.querySelector('.p-steps-current')).toContainHTML(
@@ -248,14 +239,18 @@ describe('CreateOrder', () => {
     });
   });
 
-  describe('CargoFrom', () => {
+  describe('CargoForm', () => {
     it('should render successfully', async () => {
-      const { baseElement, getByTestId } = render(<CreateOrder />);
+      const { baseElement, container } = render(<CreateOrder />);
       fillDestinationForm();
 
-      fireEvent.click(getByTestId('next'));
+      fireEvent.click(screen.getByTestId('next'));
 
-      await waitFor(() => {});
+      await waitFor(() => {
+        expect(container.querySelector('.p-steps-current')).toContainHTML(
+          'Cargo'
+        );
+      });
 
       expect(baseElement).toMatchSnapshot();
     });
@@ -263,14 +258,18 @@ describe('CreateOrder', () => {
     describe('Validations', () => {
       describe('cargoName', () => {
         it('should display required error', async () => {
-          const { container, getByTestId } = render(<CreateOrder />);
+          const { container } = render(<CreateOrder />);
           fillDestinationForm();
 
-          fireEvent.click(getByTestId('next'));
+          fireEvent.click(screen.getByTestId('next'));
 
-          await waitFor(() => {});
+          await waitFor(() => {
+            expect(container.querySelector('.p-steps-current')).toContainHTML(
+              'Cargo'
+            );
+          });
 
-          fireEvent.click(getByTestId('next'));
+          fireEvent.click(screen.getByTestId('next'));
 
           await waitFor(() => {
             expect(
@@ -280,20 +279,24 @@ describe('CreateOrder', () => {
         });
 
         it('should not display required error', async () => {
-          const { container, getByTestId } = render(<CreateOrder />);
+          const { container } = render(<CreateOrder />);
           fillDestinationForm();
 
-          fireEvent.click(getByTestId('next'));
+          fireEvent.click(screen.getByTestId('next'));
 
-          await waitFor(() => {});
+          await waitFor(() => {
+            expect(container.querySelector('.p-steps-current')).toContainHTML(
+              'Cargo'
+            );
+          });
 
-          fireEvent.change(getByTestId('cargoName'), {
+          fireEvent.change(screen.getByTestId('cargoName'), {
             target: {
               value: 'test'
             }
           });
 
-          fireEvent.click(getByTestId('next'));
+          fireEvent.click(screen.getByTestId('next'));
 
           await waitFor(() => {
             expect(
@@ -305,14 +308,18 @@ describe('CreateOrder', () => {
 
       describe('cargoWeight', () => {
         it('should display number error', async () => {
-          const { container, getByTestId } = render(<CreateOrder />);
+          const { container } = render(<CreateOrder />);
           fillDestinationForm();
 
-          fireEvent.click(getByTestId('next'));
+          fireEvent.click(screen.getByTestId('next'));
 
-          await waitFor(() => {});
+          await waitFor(() => {
+            expect(container.querySelector('.p-steps-current')).toContainHTML(
+              'Cargo'
+            );
+          });
 
-          fireEvent.click(getByTestId('next'));
+          fireEvent.click(screen.getByTestId('next'));
 
           await waitFor(() => {
             expect(
@@ -322,15 +329,18 @@ describe('CreateOrder', () => {
         });
 
         it('should not display required error', async () => {
-          const { container, getByTestId } = render(<CreateOrder />);
+          const { container } = render(<CreateOrder />);
           fillDestinationForm();
 
-          fireEvent.click(getByTestId('next'));
+          fireEvent.click(screen.getByTestId('next'));
 
-          await waitFor(() => {});
+          await waitFor(() => {
+            expect(container.querySelector('.p-steps-current')).toContainHTML(
+              'Cargo'
+            );
+          });
 
           fireEvent.change(
-            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
             container.querySelector('#cargoWeight')?.querySelector('input')!,
             {
               target: {
@@ -339,7 +349,7 @@ describe('CreateOrder', () => {
             }
           );
 
-          fireEvent.click(getByTestId('next'));
+          fireEvent.click(screen.getByTestId('next'));
 
           await waitFor(() => {
             expect(
@@ -352,14 +362,18 @@ describe('CreateOrder', () => {
 
     describe('Prev Step', () => {
       it('should move to DestinationForm', async () => {
-        const { getByTestId, container } = render(<CreateOrder />);
+        const { container } = render(<CreateOrder />);
         fillDestinationForm();
 
-        fireEvent.click(getByTestId('next'));
+        fireEvent.click(screen.getByTestId('next'));
 
-        await waitFor(() => {});
+        await waitFor(() => {
+          expect(container.querySelector('.p-steps-current')).toContainHTML(
+            'Cargo'
+          );
+        });
 
-        fireEvent.click(getByTestId('back'));
+        fireEvent.click(screen.getByTestId('back'));
 
         await waitFor(() => {
           expect(container.querySelector('.p-steps-current')).toContainHTML(
@@ -371,10 +385,10 @@ describe('CreateOrder', () => {
 
     describe('Next Step', () => {
       it('should not move to SenderForm if current form is invalid', async () => {
-        const { getByTestId, container } = render(<CreateOrder />);
+        const { container } = render(<CreateOrder />);
         fillDestinationForm();
 
-        fireEvent.click(getByTestId('next'));
+        fireEvent.click(screen.getByTestId('next'));
 
         await waitFor(() => {
           expect(container.querySelector('.p-steps-current')).toContainHTML(
@@ -384,16 +398,20 @@ describe('CreateOrder', () => {
       });
 
       it('should move to SenderForm if current form is valid', async () => {
-        const { container, getByTestId } = render(<CreateOrder />);
+        const { container } = render(<CreateOrder />);
         fillDestinationForm();
 
-        fireEvent.click(getByTestId('next'));
+        fireEvent.click(screen.getByTestId('next'));
 
-        await waitFor(() => {});
+        await waitFor(() => {
+          expect(container.querySelector('.p-steps-current')).toContainHTML(
+            'Cargo'
+          );
+        });
 
         fillCargoForm(container);
 
-        fireEvent.click(getByTestId('next'));
+        fireEvent.click(screen.getByTestId('next'));
 
         await waitFor(() => {
           expect(container.querySelector('.p-steps-current')).toContainHTML(
@@ -407,23 +425,31 @@ describe('CreateOrder', () => {
   describe('SenderForm', () => {
     beforeEach(() => {
       jest
-        .spyOn(ordersClient, 'createOrderSelf')
-        .mockResolvedValue({ data: savedOrder });
+        .spyOn(ordersClient, 'createOrder')
+        .mockResolvedValue({ data: { id: savedOrder.id } });
     });
 
     it('should render successfully', async () => {
-      const { baseElement, getByTestId, container } = render(<CreateOrder />);
+      const { baseElement, container } = render(<CreateOrder />);
       fillDestinationForm();
 
-      fireEvent.click(getByTestId('next'));
+      fireEvent.click(screen.getByTestId('next'));
 
-      await waitFor(() => {});
+      await waitFor(() => {
+        expect(container.querySelector('.p-steps-current')).toContainHTML(
+          'Cargo'
+        );
+      });
 
       fillCargoForm(container);
 
-      fireEvent.click(getByTestId('next'));
+      fireEvent.click(screen.getByTestId('next'));
 
-      await waitFor(() => {});
+      await waitFor(() => {
+        expect(container.querySelector('.p-steps-current')).toContainHTML(
+          'Sender'
+        );
+      });
 
       expect(baseElement).toMatchSnapshot();
     });
@@ -431,20 +457,28 @@ describe('CreateOrder', () => {
     describe('Validations', () => {
       describe('senderEmail', () => {
         it('should have required error', async () => {
-          const { getByTestId, container } = render(<CreateOrder />);
+          const { container } = render(<CreateOrder />);
           fillDestinationForm();
 
-          fireEvent.click(getByTestId('next'));
+          fireEvent.click(screen.getByTestId('next'));
 
-          await waitFor(() => {});
+          await waitFor(() => {
+            expect(container.querySelector('.p-steps-current')).toContainHTML(
+              'Cargo'
+            );
+          });
 
           fillCargoForm(container);
 
-          fireEvent.click(getByTestId('next'));
+          fireEvent.click(screen.getByTestId('next'));
 
-          await waitFor(() => {});
+          await waitFor(() => {
+            expect(container.querySelector('.p-steps-current')).toContainHTML(
+              'Sender'
+            );
+          });
 
-          fireEvent.click(getByTestId('create'));
+          fireEvent.click(screen.getByTestId('create'));
 
           await waitFor(() => {
             expect(
@@ -454,26 +488,34 @@ describe('CreateOrder', () => {
         });
 
         it('should have invalid email error', async () => {
-          const { getByTestId, container } = render(<CreateOrder />);
+          const { container } = render(<CreateOrder />);
           fillDestinationForm();
 
-          fireEvent.click(getByTestId('next'));
+          fireEvent.click(screen.getByTestId('next'));
 
-          await waitFor(() => {});
+          await waitFor(() => {
+            expect(container.querySelector('.p-steps-current')).toContainHTML(
+              'Cargo'
+            );
+          });
 
           fillCargoForm(container);
 
-          fireEvent.click(getByTestId('next'));
+          fireEvent.click(screen.getByTestId('next'));
 
-          await waitFor(() => {});
+          await waitFor(() => {
+            expect(container.querySelector('.p-steps-current')).toContainHTML(
+              'Sender'
+            );
+          });
 
-          fireEvent.change(getByTestId('senderEmail'), {
+          fireEvent.change(screen.getByTestId('senderEmail'), {
             target: {
               value: 'test'
             }
           });
 
-          fireEvent.click(getByTestId('create'));
+          fireEvent.click(screen.getByTestId('create'));
 
           await waitFor(() => {
             expect(
@@ -483,26 +525,34 @@ describe('CreateOrder', () => {
         });
 
         it('should not have error', async () => {
-          const { getByTestId, container } = render(<CreateOrder />);
+          const { container } = render(<CreateOrder />);
           fillDestinationForm();
 
-          fireEvent.click(getByTestId('next'));
+          fireEvent.click(screen.getByTestId('next'));
 
-          await waitFor(() => {});
+          await waitFor(() => {
+            expect(container.querySelector('.p-steps-current')).toContainHTML(
+              'Cargo'
+            );
+          });
 
           fillCargoForm(container);
 
-          fireEvent.click(getByTestId('next'));
+          fireEvent.click(screen.getByTestId('next'));
 
-          await waitFor(() => {});
+          await waitFor(() => {
+            expect(container.querySelector('.p-steps-current')).toContainHTML(
+              'Sender'
+            );
+          });
 
-          fireEvent.change(getByTestId('senderEmail'), {
+          fireEvent.change(screen.getByTestId('senderEmail'), {
             target: {
               value: 'test@test.com'
             }
           });
 
-          fireEvent.click(getByTestId('create'));
+          fireEvent.click(screen.getByTestId('create'));
 
           await waitFor(() => {
             expect(
@@ -514,20 +564,28 @@ describe('CreateOrder', () => {
 
       describe('senderPhone', () => {
         it('should have required error', async () => {
-          const { getByTestId, container } = render(<CreateOrder />);
+          const { container } = render(<CreateOrder />);
           fillDestinationForm();
 
-          fireEvent.click(getByTestId('next'));
+          fireEvent.click(screen.getByTestId('next'));
 
-          await waitFor(() => {});
+          await waitFor(() => {
+            expect(container.querySelector('.p-steps-current')).toContainHTML(
+              'Cargo'
+            );
+          });
 
           fillCargoForm(container);
 
-          fireEvent.click(getByTestId('next'));
+          fireEvent.click(screen.getByTestId('next'));
 
-          await waitFor(() => {});
+          await waitFor(() => {
+            expect(container.querySelector('.p-steps-current')).toContainHTML(
+              'Sender'
+            );
+          });
 
-          fireEvent.click(getByTestId('create'));
+          fireEvent.click(screen.getByTestId('create'));
 
           await waitFor(() => {
             expect(
@@ -537,27 +595,34 @@ describe('CreateOrder', () => {
         });
 
         it('should not have required error', async () => {
-          const { getByTestId, container } = render(<CreateOrder />);
+          const { container } = render(<CreateOrder />);
           fillDestinationForm();
 
-          fireEvent.click(getByTestId('next'));
+          fireEvent.click(screen.getByTestId('next'));
 
-          await waitFor(() => {});
+          await waitFor(() => {
+            expect(container.querySelector('.p-steps-current')).toContainHTML(
+              'Cargo'
+            );
+          });
 
           fillCargoForm(container);
 
-          fireEvent.click(getByTestId('next'));
+          fireEvent.click(screen.getByTestId('next'));
 
-          await waitFor(() => {});
+          await waitFor(() => {
+            expect(container.querySelector('.p-steps-current')).toContainHTML(
+              'Sender'
+            );
+          });
 
-          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
           fireEvent.input(container.querySelector('#senderPhone')!, {
             target: {
               value: '1234567545'
             }
           });
 
-          fireEvent.click(getByTestId('create'));
+          fireEvent.click(screen.getByTestId('create'));
 
           await waitFor(() => {
             expect(
@@ -570,20 +635,28 @@ describe('CreateOrder', () => {
 
     describe('Prev Step', () => {
       it('should move to CargoForm', async () => {
-        const { getByTestId, container } = render(<CreateOrder />);
+        const { container } = render(<CreateOrder />);
         fillDestinationForm();
 
-        fireEvent.click(getByTestId('next'));
+        fireEvent.click(screen.getByTestId('next'));
 
-        await waitFor(() => {});
+        await waitFor(() => {
+          expect(container.querySelector('.p-steps-current')).toContainHTML(
+            'Cargo'
+          );
+        });
 
         fillCargoForm(container);
 
-        fireEvent.click(getByTestId('next'));
+        fireEvent.click(screen.getByTestId('next'));
 
-        await waitFor(() => {});
+        await waitFor(() => {
+          expect(container.querySelector('.p-steps-current')).toContainHTML(
+            'Sender'
+          );
+        });
 
-        fireEvent.click(getByTestId('back'));
+        fireEvent.click(screen.getByTestId('back'));
 
         await waitFor(() => {
           expect(container.querySelector('.p-steps-current')).toContainHTML(
@@ -595,95 +668,114 @@ describe('CreateOrder', () => {
 
     describe('Create', () => {
       it('should send request and redirect', async () => {
-        const { getByTestId, container } = render(<CreateOrder />);
+        const { container } = render(<CreateOrder />);
         fillDestinationForm();
 
-        fireEvent.click(getByTestId('next'));
+        fireEvent.click(screen.getByTestId('next'));
 
-        await waitFor(() => {});
+        await waitFor(() => {
+          expect(container.querySelector('.p-steps-current')).toContainHTML(
+            'Cargo'
+          );
+        });
 
         fillCargoForm(container);
 
-        fireEvent.click(getByTestId('next'));
+        fireEvent.click(screen.getByTestId('next'));
 
-        await waitFor(() => {});
+        await waitFor(() => {
+          expect(container.querySelector('.p-steps-current')).toContainHTML(
+            'Sender'
+          );
+        });
 
         fillSenderForm(container);
 
-        fireEvent.click(getByTestId('create'));
+        fireEvent.click(screen.getByTestId('create'));
 
         await waitFor(() => {
-          expect(ordersClient.createOrderSelf).toBeCalledWith({
-            additionalData: '',
-            addressFrom: 'test',
-            addressTo: 'test',
-            cargoName: 'test',
-            cargoVolume: null,
-            cargoWeight: '12',
-            cityFrom: 'test',
-            cityTo: 'test',
-            comment: '',
-            senderCompany: '',
-            senderEmail: 'test@test.com',
-            senderName: '',
-            senderPhone: '(123) 456-7545'
-          });
-          expect(useHistoryMock.push).toBeCalledWith('/orders');
+          expect(ordersClient.createOrder).toBeCalledTimes(1);
         });
+
+        expect(ordersClient.createOrder).toBeCalledWith({
+          additionalData: '',
+          addressFrom: 'test',
+          addressTo: 'test',
+          cargoName: 'test',
+          cargoVolume: null,
+          cargoWeight: '12',
+          cityFrom: 'test',
+          cityTo: 'test',
+          comment: '',
+          senderCompany: '',
+          senderEmail: 'test@test.com',
+          senderName: '',
+          senderPhone: '(123) 456-7545'
+        });
+
+        expect(useHistoryMock.push).toBeCalledWith('/orders');
       });
 
       it('should handle API errors and not allow to submit', async () => {
-        jest.spyOn(ordersClient, 'createOrderSelf').mockRejectedValueOnce({
+        jest.spyOn(ordersClient, 'createOrder').mockRejectedValueOnce({
           response: {
             data: {
               errors: [
                 {
                   path: 'cityFrom',
-                  message: 'Error'
+                  message: ['Error']
                 },
                 {
                   path: 'cargoName',
-                  message: 'Error'
+                  message: ['Error']
                 },
                 {
                   path: 'senderEmail',
-                  message: 'Error'
+                  message: ['Error']
                 }
               ]
             }
           }
         });
 
-        const { getByTestId, container } = render(<CreateOrder />);
+        const { container } = render(<CreateOrder />);
 
         fillDestinationForm();
 
-        fireEvent.click(getByTestId('next'));
+        fireEvent.click(screen.getByTestId('next'));
 
-        await waitFor(() => {});
+        await waitFor(() => {
+          expect(container.querySelector('.p-steps-current')).toContainHTML(
+            'Cargo'
+          );
+        });
 
         fillCargoForm(container);
 
-        fireEvent.click(getByTestId('next'));
+        fireEvent.click(screen.getByTestId('next'));
 
-        await waitFor(() => {});
+        await waitFor(() => {
+          expect(container.querySelector('.p-steps-current')).toContainHTML(
+            'Sender'
+          );
+        });
 
         fillSenderForm(container);
 
-        fireEvent.click(getByTestId('create'));
+        fireEvent.click(screen.getByTestId('create'));
 
         await waitFor(() => {
           // should go to Destination step
           expect(container.querySelector('.p-steps-current')).toContainHTML(
             'Destination'
           );
-
-          expect(container.querySelector('#cityFrom-error')).toHaveTextContent(
-            'Error'
-          );
         });
 
-        fireEvent.click(getByTestId('next'));
+        expect(container.querySelector('#cityFrom-error')).toHaveTextContent(
+          'Error'
+        );
+
+        fireEvent.click(screen.getByTestId('next'));
 
         await waitFor(() => {
           // should stay at the same step while error is not fixed
@@ -692,25 +784,25 @@ describe('CreateOrder', () => {
           );
         });
 
-        fireEvent.change(getByTestId('cityFrom'), {
+        fireEvent.change(screen.getByTestId('cityFrom'), {
           target: {
             value: 'test2'
           }
         });
 
-        fireEvent.click(getByTestId('next'));
+        fireEvent.click(screen.getByTestId('next'));
 
         await waitFor(() => {
           expect(container.querySelector('.p-steps-current')).toContainHTML(
             'Cargo'
           );
-
-          expect(container.querySelector('#cargoName-error')).toHaveTextContent(
-            'Error'
-          );
         });
 
-        fireEvent.click(getByTestId('next'));
+        expect(container.querySelector('#cargoName-error')).toHaveTextContent(
+          'Error'
+        );
+
+        fireEvent.click(screen.getByTestId('next'));
 
         await waitFor(() => {
           // should stay at the same step while error is not fixed
@@ -719,31 +811,31 @@ describe('CreateOrder', () => {
           );
         });
 
-        fireEvent.change(getByTestId('cargoName'), {
+        fireEvent.change(screen.getByTestId('cargoName'), {
           target: {
             value: 'test2'
           }
         });
 
-        fireEvent.click(getByTestId('next'));
+        fireEvent.click(screen.getByTestId('next'));
 
         await waitFor(() => {
           expect(container.querySelector('.p-steps-current')).toContainHTML(
             'Sender'
           );
-
-          expect(
-            container.querySelector('#senderEmail-error')
-          ).toHaveTextContent('Error');
         });
+
+        expect(container.querySelector('#senderEmail-error')).toHaveTextContent(
+          'Error'
+        );
 
         // should not allow to submit while error is not fixed
         jest.clearAllMocks();
 
-        fireEvent.click(getByTestId('create'));
+        fireEvent.click(screen.getByTestId('create'));
 
         await waitFor(() => {
-          expect(ordersClient.createOrderSelf).toBeCalledTimes(0);
+          expect(ordersClient.createOrder).toBeCalledTimes(0);
         });
       });
     });

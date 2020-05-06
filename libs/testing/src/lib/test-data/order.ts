@@ -1,4 +1,4 @@
-export const createOrder = {
+export const createOrderDto = {
   cityFrom: 'FromCity',
   cityTo: 'ToCity',
   addressFrom: 'FromAddress',
@@ -14,7 +14,7 @@ export const createOrder = {
   senderPhone: '1232123222'
 };
 
-export const updateOrder = {
+export const updateOrderDto = {
   id: 1,
   cityFrom: 'Kyiv',
   cityTo: 'Dnipro',

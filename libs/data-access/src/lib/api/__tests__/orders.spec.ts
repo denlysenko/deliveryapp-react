@@ -1,25 +1,33 @@
 import { apiClient } from '@deliveryapp/core';
-import { updateOrder, createOrder } from '@deliveryapp/testing';
+import {
+  updateOrderDto,
+  createOrderDto,
+  savedOrder
+} from '@deliveryapp/testing';
 
-import { createOrderSelf, updateOrderSelf } from '../orders';
+import { createOrder, updateOrder } from '../orders';
 
 describe('API Orders', () => {
   afterEach(() => {
     jest.clearAllMocks();
   });
 
-  describe('createOrderSelf', () => {
+  describe('createOrder', () => {
     beforeEach(() => {
-      jest.spyOn(apiClient, 'post').mockResolvedValue({ data: createOrder });
+      jest
+        .spyOn(apiClient, 'post')
+        .mockResolvedValue({ data: { id: savedOrder.id } });
     });
 
     it('should send POST request', () => {
-      createOrderSelf(createOrder);
-      expect(apiClient.post).toBeCalledWith('/users/self/orders', createOrder);
+      createOrder(createOrderDto);
+      expect(apiClient.post).toBeCalledWith('/orders', createOrderDto);
     });
 
     it('should return newly created order', async () => {
-      expect(await createOrderSelf(createOrder)).toEqual({ data: createOrder });
+      expect(await createOrder(createOrderDto)).toEqual({
+        data: { id: savedOrder.id }
+      });
     });
 
     it('should return error if creation failed', async () => {
@@ -30,29 +38,28 @@ describe('API Orders', () => {
         .mockImplementation(() => Promise.reject(error));
 
       try {
-        await createOrderSelf(createOrder);
+        await createOrder(createOrderDto);
       } catch (err) {
         expect(err).toEqual(error);
       }
     });
   });
 
-  describe('updateOrderSelf', () => {
+  describe('updateOrder', () => {
     beforeEach(() => {
-      jest.spyOn(apiClient, 'patch').mockResolvedValue({ data: updateOrder });
+      jest
+        .spyOn(apiClient, 'patch')
+        .mockResolvedValue({ data: { id: savedOrder.id } });
     });
 
     it('should send PATCH request', () => {
-      updateOrderSelf(1, updateOrder);
-      expect(apiClient.patch).toBeCalledWith(
-        '/users/self/orders/1',
-        updateOrder
-      );
+      updateOrder(1, updateOrderDto);
+      expect(apiClient.patch).toBeCalledWith('/orders/1', updateOrderDto);
     });
 
     it('should return updated order', async () => {
-      expect(await updateOrderSelf(1, updateOrder)).toEqual({
-        data: updateOrder
+      expect(await updateOrder(1, updateOrderDto)).toEqual({
+        data: { id: savedOrder.id }
       });
     });
 
@@ -64,7 +71,7 @@ describe('API Orders', () => {
         .mockImplementation(() => Promise.reject(error));
 
       try {
-        await updateOrderSelf(1, updateOrder);
+        await updateOrder(1, updateOrderDto);
       } catch (err) {
         expect(err).toEqual(error);
       }
