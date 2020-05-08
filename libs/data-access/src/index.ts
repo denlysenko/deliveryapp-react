@@ -12,3 +12,4 @@ export * from './lib/models/list-response';
 export * from './lib/models/orders-filter';
 
 export * from './lib/context/auth';
+export * from './lib/context/orders';
