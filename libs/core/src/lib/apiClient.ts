@@ -1,4 +1,5 @@
 import axios, { AxiosStatic } from 'axios';
+import { stringify } from 'qs';
 
 class ApiClient {
   public readonly httpClient: AxiosStatic;
@@ -10,7 +11,8 @@ class ApiClient {
 
   get<T>(url: string, query?: unknown): Promise<T> {
     return this.httpClient.get(url, {
-      params: query
+      params: query,
+      paramsSerializer: stringify
     });
   }
 
