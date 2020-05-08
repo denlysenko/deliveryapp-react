@@ -1,13 +1,14 @@
-import React, { useState, lazy, Suspense } from 'react';
-import { Switch, Route, Redirect } from 'react-router-dom';
+import React, { lazy, Suspense, useState } from 'react';
+import { Redirect, Route, Switch } from 'react-router-dom';
 
 import { Sidebar } from 'primereact/sidebar';
 
+import { OrdersProvider } from '@deliveryapp/data-access';
 import { Orders } from '@deliveryapp/pages/orders';
 import { FullPageSpinner } from '@deliveryapp/ui';
 
-import { StyledMain } from './StyledMain';
 import { AppMenu } from './AppMenu/AppMenu';
+import { StyledMain } from './StyledMain';
 import { TopBar } from './TopBar/TopBar';
 
 const Profile = lazy(() =>
@@ -38,23 +39,25 @@ export const Main = () => {
         <TopBar showMessages={() => setShowMessages(true)} />
         <div className="content">
           <Suspense fallback={<FullPageSpinner />}>
-            <Switch>
-              <Route exact path="/">
-                <Redirect to="/orders" />
-              </Route>
-              <Route exact path="/profile">
-                <Profile />
-              </Route>
-              <Route exact path="/orders">
-                <Orders />
-              </Route>
-              <Route exact path="/orders/create">
-                <CreateOrder />
-              </Route>
-              <Route exact path="/orders/:id">
-                <UpdateOrder />
-              </Route>
-            </Switch>
+            <OrdersProvider>
+              <Switch>
+                <Route exact path="/">
+                  <Redirect to="/orders" />
+                </Route>
+                <Route exact path="/profile">
+                  <Profile />
+                </Route>
+                <Route exact path="/orders">
+                  <Orders />
+                </Route>
+                <Route exact path="/orders/create">
+                  <CreateOrder />
+                </Route>
+                <Route exact path="/orders/:id">
+                  <UpdateOrder />
+                </Route>
+              </Switch>
+            </OrdersProvider>
           </Suspense>
         </div>
       </div>

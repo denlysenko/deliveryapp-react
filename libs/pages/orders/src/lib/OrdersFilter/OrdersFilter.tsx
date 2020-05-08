@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useState, useCallback } from 'react';
 
 import { SelectItem } from 'primereact/api';
 import { Dropdown } from 'primereact/dropdown';
 import { InputText } from 'primereact/inputtext';
+
+import { debounce, isNil } from 'lodash-es';
 
 import { OrdersFilter as IOrdersFilter } from '@deliveryapp/data-access';
 
@@ -28,19 +30,46 @@ const options: SelectItem[] = [
 ];
 
 export interface OrdersFilterProps extends Pick<IOrdersFilter, 'filter'> {
-  handleFilterChange: () => void;
+  handleFilterChange: (orderFilter: IOrdersFilter['filter']) => void;
 }
 
 export const OrdersFilter: React.FC<OrdersFilterProps> = ({
   filter,
   handleFilterChange
 }) => {
-  const handleInputChange = (e: any) => {
-    console.log(e.target.value);
+  const [searchTerm, setSearchTerm] = useState(
+    !isNil(filter) ? Object.values(filter)[0] ?? '' : ''
+  );
+
+  const [criteria, setCriteria] = useState(
+    !isNil(filter)
+      ? Object.keys(filter)[0] ?? options[0].value
+      : options[0].value
+  );
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const debounceHandleFilterChange = useCallback(
+    debounce(
+      (orderFilter: IOrdersFilter['filter']) => handleFilterChange(orderFilter),
+      500
+    ),
+    []
+  );
+
+  const handleInputChange = (event: React.FormEvent<HTMLInputElement>) => {
+    const value = event.currentTarget.value;
+    setSearchTerm(value);
+    debounceHandleFilterChange({ [criteria]: value });
   };
 
-  const handleDropdownChange = (e: any) => {
-    console.log(e);
+  const handleDropdownChange = (event: { value: string }) => {
+    const value = event.value;
+
+    setCriteria(value);
+
+    if (searchTerm) {
+      handleFilterChange({ [value]: searchTerm });
+    }
   };
 
   return (
@@ -53,13 +82,14 @@ export const OrdersFilter: React.FC<OrdersFilterProps> = ({
           <InputText
             type="text"
             placeholder="Search..."
+            value={searchTerm}
             onChange={handleInputChange}
           />
         </div>
         <div className="p-col-12 p-md-6">
           <Dropdown
             options={options}
-            value={options[0].value}
+            value={criteria}
             onChange={handleDropdownChange}
           />
         </div>
