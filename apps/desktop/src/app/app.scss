@@ -68,8 +68,36 @@ body .p-messages.p-messages-error {
   font-weight: 300;
 }
 
-.ui-table {
-  .ui-table-wrapper {
+body .p-datatable .p-datatable-thead > tr > th {
+  background: #fff;
+  color: #757575;
+  border: 1px solid #c7cdd1;
+  font-weight: bold;
+  text-align: center;
+}
+
+body .p-datatable .p-datatable-tbody > tr {
+  background: #fff;
+  border-color: #c7cdd1;
+  color: #757575;
+}
+
+body .p-datatable .p-datatable-tbody > tr > td {
+  background: inherit;
+  border: 1px solid;
+  border-color: inherit;
+}
+
+body .p-datatable .p-datatable-tbody > tr:nth-child(even) {
+  background-color: #f6f8f9;
+}
+
+body .p-paginator {
+  border: none;
+}
+
+.p-datatable {
+  .p-datatable-wrapper {
     overflow-y: auto;
   }
 

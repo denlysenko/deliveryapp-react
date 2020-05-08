@@ -1,12 +1,17 @@
 export interface OrdersFilter {
-  'order[cargoName]'?: 'desc' | 'asc';
-  'order[cityTo]'?: 'desc' | 'asc';
-  'order[cityFrom]'?: 'desc' | 'asc';
-  'order[id]'?: 'desc' | 'asc';
-  'filter[cargoName]'?: string;
-  'filter[cityTo]'?: string;
-  'filter[cityFrom]'?: string;
-  'filter[id]'?: number;
+  filter?: {
+    clientId?: number;
+    cargoName?: string;
+    cityTo?: string;
+    cityFrom?: string;
+    id?: number;
+  };
+  order?: {
+    cargoName?: 'desc' | 'asc';
+    cityTo?: 'desc' | 'asc';
+    cityFrom?: 'desc' | 'asc';
+    id?: 'desc' | 'asc';
+  };
   offset?: number;
   limit?: number;
 }

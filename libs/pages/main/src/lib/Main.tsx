@@ -1,8 +1,9 @@
 import React, { useState, lazy, Suspense } from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 
 import { Sidebar } from 'primereact/sidebar';
 
+import { Orders } from '@deliveryapp/pages/orders';
 import { FullPageSpinner } from '@deliveryapp/ui';
 
 import { StyledMain } from './StyledMain';
@@ -38,8 +39,14 @@ export const Main = () => {
         <div className="content">
           <Suspense fallback={<FullPageSpinner />}>
             <Switch>
+              <Route exact path="/">
+                <Redirect to="/orders" />
+              </Route>
               <Route exact path="/profile">
                 <Profile />
+              </Route>
+              <Route exact path="/orders">
+                <Orders />
               </Route>
               <Route exact path="/orders/create">
                 <CreateOrder />

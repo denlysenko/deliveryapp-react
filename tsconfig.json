@@ -32,7 +32,8 @@
       ],
       "@deliveryapp/pages/update-order": [
         "libs/pages/update-order/src/index.ts"
-      ]
+      ],
+      "@deliveryapp/pages/orders": ["libs/pages/orders/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
