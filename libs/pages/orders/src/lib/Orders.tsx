@@ -1,18 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
-import dayjs from 'dayjs';
-import { isNil } from 'lodash-es';
-
+import { Button } from 'primereact/button';
 import { Column } from 'primereact/column';
 import { ColumnGroup } from 'primereact/columngroup';
 import { DataTable } from 'primereact/datatable';
 import { Paginator } from 'primereact/paginator';
 import { Row } from 'primereact/row';
 
+import dayjs from 'dayjs';
+import { isNil } from 'lodash-es';
+
 import { ORDER_STATUSES } from '@deliveryapp/common';
 import { Order, ordersClient } from '@deliveryapp/data-access';
 
+import { OrdersFilter } from './OrdersFilter/OrdersFilter';
 import { StyledOrders } from './StyledOrders';
 
 const headerGroup = (
@@ -61,6 +63,10 @@ const deliveryDateTemplate = (rowData: Order) => (
 export const Orders = () => {
   const [orders, setOrders] = useState<Order[]>([]);
 
+  const doFiltering = () => {
+    console.log('filtering');
+  };
+
   useEffect(() => {
     ordersClient
       .getOrders({
@@ -76,32 +82,50 @@ export const Orders = () => {
 
   return (
     <StyledOrders>
-      <DataTable
-        value={orders}
-        headerColumnGroup={headerGroup}
-        sortField={'id'}
-        sortOrder={1}
-        onSort={(e) =>
-          console.log({ sortField: e.sortField, sortOrder: e.sortOrder })
-        }
-      >
-        <Column body={idTemplate} />
-        <Column field="cargoName" />
-        <Column body={weightTemplate} />
-        <Column field="cityFrom" />
-        <Column field="cityTo" />
-        <Column field="deliveryCosts" />
-        <Column body={deliveryDateTemplate} />
-        <Column body={statusTemplate} />
-        <Column body={paidTemplate} />
-      </DataTable>
-      <Paginator
-        rows={10}
-        totalRecords={120}
-        first={10}
-        pageLinkSize={3}
-        onPageChange={(e) => console.log(e)}
-      />
+      <div className="card">
+        <div className="p-grid">
+          <div className="p-md-8 p-col-12">
+            <OrdersFilter handleFilterChange={doFiltering} />
+          </div>
+          <div className="button p-md-4 p-col-12">
+            <Link to="/orders/create">
+              <Button
+                type="button"
+                label="Create order"
+                icon="fa fa-plus"
+                iconPos="left"
+                className="raised-btn"
+              />
+            </Link>
+          </div>
+        </div>
+        <DataTable
+          value={orders}
+          headerColumnGroup={headerGroup}
+          sortField={'id'}
+          sortOrder={1}
+          onSort={(e) =>
+            console.log({ sortField: e.sortField, sortOrder: e.sortOrder })
+          }
+        >
+          <Column body={idTemplate} />
+          <Column field="cargoName" />
+          <Column body={weightTemplate} />
+          <Column field="cityFrom" />
+          <Column field="cityTo" />
+          <Column field="deliveryCosts" />
+          <Column body={deliveryDateTemplate} />
+          <Column body={statusTemplate} />
+          <Column body={paidTemplate} />
+        </DataTable>
+        <Paginator
+          rows={10}
+          totalRecords={120}
+          first={10}
+          pageLinkSize={3}
+          onPageChange={(e) => console.log(e)}
+        />
+      </div>
     </StyledOrders>
   );
 };
