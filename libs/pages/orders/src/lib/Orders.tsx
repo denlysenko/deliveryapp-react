@@ -5,7 +5,7 @@ import { Button } from 'primereact/button';
 import { Column } from 'primereact/column';
 import { ColumnGroup } from 'primereact/columngroup';
 import { DataTable } from 'primereact/datatable';
-import { Paginator } from 'primereact/paginator';
+import { Paginator, PageState } from 'primereact/paginator';
 import { Row } from 'primereact/row';
 
 import dayjs from 'dayjs';
@@ -94,8 +94,11 @@ export const Orders = () => {
     });
   };
 
-  const doPaging = () => {
-    console.log('paging');
+  const doPaging = ({ rows, page }: PageState) => {
+    dispatch({
+      type: OrdersActionTypes.PAGE_CHANGE,
+      payload: { limit: rows, offset: rows * page }
+    });
   };
 
   useEffect(() => {
