@@ -47,6 +47,7 @@ export const OrdersFilter: React.FC<OrdersFilterProps> = ({
       : options[0].value
   );
 
+  // https://github.com/facebook/react/issues/1360#issuecomment-533847123
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const debounceHandleFilterChange = useCallback(
     debounce(

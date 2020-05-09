@@ -1,3 +1,5 @@
+type OrderField = 'cargoName' | 'cityTo' | 'cityFrom' | 'id';
+
 export interface OrdersFilter {
   filter?: {
     clientId?: number;
@@ -6,12 +8,11 @@ export interface OrdersFilter {
     cityFrom?: string;
     id?: number;
   };
-  order?: {
-    cargoName?: 'desc' | 'asc';
-    cityTo?: 'desc' | 'asc';
-    cityFrom?: 'desc' | 'asc';
-    id?: 'desc' | 'asc';
-  };
+  order: Partial<
+    {
+      [key in OrderField]: 'desc' | 'asc';
+    }
+  >;
   offset?: number;
   limit?: number;
 }

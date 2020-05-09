@@ -20,6 +20,7 @@ import {
   OrdersFilter as IOrdersFilter
 } from '@deliveryapp/data-access';
 import { FullPageSpinner } from '@deliveryapp/ui';
+import { getSortField, getSortOrder } from '@deliveryapp/utils';
 
 import { OrdersFilter } from './OrdersFilter/OrdersFilter';
 import { StyledOrders } from './StyledOrders';
@@ -80,8 +81,17 @@ export const Orders = () => {
     });
   };
 
-  const doSorting = () => {
-    console.log('sorting');
+  const doSorting = ({
+    sortField,
+    sortOrder
+  }: {
+    sortField: string;
+    sortOrder: number;
+  }) => {
+    dispatch({
+      type: OrdersActionTypes.SORTING_CHANGE,
+      payload: { [sortField]: sortOrder === 1 ? 'asc' : 'desc' }
+    });
   };
 
   const doPaging = () => {
@@ -127,8 +137,8 @@ export const Orders = () => {
             <DataTable
               value={orders}
               headerColumnGroup={headerGroup}
-              sortField={'id'}
-              sortOrder={1}
+              sortField={getSortField(ordersFilter.order)}
+              sortOrder={getSortOrder(ordersFilter.order)}
               onSort={doSorting}
             >
               <Column body={idTemplate} />
