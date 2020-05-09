@@ -1,11 +1,11 @@
 import { apiClient } from '@deliveryapp/core';
 import {
-  updateOrderDto,
   createOrderDto,
-  savedOrder
+  savedOrder,
+  updateOrderDto
 } from '@deliveryapp/testing';
 
-import { createOrder, updateOrder, getOrder } from '../orders';
+import { createOrder, getOrder, getOrders, updateOrder } from '../orders';
 
 describe('API Orders', () => {
   afterEach(() => {
@@ -109,5 +109,28 @@ describe('API Orders', () => {
     });
   });
 
-  // TODO: add tests for getOrders
+  describe('getOrders', () => {
+    const query = {
+      limit: 10,
+      offset: 0,
+      order: { id: 'asc' as 'asc' }
+    };
+
+    beforeEach(() => {
+      jest
+        .spyOn(apiClient, 'get')
+        .mockResolvedValue({ data: { count: 1, rows: [savedOrder] } });
+    });
+
+    it('should send GET request', () => {
+      getOrders(query);
+      expect(apiClient.get).toBeCalledWith('/orders', query);
+    });
+
+    it('should return count and orders', async () => {
+      expect(await getOrders(query)).toEqual({
+        data: { count: 1, rows: [savedOrder] }
+      });
+    });
+  });
 });
