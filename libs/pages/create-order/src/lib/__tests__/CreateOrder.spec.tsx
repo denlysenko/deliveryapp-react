@@ -41,6 +41,7 @@ const fillCargoForm = (container: HTMLElement) => {
   });
 
   fireEvent.change(
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     container.querySelector('#cargoWeight')?.querySelector('input')!,
     {
       target: {

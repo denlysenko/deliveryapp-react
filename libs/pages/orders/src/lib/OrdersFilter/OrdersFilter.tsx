@@ -10,7 +10,7 @@ import { OrdersFilter as IOrdersFilter } from '@deliveryapp/data-access';
 
 import { StyledOrdersFilter } from './StyledOrdersFilter';
 
-const options: SelectItem[] = [
+export const options: SelectItem[] = [
   {
     label: 'Order number',
     value: 'id'
