@@ -1,0 +1,127 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`OrdersFilter should render successfully 1`] = `
+<body>
+  <div>
+    <div
+      class="sc-AxjAm isfZYR"
+    >
+      <div
+        class="order-filter p-grid"
+      >
+        <div
+          class="p-inputgroup p-col-12 p-md-6"
+        >
+          <span
+            class="p-inputgroup-addon"
+          >
+            <i
+              class="fa fa-search"
+            />
+          </span>
+          <input
+            class="p-inputtext p-component"
+            placeholder="Search..."
+            type="text"
+            value=""
+          />
+        </div>
+        <div
+          class="p-col-12 p-md-6"
+        >
+          <div
+            class="p-dropdown p-component"
+          >
+            <div
+              class="p-hidden-accessible"
+            >
+              <input
+                aria-haspopup="listbox"
+                readonly=""
+                type="text"
+              />
+            </div>
+            <div
+              class="p-hidden-accessible p-dropdown-hidden-select"
+            >
+              <select
+                aria-hidden="true"
+                tabindex="-1"
+              >
+                <option
+                  value=""
+                />
+                <option
+                  value="id"
+                >
+                  Order number
+                </option>
+              </select>
+            </div>
+            <label
+              class="p-dropdown-label p-inputtext"
+            >
+              Order number
+            </label>
+            <div
+              aria-haspopup="listbox"
+              class="p-dropdown-trigger"
+              role="button"
+            >
+              <span
+                class="p-dropdown-trigger-icon pi pi-chevron-down p-clickable"
+              />
+            </div>
+            <div
+              class="p-dropdown-panel p-hidden p-input-overlay"
+            >
+              <div
+                class="p-dropdown-items-wrapper"
+                style="max-height: 200px;"
+              >
+                <ul
+                  class="p-dropdown-items p-dropdown-list p-component"
+                  role="listbox"
+                >
+                  <li
+                    aria-label="Order number"
+                    aria-selected="true"
+                    class="p-dropdown-item p-highlight"
+                    role="option"
+                  >
+                    Order number
+                  </li>
+                  <li
+                    aria-label="Cargo Name"
+                    aria-selected="false"
+                    class="p-dropdown-item"
+                    role="option"
+                  >
+                    Cargo Name
+                  </li>
+                  <li
+                    aria-label="From"
+                    aria-selected="false"
+                    class="p-dropdown-item"
+                    role="option"
+                  >
+                    From
+                  </li>
+                  <li
+                    aria-label="To"
+                    aria-selected="false"
+                    class="p-dropdown-item"
+                    role="option"
+                  >
+                    To
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+`;

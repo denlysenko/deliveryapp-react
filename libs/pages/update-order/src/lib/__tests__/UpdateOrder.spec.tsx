@@ -62,6 +62,7 @@ describe('UpdateOrder', () => {
         await waitFor(() => expect(screen.getByTestId('id')).toHaveValue('1'));
 
         fireEvent.change(
+          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
           container.querySelector('#cargoWeight')?.querySelector('input')!,
           {
             target: {
@@ -209,6 +210,7 @@ describe('UpdateOrder', () => {
         const { container } = render(<UpdateOrder />);
         await waitFor(() => expect(screen.getByTestId('id')).toHaveValue('1'));
 
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         fireEvent.input(container.querySelector('#senderPhone')!, {
           target: {
             value: ''

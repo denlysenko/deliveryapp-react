@@ -342,6 +342,7 @@ describe('CreateOrder', () => {
           });
 
           fireEvent.change(
+            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
             container.querySelector('#cargoWeight')?.querySelector('input')!,
             {
               target: {
@@ -617,6 +618,7 @@ describe('CreateOrder', () => {
             );
           });
 
+          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
           fireEvent.input(container.querySelector('#senderPhone')!, {
             target: {
               value: '1234567545'

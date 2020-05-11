@@ -20,7 +20,7 @@ describe('OrdersFilter', () => {
     const { baseElement } = render(
       <OrdersFilter handleFilterChange={handleFilterChange} />
     );
-    expect(baseElement).toBeTruthy();
+    expect(baseElement).toMatchSnapshot();
   });
 
   it('should render options', () => {
