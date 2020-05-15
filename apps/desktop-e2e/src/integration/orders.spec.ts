@@ -1,4 +1,4 @@
-describe('Create order page', () => {
+describe('Orders page', () => {
   beforeEach(() => {
     cy.exec('npm run seed:db');
     cy.login('client@test.com', 'password');
@@ -77,7 +77,7 @@ describe('Create order page', () => {
     });
   });
 
-  describe('Update order page navigation', () => {
+  describe('Navigation to Update order page', () => {
     it('should navigate to order page', () => {
       cy.wait('@orders');
       cy.get('a:contains("12")').click();
@@ -85,7 +85,7 @@ describe('Create order page', () => {
     });
   });
 
-  describe('Create order page navigation', () => {
+  describe('Navigation to Create order page', () => {
     it('should navigate to create order page', () => {
       cy.wait('@orders');
       cy.get('button:contains("Create order")').click();

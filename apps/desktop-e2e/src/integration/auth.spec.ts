@@ -47,23 +47,19 @@ describe('Auth page', () => {
           {
             email: 'user2@test.com',
             password: 'password{enter}',
-            expectedError: 'INCORRECT_EMAIL_ERR'
+            expectedError: 'INCORRECT_EMAIL_OR_PASSWORD_ERR'
           },
           {
             email: 'client@test.com',
             password: 'password2{enter}',
-            expectedError: 'INCORRECT_PASSWORD_ERR'
+            expectedError: 'INCORRECT_EMAIL_OR_PASSWORD_ERR'
           }
         ];
 
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         cy.wrap(logins).each((login: any) => {
-          cy.get(emailField)
-            .clear()
-            .type(login.email);
-          cy.get(passwordField)
-            .clear()
-            .type(login.password);
+          cy.get(emailField).clear().type(login.email);
+          cy.get(passwordField).clear().type(login.password);
 
           cy.get('#error-message')
             .should('be.visible')

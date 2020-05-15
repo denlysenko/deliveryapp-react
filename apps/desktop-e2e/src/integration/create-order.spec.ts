@@ -65,7 +65,7 @@ describe('Create order page', () => {
         .and('contain', ERRORS.REQUIRED_FIELD);
       cy.get('#cargoWeight-error')
         .should('have.length', 1)
-        .and('contain', ERRORS.REQUIRED_FIELD);
+        .and('contain', ERRORS.NUMBER_FIELD);
     });
 
     it('should go to Destination', () => {

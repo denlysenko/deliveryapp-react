@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = {
-  up: function(queryInterface) {
+  up: function (queryInterface) {
     return queryInterface.bulkInsert(
       'users',
       [
@@ -46,19 +46,7 @@ module.exports = {
     );
   },
 
-  down: function(queryInterface, Sequelize) {
-    return queryInterface.bulkDelete(
-      'users',
-      {
-        email: {
-          [Sequelize.Op.in]: [
-            'admin@test.com',
-            'manager@test.com',
-            'client@test.com'
-          ]
-        }
-      },
-      {}
-    );
+  down: function (queryInterface) {
+    return queryInterface.bulkDelete('users', {}, {});
   }
 };
