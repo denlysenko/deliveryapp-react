@@ -81,6 +81,7 @@ export const OrdersFilter: React.FC<OrdersFilterProps> = ({
             <i className="fa fa-search"></i>
           </span>
           <InputText
+            data-testid="searchTerm"
             type="text"
             placeholder="Search..."
             value={searchTerm}

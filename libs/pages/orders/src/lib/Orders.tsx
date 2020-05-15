@@ -28,8 +28,14 @@ import { StyledOrders } from './StyledOrders';
 const headerGroup = (
   <ColumnGroup>
     <Row>
-      <Column header="Num." field="id" rowSpan={2} sortable />
-      <Column header="Cargo Name" field="cargoName" rowSpan={2} sortable />
+      <Column header="Num." field="id" rowSpan={2} sortable className="id" />
+      <Column
+        header="Cargo Name"
+        field="cargoName"
+        rowSpan={2}
+        sortable
+        className="cargoName"
+      />
       <Column header="Weight/Volume" rowSpan={2} />
       <Column header="Route" colSpan={2} />
       <Column header="Delivery Costs" rowSpan={2} />
@@ -38,8 +44,8 @@ const headerGroup = (
       <Column header="Paid" rowSpan={2} />
     </Row>
     <Row>
-      <Column header="From" field="cityFrom" sortable />
-      <Column header="To" field="cityTo" sortable />
+      <Column header="From" field="cityFrom" sortable className="cityFrom" />
+      <Column header="To" field="cityTo" sortable className="cityTo" />
     </Row>
   </ColumnGroup>
 );
