@@ -1,7 +1,7 @@
 import { apiClient } from '@deliveryapp/core';
 import { user } from '@deliveryapp/testing';
 
-import { me, updateProfile, updatePassword } from '../users';
+import { getUser, getUsers, me, updatePassword, updateProfile } from '../users';
 
 jest.mock('@deliveryapp/core', () => ({
   apiClient: {
@@ -81,6 +81,62 @@ describe('API Users', () => {
 
       try {
         await updatePassword(payload);
+      } catch (err) {
+        expect(err).toEqual(error);
+      }
+    });
+  });
+
+  describe('getUsers', () => {
+    const query = {
+      limit: 10,
+      offset: 0,
+      order: { id: 'asc' as 'asc' }
+    };
+
+    beforeEach(() => {
+      jest
+        .spyOn(apiClient, 'get')
+        .mockResolvedValue({ data: { count: 1, rows: [user] } });
+    });
+
+    it('should send GET request', () => {
+      getUsers(query);
+      expect(apiClient.get).toBeCalledWith('/users', query);
+    });
+
+    it('should return count and users', async () => {
+      expect(await getUsers(query)).toEqual({
+        data: { count: 1, rows: [user] }
+      });
+    });
+  });
+
+  describe('getUser', () => {
+    beforeEach(() => {
+      jest.spyOn(apiClient, 'get').mockResolvedValue({ data: user });
+    });
+
+    it('should send GET request', () => {
+      getUser(1);
+      expect(apiClient.get).toBeCalledWith('/users/1');
+    });
+
+    it('should return user', async () => {
+      expect(await getUser(1)).toEqual({
+        data: user
+      });
+    });
+
+    it('should return error if user not found', async () => {
+      const error = { message: 'Error' };
+
+      jest
+        .spyOn(apiClient, 'get')
+        .mockImplementation(() => Promise.reject(error));
+
+      try {
+        await getUser(1);
       } catch (err) {
         expect(err).toEqual(error);
       }

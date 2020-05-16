@@ -94,7 +94,7 @@ describe('API Orders', () => {
       });
     });
 
-    it('should return error if updating failed', async () => {
+    it('should return error if order not found', async () => {
       const error = { message: 'Error' };
 
       jest

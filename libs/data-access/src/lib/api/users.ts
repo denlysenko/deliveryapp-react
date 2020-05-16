@@ -15,3 +15,14 @@ export function updatePassword(
 ): Promise<void> {
   return apiClient.patch('/users/self/password', passwordPayload);
 }
+
+export function getUsers(
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  query: any
+): Promise<{ data: { count: number; rows: User[] } }> {
+  return apiClient.get('/users', query);
+}
+
+export function getUser(id: number): Promise<{ data: User }> {
+  return apiClient.get(`/users/${id}`);
+}
