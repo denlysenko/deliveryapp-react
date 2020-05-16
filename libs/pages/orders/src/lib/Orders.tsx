@@ -22,7 +22,7 @@ import {
   User
 } from '@deliveryapp/data-access';
 import { FullPageSpinner } from '@deliveryapp/ui';
-import { getSortField, getSortOrder } from '@deliveryapp/utils';
+import { getSortField, getSortOrder, toCurrency } from '@deliveryapp/utils';
 
 import { OrdersFilter } from './OrdersFilter/OrdersFilter';
 import { StyledOrders } from './StyledOrders';
@@ -69,6 +69,12 @@ const statusTemplate = (rowData: Order) => (
 
 const paidTemplate = (rowData: Order) => (
   <span>{rowData.paid ? 'Yes' : 'No'}</span>
+);
+
+const deliveryCostsTemplate = (rowData: Order) => (
+  <span>
+    {isNil(rowData.deliveryCosts) ? '' : toCurrency(rowData.deliveryCosts)}
+  </span>
 );
 
 const deliveryDateTemplate = (rowData: Order) => (
@@ -165,7 +171,7 @@ export const Orders = () => {
               <Column body={weightTemplate} />
               <Column field="cityFrom" />
               <Column field="cityTo" />
-              <Column field="deliveryCosts" />
+              <Column body={deliveryCostsTemplate} />
               <Column body={deliveryDateTemplate} />
               <Column body={statusTemplate} />
               <Column body={paidTemplate} />
