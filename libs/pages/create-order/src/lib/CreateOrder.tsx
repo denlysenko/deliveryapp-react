@@ -1,63 +1,94 @@
-import React, { useState, useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
-import { useFormik, FormikErrors } from 'formik';
-import * as Yup from 'yup';
-import { isNil, isEmpty, has, omit, omitBy } from 'lodash-es';
+import { FormikErrors, useFormik } from 'formik';
 
-import { Steps } from 'primereact/steps';
 import { Growl } from 'primereact/growl';
+import { Steps } from 'primereact/steps';
 
-import { ERRORS } from '@deliveryapp/common';
-import { ordersClient, ValidationError } from '@deliveryapp/data-access';
+import { has, isEmpty, isNil, omit, omitBy } from 'lodash-es';
+import * as Yup from 'yup';
 
-import { CreateOrderFormValues } from './CreateOrderFormValues';
+import { ERRORS, Roles } from '@deliveryapp/common';
 import {
-  initialValues,
-  steps,
-  touchedFields,
-  items,
-  destinationFormFields,
-  cargoFormFields,
-  senderFormFields
-} from './constants';
-import { StyledCreateOrder } from './StyledCreateOrder';
-import { DestinationForm } from './DestinationForm/DestinationForm';
-import { CargoForm } from './CargoForm/CargoForm';
-import { SenderForm } from './SenderForm/SenderForm';
+  ordersClient,
+  useAuth,
+  ValidationError
+} from '@deliveryapp/data-access';
 
-const ValidationSchema = Yup.object().shape({
-  destination: Yup.object().shape({
-    cityFrom: Yup.string().required(ERRORS.REQUIRED_FIELD),
-    cityTo: Yup.string().required(ERRORS.REQUIRED_FIELD),
-    addressFrom: Yup.string().required(ERRORS.REQUIRED_FIELD),
-    addressTo: Yup.string().required(ERRORS.REQUIRED_FIELD)
-  }),
-  cargo: Yup.object().shape({
-    cargoName: Yup.string().required(ERRORS.REQUIRED_FIELD),
-    cargoWeight: Yup.number()
-      .required(ERRORS.REQUIRED_FIELD)
-      .typeError(ERRORS.NUMBER_FIELD)
-  }),
-  sender: Yup.object().shape({
-    senderEmail: Yup.string()
-      .required(ERRORS.REQUIRED_FIELD)
-      .email(ERRORS.INVALID_EMAIL),
-    senderPhone: Yup.string().required(ERRORS.REQUIRED_FIELD)
-  })
-});
+import { CargoForm } from './CargoForm/CargoForm';
+import {
+  cargoFormFields,
+  destinationFormFields,
+  items,
+  senderFormFields,
+  steps,
+  touchedFields
+} from './constants';
+import { CreateOrderFormValues } from './CreateOrderFormValues';
+import { DestinationForm } from './DestinationForm/DestinationForm';
+import { SenderForm } from './SenderForm/SenderForm';
+import { StyledCreateOrder } from './StyledCreateOrder';
 
 export const CreateOrder = () => {
   const history = useHistory();
   const growl = useRef<Growl>(null);
+  const [{ user }] = useAuth();
   const [activeIndex, setActiveIndex] = useState(0);
   const [loading, setLoading] = useState(false);
   const formik = useFormik<CreateOrderFormValues>({
-    initialValues,
+    initialValues: {
+      destination: {
+        cityFrom: '',
+        cityTo: '',
+        addressFrom: '',
+        addressTo: '',
+        additionalData: '',
+        ...(!isNil(user) &&
+          user.role !== Roles.CLIENT && {
+            clientId: undefined
+          })
+      },
+      cargo: {
+        cargoName: '',
+        cargoWeight: null,
+        cargoVolume: null,
+        comment: ''
+      },
+      sender: {
+        senderCompany: '',
+        senderName: '',
+        senderEmail: '',
+        senderPhone: ''
+      }
+    },
     initialStatus: {
       apiErrors: {}
     },
-    validationSchema: ValidationSchema,
+    validationSchema: Yup.object().shape({
+      destination: Yup.object().shape({
+        cityFrom: Yup.string().required(ERRORS.REQUIRED_FIELD),
+        cityTo: Yup.string().required(ERRORS.REQUIRED_FIELD),
+        addressFrom: Yup.string().required(ERRORS.REQUIRED_FIELD),
+        addressTo: Yup.string().required(ERRORS.REQUIRED_FIELD),
+        ...(!isNil(user) &&
+          user.role !== Roles.CLIENT && {
+            clientId: Yup.number().required(ERRORS.REQUIRED_FIELD)
+          })
+      }),
+      cargo: Yup.object().shape({
+        cargoName: Yup.string().required(ERRORS.REQUIRED_FIELD),
+        cargoWeight: Yup.number()
+          .required(ERRORS.REQUIRED_FIELD)
+          .typeError(ERRORS.NUMBER_FIELD)
+      }),
+      sender: Yup.object().shape({
+        senderEmail: Yup.string()
+          .required(ERRORS.REQUIRED_FIELD)
+          .email(ERRORS.INVALID_EMAIL),
+        senderPhone: Yup.string().required(ERRORS.REQUIRED_FIELD)
+      })
+    }),
     onSubmit: async (values) => {
       if (!isNil(formik.status.apiErrors[steps[activeIndex]])) {
         return;
@@ -78,14 +109,15 @@ export const CreateOrder = () => {
         setLoading(false);
         setActiveIndex(0);
 
+        const err: ValidationError = error.response.data;
+
         !isNil(growl.current) &&
           growl.current.show({
             severity: 'error',
-            summary: ERRORS.CREATE_ORDER_FAILED,
+            summary:
+              err.statusCode === 400 ? err.message : ERRORS.CREATE_ORDER_FAILED,
             closable: false
           });
-
-        const err: ValidationError = error.response.data;
 
         if (err.errors && err.errors.length) {
           const apiErrors = err.errors.reduce<

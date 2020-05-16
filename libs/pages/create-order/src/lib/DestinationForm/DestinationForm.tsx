@@ -1,12 +1,17 @@
-import React from 'react';
+import React, { useCallback, useState, useEffect } from 'react';
 
-import { FormikHandlers, FormikErrors, FormikTouched } from 'formik';
+import { FormikErrors, FormikHandlers, FormikTouched } from 'formik';
 
+import { AutoComplete } from 'primereact/autocomplete';
+import { Button } from 'primereact/button';
 import { InputText } from 'primereact/inputtext';
 import { InputTextarea } from 'primereact/inputtextarea';
-import { Button } from 'primereact/button';
 import { Message } from 'primereact/message';
 
+import { debounce, isNil } from 'lodash-es';
+
+import { Roles } from '@deliveryapp/common';
+import { useAuth, User, usersClient } from '@deliveryapp/data-access';
 import { getError } from '@deliveryapp/utils';
 
 import { CreateOrderFormValues } from '../CreateOrderFormValues';
@@ -29,6 +34,56 @@ export const DestinationForm: React.FC<DestinationFormProps> = ({
   handleChange,
   onNext
 }) => {
+  const [{ user }] = useAuth();
+  const [clientSearchTerm, setClientSearchTerm] = useState<string>();
+  const [clients, setClients] = useState<User[]>([]);
+
+  useEffect(() => {
+    if (values.clientId) {
+      usersClient.getUser(values.clientId).then(({ data }) => {
+        if (!isNil(data)) {
+          setClientSearchTerm(data.email);
+        }
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const searchClient = async (searchTerm: string) => {
+    try {
+      const {
+        data: { rows }
+      } = await usersClient.getUsers({
+        filter: {
+          email: searchTerm,
+          role: Roles.CLIENT
+        }
+      });
+
+      setClients(rows);
+    } catch {
+      setClients([]);
+    }
+  };
+
+  // https://github.com/facebook/react/issues/1360#issuecomment-533847123
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const debounceSearchClient = useCallback(
+    debounce((event: { query: string }) => searchClient(event.query), 500),
+    []
+  );
+
+  const handleClientSearchChange = (event: { value: string }) => {
+    const { value } = event;
+    setClientSearchTerm(value);
+  };
+
+  const selectClient = (event: { value: User }) => {
+    handleChange({
+      target: { name: 'destination.clientId', value: event.value.id }
+    });
+  };
+
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
     onNext();
@@ -52,6 +107,11 @@ export const DestinationForm: React.FC<DestinationFormProps> = ({
 
   const addressToError = getError<CreateOrderFormValues['destination']>(
     'addressTo',
+    { touched, errors, apiErrors }
+  );
+
+  const clientIdError = getError<CreateOrderFormValues['destination']>(
+    'clientId',
     { touched, errors, apiErrors }
   );
 
@@ -151,6 +211,30 @@ export const DestinationForm: React.FC<DestinationFormProps> = ({
             ></Message>
           )}
         </div>
+        {user?.role !== Roles.CLIENT && (
+          <div className="p-col-12 p-md-6 p-md-offset-3">
+            <div className="input-wrapper p-float-label">
+              <AutoComplete
+                field="email"
+                data-testid="clientId"
+                suggestions={clients}
+                value={clientSearchTerm}
+                className={clientIdError ? 'invalid' : ''}
+                onChange={handleClientSearchChange}
+                completeMethod={debounceSearchClient}
+                onSelect={selectClient}
+              />
+              <label>Client</label>
+            </div>
+            {clientIdError && (
+              <Message
+                id="clientId-error"
+                severity="error"
+                text={clientIdError}
+              ></Message>
+            )}
+          </div>
+        )}
         <div className="p-col-12 p-md-6 p-md-offset-3">
           <label>Additional Info</label>
           <InputTextarea

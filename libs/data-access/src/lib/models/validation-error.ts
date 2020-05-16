@@ -1,4 +1,6 @@
 export interface ValidationError {
+  statusCode: number;
+  message?: string;
   name: string;
   errors: ValidationErrorItem[];
 }

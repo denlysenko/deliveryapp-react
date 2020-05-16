@@ -16,7 +16,8 @@ body {
 }
 
 .p-inputtext,
-.p-spinner {
+.p-spinner,
+.p-autocomplete {
   width: 100%;
 }
 
@@ -131,7 +132,8 @@ body .p-paginator {
 }
 
 .invalid:not(form),
-.invalid:not(form) .ui-inputtext {
+.invalid:not(form) .ui-inputtext,
+.p-autocomplete.invalid .p-inputtext {
   border-color: #e17576;
 }
 

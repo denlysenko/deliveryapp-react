@@ -5,6 +5,7 @@ export interface CreateOrderFormValues {
     addressFrom: string;
     addressTo: string;
     additionalData: string;
+    clientId?: number;
   };
   cargo: {
     cargoName: string;

@@ -44,9 +44,7 @@ const headerGroup = (user: User | null) => (
       <Column header="Delivery Date" rowSpan={2} />
       <Column header="Status" rowSpan={2} />
       <Column header="Paid" rowSpan={2} />
-      {!isNil(user) && user.role !== Roles.CLIENT && (
-        <Column header="Client" rowSpan={2} />
-      )}
+      {user?.role !== Roles.CLIENT && <Column header="Client" rowSpan={2} />}
     </Row>
     <Row>
       <Column header="From" field="cityFrom" sortable className="cityFrom" />
@@ -175,9 +173,7 @@ export const Orders = () => {
               <Column body={deliveryDateTemplate} />
               <Column body={statusTemplate} />
               <Column body={paidTemplate} />
-              {!isNil(user) && user.role !== Roles.CLIENT && (
-                <Column body={clientTemplate} />
-              )}
+              {user?.role !== Roles.CLIENT && <Column body={clientTemplate} />}
             </DataTable>
             <Paginator
               rows={ordersFilter.limit}

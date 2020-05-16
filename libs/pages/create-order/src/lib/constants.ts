@@ -9,34 +9,13 @@ export const items: MenuItem[] = [
   { label: 'Sender' }
 ];
 
-export const initialValues: CreateOrderFormValues = {
-  destination: {
-    cityFrom: '',
-    cityTo: '',
-    addressFrom: '',
-    addressTo: '',
-    additionalData: ''
-  },
-  cargo: {
-    cargoName: '',
-    cargoWeight: null,
-    cargoVolume: null,
-    comment: ''
-  },
-  sender: {
-    senderCompany: '',
-    senderName: '',
-    senderEmail: '',
-    senderPhone: ''
-  }
-};
-
 export const touchedFields: FormikTouched<CreateOrderFormValues> = {
   destination: {
     cityFrom: true,
     cityTo: true,
     addressFrom: true,
-    addressTo: true
+    addressTo: true,
+    clientId: true
   },
   cargo: {
     cargoName: true,
