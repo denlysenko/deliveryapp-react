@@ -5,19 +5,21 @@ import { Button } from 'primereact/button';
 import { Column } from 'primereact/column';
 import { ColumnGroup } from 'primereact/columngroup';
 import { DataTable } from 'primereact/datatable';
-import { Paginator, PageState } from 'primereact/paginator';
+import { PageState, Paginator } from 'primereact/paginator';
 import { Row } from 'primereact/row';
 
 import dayjs from 'dayjs';
 import { isNil } from 'lodash-es';
 
-import { ORDER_STATUSES } from '@deliveryapp/common';
+import { ORDER_STATUSES, Roles } from '@deliveryapp/common';
 import {
   Order,
-  ordersClient,
-  useOrders,
   OrdersActionTypes,
-  OrdersFilter as IOrdersFilter
+  ordersClient,
+  OrdersFilter as IOrdersFilter,
+  useAuth,
+  useOrders,
+  User
 } from '@deliveryapp/data-access';
 import { FullPageSpinner } from '@deliveryapp/ui';
 import { getSortField, getSortOrder } from '@deliveryapp/utils';
@@ -25,7 +27,7 @@ import { getSortField, getSortOrder } from '@deliveryapp/utils';
 import { OrdersFilter } from './OrdersFilter/OrdersFilter';
 import { StyledOrders } from './StyledOrders';
 
-const headerGroup = (
+const headerGroup = (user: User | null) => (
   <ColumnGroup>
     <Row>
       <Column header="Num." field="id" rowSpan={2} sortable className="id" />
@@ -42,6 +44,9 @@ const headerGroup = (
       <Column header="Delivery Date" rowSpan={2} />
       <Column header="Status" rowSpan={2} />
       <Column header="Paid" rowSpan={2} />
+      {!isNil(user) && user.role !== Roles.CLIENT && (
+        <Column header="Client" rowSpan={2} />
+      )}
     </Row>
     <Row>
       <Column header="From" field="cityFrom" sortable className="cityFrom" />
@@ -74,7 +79,12 @@ const deliveryDateTemplate = (rowData: Order) => (
   </span>
 );
 
+const clientTemplate = (rowData: Order) => (
+  <a href="/">{rowData.client?.email}</a>
+);
+
 export const Orders = () => {
+  const [{ user }] = useAuth();
   const [ordersFilter, dispatch] = useOrders();
   const [loading, setLoading] = useState(false);
   const [orders, setOrders] = useState<Order[]>([]);
@@ -145,7 +155,7 @@ export const Orders = () => {
             </div>
             <DataTable
               value={orders}
-              headerColumnGroup={headerGroup}
+              headerColumnGroup={headerGroup(user)}
               sortField={getSortField(ordersFilter.order)}
               sortOrder={getSortOrder(ordersFilter.order)}
               onSort={doSorting}
@@ -159,6 +169,9 @@ export const Orders = () => {
               <Column body={deliveryDateTemplate} />
               <Column body={statusTemplate} />
               <Column body={paidTemplate} />
+              {!isNil(user) && user.role !== Roles.CLIENT && (
+                <Column body={clientTemplate} />
+              )}
             </DataTable>
             <Paginator
               rows={ordersFilter.limit}
