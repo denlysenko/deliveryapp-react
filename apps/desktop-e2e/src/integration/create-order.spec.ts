@@ -50,6 +50,32 @@ describe('Create order page', () => {
       cy.get('[data-testid=next]').click();
       cy.get('.p-steps-current').should('contain.html', 'Cargo');
     });
+
+    describe('client field', () => {
+      beforeEach(() => {
+        cy.login('manager@test.com', 'password');
+        cy.visit('/orders/create');
+      });
+
+      it('should show required errors', () => {
+        cy.get('[data-testid=next]').click();
+        cy.get('#clientId-error')
+          .should('have.length', 1)
+          .and('contain', ERRORS.REQUIRED_FIELD);
+      });
+
+      it('should request client by email and fill the field', () => {
+        cy.server().route('GET', '/users**').as('users');
+        cy.get('[data-testid=next]').click();
+        cy.get('#clientId-error')
+          .should('have.length', 1)
+          .and('contain', ERRORS.REQUIRED_FIELD);
+        cy.get('.p-autocomplete > input').type('cli');
+        cy.wait('@users');
+        cy.get('li[role=option]').click();
+        cy.get('#clientId-error').should('have.length', 0);
+      });
+    });
   });
 
   describe('Cargo', () => {
@@ -120,7 +146,7 @@ describe('Create order page', () => {
     it('should go to Destination and show error', () => {
       cy.server().route({
         method: 'POST',
-        url: 'http://localhost:3000/users/self/orders',
+        url: 'http://localhost:3000/orders',
         status: 422,
         response: {}
       });
