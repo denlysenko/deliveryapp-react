@@ -2,10 +2,20 @@ import React from 'react';
 import { fireEvent, screen, waitFor } from '@testing-library/react';
 
 import { DEFAULT_LIMIT } from '@deliveryapp/common';
-import { Order, ordersClient, OrdersProvider } from '@deliveryapp/data-access';
-import { renderWithRouter, savedOrder } from '@deliveryapp/testing';
+import {
+  Order,
+  ordersClient,
+  OrdersProvider,
+  AuthProvider
+} from '@deliveryapp/data-access';
+import { renderWithRouter, savedOrder, user } from '@deliveryapp/testing';
 
 import { Orders } from '../Orders';
+
+jest.mock('@deliveryapp/data-access', () => ({
+  ...jest.requireActual('@deliveryapp/data-access'),
+  useAuth: jest.fn().mockImplementation(() => [{ user }, jest.fn()])
+}));
 
 const orders: Order[] = [];
 
@@ -26,9 +36,11 @@ describe('Orders Page', () => {
 
   it('should render successfully', async () => {
     const { baseElement } = renderWithRouter(
-      <OrdersProvider>
-        <Orders />
-      </OrdersProvider>
+      <AuthProvider>
+        <OrdersProvider>
+          <Orders />
+        </OrdersProvider>
+      </AuthProvider>
     );
     await waitFor(() => expect(ordersClient.getOrders).toBeCalledTimes(1));
     expect(baseElement).toMatchSnapshot();
@@ -36,9 +48,11 @@ describe('Orders Page', () => {
 
   it('should get orders with default filter', async () => {
     renderWithRouter(
-      <OrdersProvider>
-        <Orders />
-      </OrdersProvider>
+      <AuthProvider>
+        <OrdersProvider>
+          <Orders />
+        </OrdersProvider>
+      </AuthProvider>
     );
 
     await waitFor(() => expect(ordersClient.getOrders).toBeCalledTimes(1));
@@ -56,9 +70,11 @@ describe('Orders Page', () => {
   describe('filtering', () => {
     it('should filter orders', async () => {
       renderWithRouter(
-        <OrdersProvider>
-          <Orders />
-        </OrdersProvider>
+        <AuthProvider>
+          <OrdersProvider>
+            <Orders />
+          </OrdersProvider>
+        </AuthProvider>
       );
       await waitFor(() => expect(ordersClient.getOrders).toBeCalledTimes(1));
 
@@ -88,9 +104,11 @@ describe('Orders Page', () => {
   describe('sorting', () => {
     it('should filter orders by id', async () => {
       renderWithRouter(
-        <OrdersProvider>
-          <Orders />
-        </OrdersProvider>
+        <AuthProvider>
+          <OrdersProvider>
+            <Orders />
+          </OrdersProvider>
+        </AuthProvider>
       );
       await waitFor(() => expect(ordersClient.getOrders).toBeCalledTimes(1));
 
@@ -112,9 +130,11 @@ describe('Orders Page', () => {
 
     it('should filter orders by cargo name', async () => {
       renderWithRouter(
-        <OrdersProvider>
-          <Orders />
-        </OrdersProvider>
+        <AuthProvider>
+          <OrdersProvider>
+            <Orders />
+          </OrdersProvider>
+        </AuthProvider>
       );
       await waitFor(() => expect(ordersClient.getOrders).toBeCalledTimes(1));
 
@@ -136,9 +156,11 @@ describe('Orders Page', () => {
 
     it('should filter orders by city from', async () => {
       renderWithRouter(
-        <OrdersProvider>
-          <Orders />
-        </OrdersProvider>
+        <AuthProvider>
+          <OrdersProvider>
+            <Orders />
+          </OrdersProvider>
+        </AuthProvider>
       );
       await waitFor(() => expect(ordersClient.getOrders).toBeCalledTimes(1));
 
@@ -160,9 +182,11 @@ describe('Orders Page', () => {
 
     it('should filter orders by city to', async () => {
       renderWithRouter(
-        <OrdersProvider>
-          <Orders />
-        </OrdersProvider>
+        <AuthProvider>
+          <OrdersProvider>
+            <Orders />
+          </OrdersProvider>
+        </AuthProvider>
       );
       await waitFor(() => expect(ordersClient.getOrders).toBeCalledTimes(1));
 
@@ -186,9 +210,11 @@ describe('Orders Page', () => {
   describe('pagination', () => {
     it('should paginate orders', async () => {
       renderWithRouter(
-        <OrdersProvider>
-          <Orders />
-        </OrdersProvider>
+        <AuthProvider>
+          <OrdersProvider>
+            <Orders />
+          </OrdersProvider>
+        </AuthProvider>
       );
       await waitFor(() => expect(ordersClient.getOrders).toBeCalledTimes(1));
 

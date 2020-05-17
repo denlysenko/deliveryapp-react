@@ -96,14 +96,41 @@ exports[`CreateOrder CargoForm should render successfully 1`] = `
     type="text/css"
   >
     
-            #pr_id_11 .p-steps-item {
+            #pr_id_12 .p-steps-item {
+                flex: 1 0 33.333333333333336%
+            }
+        
+  </style>
+  <style
+    type="text/css"
+  >
+    
+            #pr_id_14 .p-steps-item {
+                flex: 1 0 33.333333333333336%
+            }
+        
+  </style>
+  <style
+    type="text/css"
+  >
+    
+            #pr_id_15 .p-steps-item {
+                flex: 1 0 33.333333333333336%
+            }
+        
+  </style>
+  <style
+    type="text/css"
+  >
+    
+            #pr_id_16 .p-steps-item {
                 flex: 1 0 33.333333333333336%
             }
         
   </style>
   <div>
     <div
-      class="sc-AxjAm faLRmC"
+      class="sc-AxhCb kDBgQl"
     >
       <div
         class="p-growl p-component p-growl-topright"
@@ -121,7 +148,7 @@ exports[`CreateOrder CargoForm should render successfully 1`] = `
           >
             <div
               class="p-steps p-component"
-              id="pr_id_12"
+              id="pr_id_19"
             >
               <ul
                 role="tablist"
@@ -204,7 +231,7 @@ exports[`CreateOrder CargoForm should render successfully 1`] = `
               class="ui-widget-content"
             >
               <div
-                class="sc-AxirZ sc-AxiKw enLPJk"
+                class="sc-AxjAm sc-AxirZ kKoYyc"
               >
                 <form
                   autocomplete="off"
@@ -374,7 +401,7 @@ exports[`CreateOrder CargoForm should render successfully 1`] = `
     type="text/css"
   >
     
-            #pr_id_12 .p-steps-item {
+            #pr_id_19 .p-steps-item {
                 flex: 1 0 33.333333333333336%
             }
         
@@ -386,7 +413,7 @@ exports[`CreateOrder DestinationForm should render successfully 1`] = `
 <body>
   <div>
     <div
-      class="sc-AxjAm faLRmC"
+      class="sc-AxhCb kDBgQl"
     >
       <div
         class="p-growl p-component p-growl-topright"
@@ -487,7 +514,7 @@ exports[`CreateOrder DestinationForm should render successfully 1`] = `
               class="ui-widget-content"
             >
               <div
-                class="sc-AxirZ krjiiK"
+                class="sc-AxjAm iJwZfV"
               >
                 <form
                   autocomplete="off"
@@ -738,25 +765,7 @@ exports[`CreateOrder SenderForm should render successfully 1`] = `
     type="text/css"
   >
     
-            #pr_id_11 .p-steps-item {
-                flex: 1 0 33.333333333333336%
-            }
-        
-  </style>
-  <style
-    type="text/css"
-  >
-    
             #pr_id_12 .p-steps-item {
-                flex: 1 0 33.333333333333336%
-            }
-        
-  </style>
-  <style
-    type="text/css"
-  >
-    
-            #pr_id_13 .p-steps-item {
                 flex: 1 0 33.333333333333336%
             }
         
@@ -792,32 +801,77 @@ exports[`CreateOrder SenderForm should render successfully 1`] = `
     type="text/css"
   >
     
-            #pr_id_17 .p-steps-item {
-                flex: 1 0 33.333333333333336%
-            }
-        
-  </style>
-  <style
-    type="text/css"
-  >
-    
-            #pr_id_18 .p-steps-item {
-                flex: 1 0 33.333333333333336%
-            }
-        
-  </style>
-  <style
-    type="text/css"
-  >
-    
             #pr_id_19 .p-steps-item {
+                flex: 1 0 33.333333333333336%
+            }
+        
+  </style>
+  <style
+    type="text/css"
+  >
+    
+            #pr_id_20 .p-steps-item {
+                flex: 1 0 33.333333333333336%
+            }
+        
+  </style>
+  <style
+    type="text/css"
+  >
+    
+            #pr_id_21 .p-steps-item {
+                flex: 1 0 33.333333333333336%
+            }
+        
+  </style>
+  <style
+    type="text/css"
+  >
+    
+            #pr_id_22 .p-steps-item {
+                flex: 1 0 33.333333333333336%
+            }
+        
+  </style>
+  <style
+    type="text/css"
+  >
+    
+            #pr_id_23 .p-steps-item {
+                flex: 1 0 33.333333333333336%
+            }
+        
+  </style>
+  <style
+    type="text/css"
+  >
+    
+            #pr_id_24 .p-steps-item {
+                flex: 1 0 33.333333333333336%
+            }
+        
+  </style>
+  <style
+    type="text/css"
+  >
+    
+            #pr_id_25 .p-steps-item {
+                flex: 1 0 33.333333333333336%
+            }
+        
+  </style>
+  <style
+    type="text/css"
+  >
+    
+            #pr_id_26 .p-steps-item {
                 flex: 1 0 33.333333333333336%
             }
         
   </style>
   <div>
     <div
-      class="sc-AxjAm faLRmC"
+      class="sc-AxhCb kDBgQl"
     >
       <div
         class="p-growl p-component p-growl-topright"
@@ -835,7 +889,7 @@ exports[`CreateOrder SenderForm should render successfully 1`] = `
           >
             <div
               class="p-steps p-component"
-              id="pr_id_20"
+              id="pr_id_27"
             >
               <ul
                 role="tablist"
@@ -918,7 +972,7 @@ exports[`CreateOrder SenderForm should render successfully 1`] = `
               class="ui-widget-content"
             >
               <div
-                class="sc-AxirZ sc-AxhCb jyHGaQ"
+                class="sc-AxjAm sc-AxiKw enLPJk"
               >
                 <form
                   autocomplete="off"
@@ -1063,7 +1117,7 @@ exports[`CreateOrder SenderForm should render successfully 1`] = `
     type="text/css"
   >
     
-            #pr_id_20 .p-steps-item {
+            #pr_id_27 .p-steps-item {
                 flex: 1 0 33.333333333333336%
             }
         

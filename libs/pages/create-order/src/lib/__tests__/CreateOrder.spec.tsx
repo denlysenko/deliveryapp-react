@@ -1,9 +1,14 @@
 import React from 'react';
 import { render, fireEvent, waitFor, screen } from '@testing-library/react';
 
-import { ERRORS } from '@deliveryapp/common';
-import { ordersClient } from '@deliveryapp/data-access';
-import { useHistoryMock, savedOrder } from '@deliveryapp/testing';
+import { ERRORS, Roles } from '@deliveryapp/common';
+import {
+  ordersClient,
+  AuthProvider,
+  useAuth,
+  usersClient
+} from '@deliveryapp/data-access';
+import { useHistoryMock, user, savedOrder } from '@deliveryapp/testing';
 
 import { CreateOrder } from '../CreateOrder';
 
@@ -70,6 +75,16 @@ jest.mock('react-router-dom', () => ({
   useHistory: () => useHistoryMock
 }));
 
+jest.mock('@deliveryapp/data-access', () => ({
+  ...jest.requireActual('@deliveryapp/data-access'),
+  useAuth: jest.fn().mockImplementation(() => [{ user }, jest.fn()])
+}));
+
+jest.mock('lodash', () => ({
+  ...jest.requireActual('lodash'),
+  debounce: jest.fn((fn) => fn)
+}));
+
 describe('CreateOrder', () => {
   afterEach(() => {
     jest.clearAllMocks();
@@ -77,14 +92,22 @@ describe('CreateOrder', () => {
 
   describe('DestinationForm', () => {
     it('should render successfully', () => {
-      const { baseElement } = render(<CreateOrder />);
+      const { baseElement } = render(
+        <AuthProvider>
+          <CreateOrder />
+        </AuthProvider>
+      );
       expect(baseElement).toMatchSnapshot();
     });
 
     describe('Validations', () => {
       describe('cityFrom', () => {
         it('should display required error', async () => {
-          const { container } = render(<CreateOrder />);
+          const { container } = render(
+            <AuthProvider>
+              <CreateOrder />
+            </AuthProvider>
+          );
 
           fireEvent.click(screen.getByTestId('next'));
 
@@ -96,7 +119,11 @@ describe('CreateOrder', () => {
         });
 
         it('should not display required error', async () => {
-          const { container } = render(<CreateOrder />);
+          const { container } = render(
+            <AuthProvider>
+              <CreateOrder />
+            </AuthProvider>
+          );
 
           fireEvent.change(screen.getByTestId('cityFrom'), {
             target: {
@@ -116,7 +143,11 @@ describe('CreateOrder', () => {
 
       describe('cityTo', () => {
         it('should display required error', async () => {
-          const { container } = render(<CreateOrder />);
+          const { container } = render(
+            <AuthProvider>
+              <CreateOrder />
+            </AuthProvider>
+          );
 
           fireEvent.click(screen.getByTestId('next'));
 
@@ -128,7 +159,11 @@ describe('CreateOrder', () => {
         });
 
         it('should not display required error', async () => {
-          const { container } = render(<CreateOrder />);
+          const { container } = render(
+            <AuthProvider>
+              <CreateOrder />
+            </AuthProvider>
+          );
 
           fireEvent.change(screen.getByTestId('cityTo'), {
             target: {
@@ -148,7 +183,11 @@ describe('CreateOrder', () => {
 
       describe('addressFrom', () => {
         it('should display required error', async () => {
-          const { container } = render(<CreateOrder />);
+          const { container } = render(
+            <AuthProvider>
+              <CreateOrder />
+            </AuthProvider>
+          );
 
           fireEvent.click(screen.getByTestId('next'));
 
@@ -160,7 +199,11 @@ describe('CreateOrder', () => {
         });
 
         it('should not display required error', async () => {
-          const { container } = render(<CreateOrder />);
+          const { container } = render(
+            <AuthProvider>
+              <CreateOrder />
+            </AuthProvider>
+          );
 
           fireEvent.change(screen.getByTestId('addressFrom'), {
             target: {
@@ -180,7 +223,11 @@ describe('CreateOrder', () => {
 
       describe('addressTo', () => {
         it('should display required error', async () => {
-          const { container } = render(<CreateOrder />);
+          const { container } = render(
+            <AuthProvider>
+              <CreateOrder />
+            </AuthProvider>
+          );
 
           fireEvent.click(screen.getByTestId('next'));
 
@@ -192,7 +239,11 @@ describe('CreateOrder', () => {
         });
 
         it('should not display required error', async () => {
-          const { container } = render(<CreateOrder />);
+          const { container } = render(
+            <AuthProvider>
+              <CreateOrder />
+            </AuthProvider>
+          );
 
           fireEvent.change(screen.getByTestId('addressTo'), {
             target: {
@@ -209,11 +260,83 @@ describe('CreateOrder', () => {
           });
         });
       });
+
+      describe('clientId', () => {
+        beforeEach(() => {
+          (useAuth as jest.MockedFunction<
+            typeof useAuth
+          >).mockImplementation(() => [
+            { user: { ...user, role: Roles.MANAGER }, isLoggedIn: true },
+            jest.fn()
+          ]);
+        });
+
+        afterEach(() => {
+          (useAuth as jest.MockedFunction<
+            typeof useAuth
+          >).mockImplementation(() => [{ user, isLoggedIn: true }, jest.fn()]);
+        });
+
+        it('should display required error', async () => {
+          const { container } = render(
+            <AuthProvider>
+              <CreateOrder />
+            </AuthProvider>
+          );
+
+          fireEvent.click(screen.getByTestId('next'));
+
+          await waitFor(() => {
+            expect(
+              container.querySelector('#clientId-error')
+            ).toHaveTextContent(ERRORS.REQUIRED_FIELD);
+          });
+        });
+
+        it('should not display required error', async () => {
+          const email = 'client@test.com';
+
+          jest.spyOn(usersClient, 'getUsers').mockImplementationOnce(() =>
+            Promise.resolve({
+              data: { count: 1, rows: [{ ...user, email }] }
+            })
+          );
+
+          const { container } = render(
+            <AuthProvider>
+              <CreateOrder />
+            </AuthProvider>
+          );
+
+          fireEvent.change(screen.getByRole('searchbox'), {
+            target: {
+              value: 'client'
+            }
+          });
+
+          await waitFor(() => {
+            expect(usersClient.getUsers).toBeCalledTimes(1);
+          });
+
+          fireEvent.click(screen.getByText(email));
+          fireEvent.click(screen.getByTestId('next'));
+
+          await waitFor(() => {
+            expect(
+              container.querySelector('#clientId-error')
+            ).not.toBeInTheDocument();
+          });
+        });
+      });
     });
 
     describe('Next step', () => {
       it('should not move to CargoForm if current form is invalid', async () => {
-        const { container } = render(<CreateOrder />);
+        const { container } = render(
+          <AuthProvider>
+            <CreateOrder />
+          </AuthProvider>
+        );
 
         fireEvent.click(screen.getByTestId('next'));
 
@@ -225,7 +348,11 @@ describe('CreateOrder', () => {
       });
 
       it('should move to CargoForm if current form is valid', async () => {
-        const { container } = render(<CreateOrder />);
+        const { container } = render(
+          <AuthProvider>
+            <CreateOrder />
+          </AuthProvider>
+        );
 
         fillDestinationForm();
 
@@ -238,11 +365,83 @@ describe('CreateOrder', () => {
         });
       });
     });
+
+    describe('client data request', () => {
+      beforeEach(() => {
+        (useAuth as jest.MockedFunction<
+          typeof useAuth
+        >).mockImplementation(() => [
+          { user: { ...user, role: Roles.MANAGER }, isLoggedIn: true },
+          jest.fn()
+        ]);
+      });
+
+      afterEach(() => {
+        (useAuth as jest.MockedFunction<
+          typeof useAuth
+        >).mockImplementation(() => [{ user, isLoggedIn: true }, jest.fn()]);
+      });
+
+      it('should request client data if clientId is defined', async () => {
+        const email = 'client@test.com';
+
+        jest.spyOn(usersClient, 'getUsers').mockImplementationOnce(() =>
+          Promise.resolve({
+            data: { count: 1, rows: [{ ...user, email }] }
+          })
+        );
+
+        jest.spyOn(usersClient, 'getUser').mockImplementationOnce(() =>
+          Promise.resolve({
+            data: { ...user, email }
+          })
+        );
+
+        const { container } = render(
+          <AuthProvider>
+            <CreateOrder />
+          </AuthProvider>
+        );
+
+        fillDestinationForm();
+
+        fireEvent.change(screen.getByRole('searchbox'), {
+          target: {
+            value: 'client'
+          }
+        });
+
+        await waitFor(() => {
+          expect(usersClient.getUsers).toBeCalledTimes(1);
+        });
+
+        fireEvent.click(screen.getByText(email));
+        fireEvent.click(screen.getByTestId('next'));
+
+        await waitFor(() => {
+          expect(container.querySelector('.p-steps-current')).toContainHTML(
+            'Cargo'
+          );
+        });
+
+        fireEvent.click(screen.getByTestId('back'));
+
+        await waitFor(() => {
+          expect(usersClient.getUser).toBeCalledTimes(1);
+        });
+
+        expect(screen.getByRole('searchbox')).toHaveValue(email);
+      });
+    });
   });
 
   describe('CargoForm', () => {
     it('should render successfully', async () => {
-      const { baseElement, container } = render(<CreateOrder />);
+      const { baseElement, container } = render(
+        <AuthProvider>
+          <CreateOrder />
+        </AuthProvider>
+      );
       fillDestinationForm();
 
       fireEvent.click(screen.getByTestId('next'));
@@ -259,7 +458,11 @@ describe('CreateOrder', () => {
     describe('Validations', () => {
       describe('cargoName', () => {
         it('should display required error', async () => {
-          const { container } = render(<CreateOrder />);
+          const { container } = render(
+            <AuthProvider>
+              <CreateOrder />
+            </AuthProvider>
+          );
           fillDestinationForm();
 
           fireEvent.click(screen.getByTestId('next'));
@@ -280,7 +483,11 @@ describe('CreateOrder', () => {
         });
 
         it('should not display required error', async () => {
-          const { container } = render(<CreateOrder />);
+          const { container } = render(
+            <AuthProvider>
+              <CreateOrder />
+            </AuthProvider>
+          );
           fillDestinationForm();
 
           fireEvent.click(screen.getByTestId('next'));
@@ -309,7 +516,11 @@ describe('CreateOrder', () => {
 
       describe('cargoWeight', () => {
         it('should display number error', async () => {
-          const { container } = render(<CreateOrder />);
+          const { container } = render(
+            <AuthProvider>
+              <CreateOrder />
+            </AuthProvider>
+          );
           fillDestinationForm();
 
           fireEvent.click(screen.getByTestId('next'));
@@ -330,7 +541,11 @@ describe('CreateOrder', () => {
         });
 
         it('should not display required error', async () => {
-          const { container } = render(<CreateOrder />);
+          const { container } = render(
+            <AuthProvider>
+              <CreateOrder />
+            </AuthProvider>
+          );
           fillDestinationForm();
 
           fireEvent.click(screen.getByTestId('next'));
@@ -364,7 +579,11 @@ describe('CreateOrder', () => {
 
     describe('Prev Step', () => {
       it('should move to DestinationForm', async () => {
-        const { container } = render(<CreateOrder />);
+        const { container } = render(
+          <AuthProvider>
+            <CreateOrder />
+          </AuthProvider>
+        );
         fillDestinationForm();
 
         fireEvent.click(screen.getByTestId('next'));
@@ -387,7 +606,11 @@ describe('CreateOrder', () => {
 
     describe('Next Step', () => {
       it('should not move to SenderForm if current form is invalid', async () => {
-        const { container } = render(<CreateOrder />);
+        const { container } = render(
+          <AuthProvider>
+            <CreateOrder />
+          </AuthProvider>
+        );
         fillDestinationForm();
 
         fireEvent.click(screen.getByTestId('next'));
@@ -400,7 +623,11 @@ describe('CreateOrder', () => {
       });
 
       it('should move to SenderForm if current form is valid', async () => {
-        const { container } = render(<CreateOrder />);
+        const { container } = render(
+          <AuthProvider>
+            <CreateOrder />
+          </AuthProvider>
+        );
         fillDestinationForm();
 
         fireEvent.click(screen.getByTestId('next'));
@@ -432,7 +659,11 @@ describe('CreateOrder', () => {
     });
 
     it('should render successfully', async () => {
-      const { baseElement, container } = render(<CreateOrder />);
+      const { baseElement, container } = render(
+        <AuthProvider>
+          <CreateOrder />
+        </AuthProvider>
+      );
       fillDestinationForm();
 
       fireEvent.click(screen.getByTestId('next'));
@@ -459,7 +690,11 @@ describe('CreateOrder', () => {
     describe('Validations', () => {
       describe('senderEmail', () => {
         it('should have required error', async () => {
-          const { container } = render(<CreateOrder />);
+          const { container } = render(
+            <AuthProvider>
+              <CreateOrder />
+            </AuthProvider>
+          );
           fillDestinationForm();
 
           fireEvent.click(screen.getByTestId('next'));
@@ -490,7 +725,11 @@ describe('CreateOrder', () => {
         });
 
         it('should have invalid email error', async () => {
-          const { container } = render(<CreateOrder />);
+          const { container } = render(
+            <AuthProvider>
+              <CreateOrder />
+            </AuthProvider>
+          );
           fillDestinationForm();
 
           fireEvent.click(screen.getByTestId('next'));
@@ -527,7 +766,11 @@ describe('CreateOrder', () => {
         });
 
         it('should not have error', async () => {
-          const { container } = render(<CreateOrder />);
+          const { container } = render(
+            <AuthProvider>
+              <CreateOrder />
+            </AuthProvider>
+          );
           fillDestinationForm();
 
           fireEvent.click(screen.getByTestId('next'));
@@ -566,7 +809,11 @@ describe('CreateOrder', () => {
 
       describe('senderPhone', () => {
         it('should have required error', async () => {
-          const { container } = render(<CreateOrder />);
+          const { container } = render(
+            <AuthProvider>
+              <CreateOrder />
+            </AuthProvider>
+          );
           fillDestinationForm();
 
           fireEvent.click(screen.getByTestId('next'));
@@ -597,7 +844,11 @@ describe('CreateOrder', () => {
         });
 
         it('should not have required error', async () => {
-          const { container } = render(<CreateOrder />);
+          const { container } = render(
+            <AuthProvider>
+              <CreateOrder />
+            </AuthProvider>
+          );
           fillDestinationForm();
 
           fireEvent.click(screen.getByTestId('next'));
@@ -638,7 +889,11 @@ describe('CreateOrder', () => {
 
     describe('Prev Step', () => {
       it('should move to CargoForm', async () => {
-        const { container } = render(<CreateOrder />);
+        const { container } = render(
+          <AuthProvider>
+            <CreateOrder />
+          </AuthProvider>
+        );
         fillDestinationForm();
 
         fireEvent.click(screen.getByTestId('next'));
@@ -671,7 +926,11 @@ describe('CreateOrder', () => {
 
     describe('Create', () => {
       it('should send request and redirect', async () => {
-        const { container } = render(<CreateOrder />);
+        const { container } = render(
+          <AuthProvider>
+            <CreateOrder />
+          </AuthProvider>
+        );
         fillDestinationForm();
 
         fireEvent.click(screen.getByTestId('next'));
@@ -741,7 +1000,11 @@ describe('CreateOrder', () => {
           }
         });
 
-        const { container } = render(<CreateOrder />);
+        const { container } = render(
+          <AuthProvider>
+            <CreateOrder />
+          </AuthProvider>
+        );
 
         fillDestinationForm();
 

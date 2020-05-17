@@ -33,6 +33,7 @@ exports[`Orders Page should render successfully 1`] = `
                   </span>
                   <input
                     class="p-inputtext p-component"
+                    data-testid="searchTerm"
                     placeholder="Search..."
                     type="text"
                     value=""
@@ -172,7 +173,7 @@ exports[`Orders Page should render successfully 1`] = `
                 <tr>
                   <th
                     aria-sort="none"
-                    class="p-sortable-column p-highlight"
+                    class="p-sortable-column p-highlight id"
                     rowspan="2"
                   >
                     <span
@@ -186,7 +187,7 @@ exports[`Orders Page should render successfully 1`] = `
                   </th>
                   <th
                     aria-sort="none"
-                    class="p-sortable-column"
+                    class="p-sortable-column cargoName"
                     rowspan="2"
                   >
                     <span
@@ -262,7 +263,7 @@ exports[`Orders Page should render successfully 1`] = `
                 <tr>
                   <th
                     aria-sort="none"
-                    class="p-sortable-column"
+                    class="p-sortable-column cityFrom"
                   >
                     <span
                       class="p-column-title"
@@ -275,7 +276,7 @@ exports[`Orders Page should render successfully 1`] = `
                   </th>
                   <th
                     aria-sort="none"
-                    class="p-sortable-column"
+                    class="p-sortable-column cityTo"
                   >
                     <span
                       class="p-column-title"
@@ -327,7 +328,9 @@ exports[`Orders Page should render successfully 1`] = `
                   </td>
                   <td
                     class=""
-                  />
+                  >
+                    <span />
+                  </td>
                   <td
                     class=""
                   >
@@ -384,7 +387,9 @@ exports[`Orders Page should render successfully 1`] = `
                   </td>
                   <td
                     class=""
-                  />
+                  >
+                    <span />
+                  </td>
                   <td
                     class=""
                   >
@@ -441,7 +446,9 @@ exports[`Orders Page should render successfully 1`] = `
                   </td>
                   <td
                     class=""
-                  />
+                  >
+                    <span />
+                  </td>
                   <td
                     class=""
                   >
@@ -498,7 +505,9 @@ exports[`Orders Page should render successfully 1`] = `
                   </td>
                   <td
                     class=""
-                  />
+                  >
+                    <span />
+                  </td>
                   <td
                     class=""
                   >
@@ -555,7 +564,9 @@ exports[`Orders Page should render successfully 1`] = `
                   </td>
                   <td
                     class=""
-                  />
+                  >
+                    <span />
+                  </td>
                   <td
                     class=""
                   >
@@ -612,7 +623,9 @@ exports[`Orders Page should render successfully 1`] = `
                   </td>
                   <td
                     class=""
-                  />
+                  >
+                    <span />
+                  </td>
                   <td
                     class=""
                   >
@@ -669,7 +682,9 @@ exports[`Orders Page should render successfully 1`] = `
                   </td>
                   <td
                     class=""
-                  />
+                  >
+                    <span />
+                  </td>
                   <td
                     class=""
                   >
@@ -726,7 +741,9 @@ exports[`Orders Page should render successfully 1`] = `
                   </td>
                   <td
                     class=""
-                  />
+                  >
+                    <span />
+                  </td>
                   <td
                     class=""
                   >
@@ -783,7 +800,9 @@ exports[`Orders Page should render successfully 1`] = `
                   </td>
                   <td
                     class=""
-                  />
+                  >
+                    <span />
+                  </td>
                   <td
                     class=""
                   >
@@ -840,7 +859,9 @@ exports[`Orders Page should render successfully 1`] = `
                   </td>
                   <td
                     class=""
-                  />
+                  >
+                    <span />
+                  </td>
                   <td
                     class=""
                   >
@@ -897,7 +918,9 @@ exports[`Orders Page should render successfully 1`] = `
                   </td>
                   <td
                     class=""
-                  />
+                  >
+                    <span />
+                  </td>
                   <td
                     class=""
                   >
@@ -954,7 +977,9 @@ exports[`Orders Page should render successfully 1`] = `
                   </td>
                   <td
                     class=""
-                  />
+                  >
+                    <span />
+                  </td>
                   <td
                     class=""
                   >

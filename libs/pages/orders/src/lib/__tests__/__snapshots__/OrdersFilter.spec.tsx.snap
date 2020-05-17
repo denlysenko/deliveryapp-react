@@ -21,6 +21,7 @@ exports[`OrdersFilter should render successfully 1`] = `
           </span>
           <input
             class="p-inputtext p-component"
+            data-testid="searchTerm"
             placeholder="Search..."
             type="text"
             value=""
