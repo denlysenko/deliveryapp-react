@@ -64,6 +64,9 @@
     },
     "pages-orders": {
       "tags": []
+    },
+    "pages-payments": {
+      "tags": []
     }
   }
 }

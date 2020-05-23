@@ -29,6 +29,12 @@ const UpdateOrder = lazy(() =>
   }))
 );
 
+const Payments = lazy(() =>
+  import('@deliveryapp/pages/payments').then(({ Payments }) => ({
+    default: Payments
+  }))
+);
+
 export const Main = () => {
   const [showMessages, setShowMessages] = useState(false);
 
@@ -55,6 +61,9 @@ export const Main = () => {
                 </Route>
                 <Route exact path="/orders/:id">
                   <UpdateOrder />
+                </Route>
+                <Route exact path="/payments">
+                  <Payments />
                 </Route>
               </Switch>
             </OrdersProvider>
