@@ -1,14 +1,28 @@
 import React from 'react';
 
+import { useAuth } from '@deliveryapp/data-access';
+
+import { PaymentForm } from './PaymentForm/PaymentForm';
+import { PaymentsList } from './PaymentsList/PaymentsList';
 import { StyledPayments } from './StyledPayments';
 
-/* eslint-disable-next-line */
-export interface PaymentsProps {}
+export const Payments = () => {
+  const [{ user }] = useAuth();
 
-export const Payments = (props: PaymentsProps) => {
   return (
     <StyledPayments>
-      <h1>Welcome to pages-payments component!</h1>
+      <div className="p-grid">
+        <div className="p-lg-3 p-md-4 p-col-12">
+          <div className="card">
+            <PaymentForm />
+          </div>
+        </div>
+        <div className="p-lg-9 p-md-8 p-col-12">
+          <div className="card">
+            <PaymentsList />
+          </div>
+        </div>
+      </div>
     </StyledPayments>
   );
 };

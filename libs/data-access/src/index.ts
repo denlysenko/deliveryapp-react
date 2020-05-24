@@ -10,6 +10,7 @@ export * from './lib/models/validation-error';
 export * from './lib/models/order';
 export * from './lib/models/list-response';
 export * from './lib/models/orders-filter';
+export * from './lib/models/payment';
 
 export * from './lib/context/auth';
 export * from './lib/context/orders';
