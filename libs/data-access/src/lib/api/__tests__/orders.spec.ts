@@ -35,7 +35,7 @@ describe('API Orders', () => {
 
       jest
         .spyOn(apiClient, 'post')
-        .mockImplementation(() => Promise.reject(error));
+        .mockImplementationOnce(() => Promise.reject(error));
 
       try {
         await createOrder(createOrderDto);
@@ -68,7 +68,7 @@ describe('API Orders', () => {
 
       jest
         .spyOn(apiClient, 'patch')
-        .mockImplementation(() => Promise.reject(error));
+        .mockImplementationOnce(() => Promise.reject(error));
 
       try {
         await updateOrder(1, updateOrderDto);
@@ -99,7 +99,7 @@ describe('API Orders', () => {
 
       jest
         .spyOn(apiClient, 'get')
-        .mockImplementation(() => Promise.reject(error));
+        .mockImplementationOnce(() => Promise.reject(error));
 
       try {
         await getOrder(1);

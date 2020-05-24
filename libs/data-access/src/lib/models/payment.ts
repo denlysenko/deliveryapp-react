@@ -1,8 +1,7 @@
 import { User } from './user';
 import { Order } from './order';
 
-export interface Payment {
-  id?: number;
+export interface PaymentDTO {
   method: number;
   status: boolean;
   total: number;
@@ -11,9 +10,13 @@ export interface Payment {
   dueDate: Date;
   notes?: string;
   description?: string;
-  client?: User;
-  clientId?: number;
-  creator?: User;
-  orders?: Order[];
-  createdAt?: Date;
+  clientId: number;
+  orders: number[];
+}
+
+export interface Payment extends Omit<PaymentDTO, 'orders'> {
+  id: number;
+  client: User;
+  orders: Order[];
+  createdAt: Date;
 }
