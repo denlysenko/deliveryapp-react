@@ -1,4 +1,4 @@
-type OrderField = 'createdAt' | 'total' | 'status';
+type OrderField = 'id' | 'createdAt' | 'total' | 'status';
 
 export interface PaymentsFilter {
   filter?: {

@@ -3,7 +3,7 @@ import { Redirect, Route, Switch } from 'react-router-dom';
 
 import { Sidebar } from 'primereact/sidebar';
 
-import { OrdersProvider } from '@deliveryapp/data-access';
+import { OrdersProvider, PaymentsProvider } from '@deliveryapp/data-access';
 import { Orders } from '@deliveryapp/pages/orders';
 import { FullPageSpinner } from '@deliveryapp/ui';
 
@@ -46,26 +46,28 @@ export const Main = () => {
         <div className="content">
           <Suspense fallback={<FullPageSpinner />}>
             <OrdersProvider>
-              <Switch>
-                <Route exact path="/">
-                  <Redirect to="/orders" />
-                </Route>
-                <Route exact path="/profile">
-                  <Profile />
-                </Route>
-                <Route exact path="/orders">
-                  <Orders />
-                </Route>
-                <Route exact path="/orders/create">
-                  <CreateOrder />
-                </Route>
-                <Route exact path="/orders/:id">
-                  <UpdateOrder />
-                </Route>
-                <Route exact path="/payments">
-                  <Payments />
-                </Route>
-              </Switch>
+              <PaymentsProvider>
+                <Switch>
+                  <Route exact path="/">
+                    <Redirect to="/orders" />
+                  </Route>
+                  <Route exact path="/profile">
+                    <Profile />
+                  </Route>
+                  <Route exact path="/orders">
+                    <Orders />
+                  </Route>
+                  <Route exact path="/orders/create">
+                    <CreateOrder />
+                  </Route>
+                  <Route exact path="/orders/:id">
+                    <UpdateOrder />
+                  </Route>
+                  <Route exact path="/payments">
+                    <Payments />
+                  </Route>
+                </Switch>
+              </PaymentsProvider>
             </OrdersProvider>
           </Suspense>
         </div>

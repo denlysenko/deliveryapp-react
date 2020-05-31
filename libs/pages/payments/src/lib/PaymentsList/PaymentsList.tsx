@@ -11,9 +11,17 @@ import dayjs from 'dayjs';
 import { isNil } from 'lodash-es';
 
 import { paymentMethodNames, Roles } from '@deliveryapp/common';
-import { Payment, useAuth, User } from '@deliveryapp/data-access';
+import {
+  Payment,
+  PaymentsActionTypes,
+  paymentsClient,
+  PaymentsFilter as IPaymentsFilter,
+  useAuth,
+  usePayments,
+  User
+} from '@deliveryapp/data-access';
 import { FullPageSpinner } from '@deliveryapp/ui';
-import { toCurrency } from '@deliveryapp/utils';
+import { getSortField, getSortOrder, toCurrency } from '@deliveryapp/utils';
 
 import { PaymentsFilter } from '../PaymentsFilter/PaymentsFilter';
 import { StyledPaymentsList } from './StyledPaymentsList';
@@ -26,13 +34,27 @@ const headerGroup = (user: User | null) => (
       <Column header="Payment Method" />
       <Column header="Payment Status" />
       <Column header="Due Date" />
-      <Column header="Created At" />
+      <Column
+        header="Created At"
+        field="createdAt"
+        sortable
+        className="createdAt"
+      />
       {user?.role !== Roles.CLIENT && <Column header="Client" />}
     </Row>
   </ColumnGroup>
 );
 
-const idTemplate = (rowData: Payment) => <a href="/">{rowData.id}</a>;
+const idTemplate = (rowData: Payment) => (
+  <a
+    href="/"
+    onClick={(e) => {
+      e.preventDefault();
+    }}
+  >
+    {rowData.id}
+  </a>
+);
 
 const methodTemplate = (rowData: Payment) => (
   <span>{paymentMethodNames[rowData.method]}</span>
@@ -66,11 +88,16 @@ const clientTemplate = (rowData: Payment) => (
 
 export const PaymentsList = () => {
   const [{ user }] = useAuth();
+  const [state, dispatch] = usePayments();
   const [loading, setLoading] = useState(false);
+  const [payments, setPayments] = useState<Payment[]>([]);
   const [totalRecords, setTotalRecords] = useState(0);
 
-  const doFiltering = () => {
-    console.log('filtering');
+  const doFiltering = (paymentsFilter: IPaymentsFilter['filter']) => {
+    dispatch({
+      type: PaymentsActionTypes.FILTER_CHANGE,
+      payload: paymentsFilter
+    });
   };
 
   const doSorting = ({
@@ -80,21 +107,42 @@ export const PaymentsList = () => {
     sortField: string;
     sortOrder: number;
   }) => {
-    console.log('sorting');
+    dispatch({
+      type: PaymentsActionTypes.SORTING_CHANGE,
+      payload: { [sortField]: sortOrder === 1 ? 'asc' : 'desc' }
+    });
   };
 
   const doPaging = ({ rows, page }: PageState) => {
-    console.log('paging');
+    dispatch({
+      type: PaymentsActionTypes.PAGE_CHANGE,
+      payload: { limit: rows, offset: rows * page }
+    });
   };
 
+  const selectPayment = (id: number | null) => {
+    dispatch({
+      type: PaymentsActionTypes.SELECT_PAYMENT,
+      payload: id
+    });
+  };
+
+  const findSelectedPayment = (
+    payments: Payment[],
+    selectedPayment: number | null
+  ) => payments.find((payment) => payment.id === selectedPayment);
+
   useEffect(() => {
-    // setLoading(true);
-    // ordersClient.getOrders(ordersFilter).then(({ data: { rows, count } }) => {
-    //   setOrders(rows);
-    //   setTotalRecords(count);
-    //   setLoading(false);
-    // });
-  }, []);
+    setLoading(true);
+
+    paymentsClient
+      .getPayments(state.paymentsFilter)
+      .then(({ data: { rows, count } }) => {
+        setPayments(rows);
+        setTotalRecords(count);
+        setLoading(false);
+      });
+  }, [state.paymentsFilter]);
 
   return (
     <>
@@ -104,7 +152,10 @@ export const PaymentsList = () => {
         <StyledPaymentsList>
           <div className="topbar p-grid">
             <div className="payment-filter p-md-8 p-col-12">
-              <PaymentsFilter />
+              <PaymentsFilter
+                filter={state.paymentsFilter.filter}
+                handleFilterChange={doFiltering}
+              />
             </div>
             {user?.role !== Roles.CLIENT && (
               <div className="button p-md-4 p-col-12">
@@ -114,16 +165,23 @@ export const PaymentsList = () => {
                   icon="fa fa-plus"
                   iconPos="left"
                   className="raised-btn"
+                  onClick={() => selectPayment(null)}
                 />
               </div>
             )}
           </div>
           <DataTable
-            value={[]}
+            selectionMode="single"
+            selection={findSelectedPayment(payments, state.selectedPayment)}
+            compareSelectionBy="equals"
+            onSelectionChange={(e) => selectPayment(e.value.id)}
+            value={payments}
             headerColumnGroup={headerGroup(user)}
+            sortField={getSortField(state.paymentsFilter.order)}
+            sortOrder={getSortOrder(state.paymentsFilter.order)}
             onSort={doSorting}
           >
-            <Column body={idTemplate} />
+            <Column body={(rowData: Payment) => idTemplate(rowData)} />
             <Column body={totalTemplate} />
             <Column body={methodTemplate} />
             <Column body={statusTemplate} />
@@ -132,8 +190,9 @@ export const PaymentsList = () => {
             {user?.role !== Roles.CLIENT && <Column body={clientTemplate} />}
           </DataTable>
           <Paginator
-            rows={10}
-            totalRecords={0}
+            rows={state.paymentsFilter.limit}
+            totalRecords={totalRecords}
+            first={state.paymentsFilter.offset}
             pageLinkSize={3}
             onPageChange={doPaging}
           />

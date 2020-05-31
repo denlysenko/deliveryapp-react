@@ -16,3 +16,4 @@ export * from './lib/models/payments-filter';
 
 export * from './lib/context/auth';
 export * from './lib/context/orders';
+export * from './lib/context/payments';

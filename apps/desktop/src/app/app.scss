@@ -115,6 +115,13 @@ body .p-paginator {
   text-align: center;
 }
 
+.p-highlight {
+  a,
+  a:hover {
+    color: #ffffff;
+  }
+}
+
 .input-wrapper {
   position: relative;
 
@@ -133,7 +140,9 @@ body .p-paginator {
 
 .invalid:not(form),
 .invalid:not(form) .ui-inputtext,
-.p-autocomplete.invalid .p-inputtext {
+.p-autocomplete.invalid .p-inputtext,
+.p-inputnumber.invalid .p-inputtext,
+.p-calendar.invalid .p-inputtext {
   border-color: #e17576;
 }
 

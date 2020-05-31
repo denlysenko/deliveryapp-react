@@ -6,7 +6,8 @@ export const StyledPaymentForm = styled.div`
   }
 
   .p-dropdown,
-  .p-calendar {
+  .p-calendar,
+  .p-inputnumber {
     width: 100%;
   }
 

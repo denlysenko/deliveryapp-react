@@ -1,3 +1,3 @@
-export const getSortField = (order: {
+export const getSortField = (order?: {
   [field: string]: 'asc' | 'desc' | undefined;
-}) => Object.keys(order)[0];
+}) => (order ? Object.keys(order)[0] : undefined);

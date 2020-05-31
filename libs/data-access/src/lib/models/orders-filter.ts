@@ -8,7 +8,7 @@ export interface OrdersFilter {
     cityFrom?: string;
     id?: number;
   };
-  order: Partial<
+  order?: Partial<
     {
       [key in OrderField]: 'desc' | 'asc';
     }
