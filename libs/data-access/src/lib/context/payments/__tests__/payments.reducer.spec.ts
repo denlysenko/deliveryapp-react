@@ -36,7 +36,7 @@ describe('[Payments Context] Reducer', () => {
         payload: filter
       };
       const updatedState = paymentsReducer(initialPaymentsState, action);
-      expect(updatedState.filter).toEqual(filter);
+      expect(updatedState.paymentsFilter.filter).toEqual(filter);
     });
 
     it('should reset offset to 0', () => {
@@ -45,10 +45,13 @@ describe('[Payments Context] Reducer', () => {
         payload: filter
       };
       const updatedState = paymentsReducer(
-        { ...initialPaymentsState, offset: 10 },
+        {
+          ...initialPaymentsState,
+          paymentsFilter: { ...initialPaymentsState.paymentsFilter, offset: 10 }
+        },
         action
       );
-      expect(updatedState.offset).toEqual(0);
+      expect(updatedState.paymentsFilter.offset).toEqual(0);
     });
   });
 
@@ -63,7 +66,7 @@ describe('[Payments Context] Reducer', () => {
         payload: order
       };
       const updatedState = paymentsReducer(initialPaymentsState, action);
-      expect(updatedState.order).toEqual(order);
+      expect(updatedState.paymentsFilter.order).toEqual(order);
     });
   });
 
@@ -79,8 +82,8 @@ describe('[Payments Context] Reducer', () => {
         payload
       };
       const updatedState = paymentsReducer(initialPaymentsState, action);
-      expect(updatedState.limit).toEqual(payload.limit);
-      expect(updatedState.offset).toEqual(payload.offset);
+      expect(updatedState.paymentsFilter.limit).toEqual(payload.limit);
+      expect(updatedState.paymentsFilter.offset).toEqual(payload.offset);
     });
   });
 });

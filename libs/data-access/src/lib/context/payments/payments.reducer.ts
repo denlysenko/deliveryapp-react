@@ -5,20 +5,24 @@ import { PaymentsAction, PaymentsActionTypes } from './payments.actions';
 
 export interface PaymentsState {
   selectedPayment: number | null;
-  filter: PaymentsFilter['filter'];
-  order: PaymentsFilter['order'];
-  offset?: number;
-  limit?: number;
+  paymentsFilter: {
+    filter: PaymentsFilter['filter'];
+    order: PaymentsFilter['order'];
+    offset?: number;
+    limit?: number;
+  };
 }
 
 export const initialPaymentsState: PaymentsState = {
   selectedPayment: null,
-  filter: {},
-  order: {
-    createdAt: 'desc'
-  },
-  offset: 0,
-  limit: DEFAULT_LIMIT
+  paymentsFilter: {
+    filter: {},
+    order: {
+      id: 'desc'
+    },
+    offset: 0,
+    limit: DEFAULT_LIMIT
+  }
 };
 
 export function paymentsReducer(
@@ -35,22 +39,40 @@ export function paymentsReducer(
     case PaymentsActionTypes.FILTER_CHANGE:
       return {
         ...state,
-        filter: action.payload,
-        offset: 0
+        paymentsFilter: {
+          ...state.paymentsFilter,
+          filter: action.payload,
+          offset: 0
+        }
       };
 
     case PaymentsActionTypes.SORTING_CHANGE: {
       return {
         ...state,
-        order: action.payload
+        paymentsFilter: {
+          ...state.paymentsFilter,
+          order: action.payload
+        }
       };
     }
 
     case PaymentsActionTypes.PAGE_CHANGE: {
       return {
         ...state,
-        offset: action.payload.offset,
-        limit: action.payload.limit
+        paymentsFilter: {
+          ...state.paymentsFilter,
+          offset: action.payload.offset,
+          limit: action.payload.limit
+        }
+      };
+    }
+
+    case PaymentsActionTypes.RELOAD: {
+      return {
+        ...state,
+        paymentsFilter: {
+          ...state.paymentsFilter
+        }
       };
     }
 
