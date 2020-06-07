@@ -25,6 +25,7 @@ export const savedPayment = {
   notes: null,
   description: null,
   createdAt: '2019-04-16T10:14:05.617Z',
+  updatedAt: '2019-04-16T10:14:05.617Z',
   orders: [savedOrder],
   client: {
     id: 1,

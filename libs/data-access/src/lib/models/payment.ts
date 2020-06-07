@@ -21,12 +21,12 @@ export interface Payment {
   status: boolean;
   total: number;
   paymentAmount: number | null;
-  paymentDate: Date | null;
-  dueDate: Date | null;
-  notes?: string;
-  description?: string;
-  client: User;
+  paymentDate: string | null;
+  dueDate: string | null;
+  notes: string | null;
+  description: string | null;
+  client: Partial<User>;
   orders: Order[];
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt: string;
+  updatedAt: string;
 }

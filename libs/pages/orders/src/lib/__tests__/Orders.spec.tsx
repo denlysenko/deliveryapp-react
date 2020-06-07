@@ -102,7 +102,7 @@ describe('Orders Page', () => {
   });
 
   describe('sorting', () => {
-    it('should filter orders by id', async () => {
+    it('should sort orders by id', async () => {
       renderWithRouter(
         <AuthProvider>
           <OrdersProvider>
@@ -128,7 +128,7 @@ describe('Orders Page', () => {
       });
     });
 
-    it('should filter orders by cargo name', async () => {
+    it('should sort orders by cargo name', async () => {
       renderWithRouter(
         <AuthProvider>
           <OrdersProvider>
@@ -154,7 +154,7 @@ describe('Orders Page', () => {
       });
     });
 
-    it('should filter orders by city from', async () => {
+    it('should sort orders by city from', async () => {
       renderWithRouter(
         <AuthProvider>
           <OrdersProvider>
@@ -180,7 +180,7 @@ describe('Orders Page', () => {
       });
     });
 
-    it('should filter orders by city to', async () => {
+    it('should sort orders by city to', async () => {
       renderWithRouter(
         <AuthProvider>
           <OrdersProvider>
