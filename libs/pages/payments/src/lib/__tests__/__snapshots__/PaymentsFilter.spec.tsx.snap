@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PaymentsFilter should render successfully 1`] = `
+<body>
+  <div>
+    <div
+      class="sc-AxjAm cDumgh"
+    >
+      <div
+        class="p-inputgroup p-col-12 p-md-6"
+      >
+        <span
+          class="p-inputgroup-addon"
+        >
+          <i
+            class="fa fa-search"
+          />
+        </span>
+        <input
+          class="p-inputtext p-component"
+          data-testid="searchTerm"
+          placeholder="Search by number..."
+          type="text"
+          value=""
+        />
+      </div>
+    </div>
+  </div>
+</body>
+`;
