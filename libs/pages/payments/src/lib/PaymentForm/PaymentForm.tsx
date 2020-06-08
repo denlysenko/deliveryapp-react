@@ -62,13 +62,9 @@ const methods: SelectItem[] = [
 const isClient = (user: User | null) => user?.role === Roles.CLIENT;
 
 const ValidationSchema = Yup.object().shape({
-  total: Yup.number()
-    .required(ERRORS.REQUIRED_FIELD)
-    .typeError(ERRORS.NUMBER_FIELD),
+  total: Yup.string().nullable().required(ERRORS.REQUIRED_FIELD),
   dueDate: Yup.string().nullable().required(ERRORS.REQUIRED_FIELD),
-  clientId: Yup.number()
-    .required(ERRORS.REQUIRED_FIELD)
-    .typeError(ERRORS.NUMBER_FIELD),
+  clientId: Yup.string().nullable().required(ERRORS.REQUIRED_FIELD),
   orders: Yup.array().required(ERRORS.REQUIRED_FIELD)
 });
 
@@ -76,8 +72,10 @@ export const PaymentForm = () => {
   const [{ user }] = useAuth();
   const [state, dispatch] = usePayments();
   const [loading, setLoading] = useState(false);
-  const [clientSearchTerm, setClientSearchTerm] = useState<User | null>(null);
-  const [clients, setClients] = useState<User[]>([]);
+  const [clientSearchTerm, setClientSearchTerm] = useState<Partial<
+    User
+  > | null>(null);
+  const [clients, setClients] = useState<Partial<User>[]>([]);
   const [orderSearchTerm, setOrderSearchTerm] = useState<Order[] | null>(null);
   const [orders, setOrders] = useState<Order[]>([]);
 
@@ -282,7 +280,7 @@ export const PaymentForm = () => {
           notes: isNil(notes) ? undefined : notes,
           description: isNil(description) ? undefined : description,
           orders: orders.map((order) => order.id),
-          clientId: isNil(client) ? null : client.id
+          clientId: !isNil(client) && !isNil(client.id) ? client.id : null
         });
         setOrders(orders);
         setOrderSearchTerm(orders);
@@ -312,7 +310,7 @@ export const PaymentForm = () => {
         <div className="p-col-12 row">
           <div className="input-wrapper p-float-label">
             <InputNumber
-              id="total"
+              inputId="total"
               data-testid="total"
               className={totalError ? 'invalid' : ''}
               name="total"
@@ -335,7 +333,7 @@ export const PaymentForm = () => {
           <div className="input-wrapper p-float-label">
             {!isClient(user) && (
               <Calendar
-                id="dueDate"
+                inputId="dueDate"
                 name="dueDate"
                 className={dueDateError ? 'invalid' : ''}
                 data-testid="dueDate"
@@ -446,6 +444,7 @@ export const PaymentForm = () => {
             <AutoComplete
               multiple
               field="id"
+              id="orders"
               data-testid="orders"
               className={ordersError ? 'invalid' : ''}
               suggestions={orders}
@@ -471,6 +470,7 @@ export const PaymentForm = () => {
             <div className="input-wrapper p-float-label">
               <AutoComplete
                 field="email"
+                id="client"
                 data-testid="client"
                 className={clientIdError ? 'invalid' : ''}
                 suggestions={clients}

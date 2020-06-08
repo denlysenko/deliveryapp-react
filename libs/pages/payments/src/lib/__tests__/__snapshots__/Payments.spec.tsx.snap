@@ -52,11 +52,11 @@ exports[`Payments should render successfully 1`] = `
                   >
                     <span
                       class="p-inputnumber p-component"
-                      id="total"
                     >
                       <input
                         aria-valuemin="0"
                         class="p-inputtext p-component p-inputnumber-input"
+                        id="total"
                         inputmode="numeric"
                         name="total"
                         role="spinbutton"
@@ -79,11 +79,11 @@ exports[`Payments should render successfully 1`] = `
                   >
                     <span
                       class="p-calendar p-calendar-w-btn"
-                      id="dueDate"
                     >
                       <input
                         autocomplete="off"
                         class="p-inputtext p-component p-inputtext p-component"
+                        id="dueDate"
                         name="dueDate"
                         type="text"
                       />
@@ -1277,6 +1277,7 @@ exports[`Payments should render successfully 1`] = `
                       aria-haspopup="listbox"
                       aria-owns="pr_id_1_list"
                       class="p-autocomplete p-component p-autocomplete-multiple"
+                      id="orders"
                     >
                       <ul
                         class="p-autocomplete-multiple-container p-component p-inputtext"
@@ -1324,6 +1325,7 @@ exports[`Payments should render successfully 1`] = `
                       aria-haspopup="listbox"
                       aria-owns="pr_id_2_list"
                       class="p-autocomplete p-component"
+                      id="client"
                     >
                       <input
                         aria-autocomplete="list"
