@@ -1,12 +1,15 @@
 import { savedOrder } from './order';
 
 export const createPaymentDto = {
+  id: null,
   method: 1,
   status: false,
   total: 10,
   dueDate: new Date('2019-04-22T21:00:00.000Z'),
   clientId: 1,
-  orders: [1]
+  orders: [1],
+  paymentAmount: null,
+  paymentDate: null
 };
 
 export const updatePaymentDto = {
