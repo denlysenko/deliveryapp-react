@@ -277,20 +277,20 @@ exports[`Payments should render successfully 1`] = `
                                     </span>
                                   </td>
                                   <td
-                                    class="p-datepicker-today"
+                                    class=""
                                   >
                                     <span
                                       class=""
-                                      tabindex="0"
                                     >
                                       8
                                     </span>
                                   </td>
                                   <td
-                                    class=""
+                                    class="p-datepicker-today"
                                   >
                                     <span
                                       class=""
+                                      tabindex="0"
                                     >
                                       9
                                     </span>
@@ -797,20 +797,20 @@ exports[`Payments should render successfully 1`] = `
                                     </span>
                                   </td>
                                   <td
-                                    class="p-datepicker-today"
+                                    class=""
                                   >
                                     <span
                                       class=""
-                                      tabindex="0"
                                     >
                                       8
                                     </span>
                                   </td>
                                   <td
-                                    class=""
+                                    class="p-datepicker-today"
                                   >
                                     <span
                                       class=""
+                                      tabindex="0"
                                     >
                                       9
                                     </span>

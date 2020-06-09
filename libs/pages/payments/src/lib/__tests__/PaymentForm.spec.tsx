@@ -431,6 +431,15 @@ describe('PaymentForm', () => {
         await screen.findByText(error.errors[0].message[0])
       ).toBeInTheDocument();
 
+      // should not allow to submit while error is not fixed
+      jest.clearAllMocks();
+
+      fireEvent.submit(screen.getByTestId('save'));
+
+      await waitFor(() => {
+        expect(paymentsClient.createPayment).toBeCalledTimes(0);
+      });
+
       fireEvent.keyPress(container.querySelector('#total')!, {
         charCode: 53
       });

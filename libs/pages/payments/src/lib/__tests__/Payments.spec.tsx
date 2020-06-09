@@ -1,5 +1,5 @@
 import React from 'react';
-import { fireEvent, render, waitFor } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 
 import {
   AuthProvider,
@@ -60,6 +60,32 @@ describe('Payments', () => {
       });
 
       expect(paymentsClient.getPayment).toBeCalledWith(1);
+      expect(screen.getByTestId('id')).toHaveValue(savedPayment.id.toString());
+    });
+
+    it('should reset payment', async () => {
+      const { container } = render(
+        <AuthProvider>
+          <PaymentsProvider>
+            <Payments />
+          </PaymentsProvider>
+        </AuthProvider>
+      );
+      await waitFor(() =>
+        expect(paymentsClient.getPayments).toBeCalledTimes(1)
+      );
+
+      fireEvent.click(container.querySelectorAll('.p-datatable-row')[0]);
+
+      await waitFor(() => {
+        expect(paymentsClient.getPayment).toBeCalledTimes(1);
+      });
+
+      expect(screen.getByTestId('id')).toHaveValue(savedPayment.id.toString());
+
+      fireEvent.click(screen.getByRole('button', { name: 'Create payment' }));
+
+      expect(screen.getByTestId('id')).toHaveValue('');
     });
   });
 });
