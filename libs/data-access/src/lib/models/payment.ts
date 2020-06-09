@@ -2,7 +2,7 @@ import { User } from './user';
 import { Order } from './order';
 
 export interface PaymentDTO {
-  id: number | null;
+  id?: number | null;
   method: number;
   status: boolean;
   total: number | null;

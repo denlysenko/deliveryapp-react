@@ -18,6 +18,11 @@ exports[`Payments should render successfully 1`] = `
             <div
               class="sc-AxjAm ekpmap"
             >
+              <div
+                class="p-growl p-component p-growl-topright"
+              >
+                <div />
+              </div>
               <form
                 autocomplete="off"
                 novalidate=""
@@ -1446,6 +1451,7 @@ exports[`Payments should render successfully 1`] = `
                 >
                   <button
                     class="p-button p-component raised-btn p-button-text-icon-left"
+                    data-testid="create-payment"
                     type="button"
                   >
                     <span

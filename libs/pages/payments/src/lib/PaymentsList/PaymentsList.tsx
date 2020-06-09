@@ -165,6 +165,7 @@ export const PaymentsList = () => {
                   icon="fa fa-plus"
                   iconPos="left"
                   className="raised-btn"
+                  data-testid="create-payment"
                   onClick={() => selectPayment(null)}
                 />
               </div>

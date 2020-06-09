@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 
 import { useFormik } from 'formik';
 
@@ -7,6 +7,7 @@ import { AutoComplete } from 'primereact/autocomplete';
 import { Button } from 'primereact/button';
 import { Calendar } from 'primereact/calendar';
 import { Dropdown } from 'primereact/dropdown';
+import { Growl } from 'primereact/growl';
 import { InputNumber } from 'primereact/inputnumber';
 import { InputText } from 'primereact/inputtext';
 import { InputTextarea } from 'primereact/inputtextarea';
@@ -18,6 +19,7 @@ import * as Yup from 'yup';
 
 import {
   ERRORS,
+  MESSAGES,
   PaymentMethod,
   paymentMethodNames,
   Roles
@@ -69,6 +71,7 @@ const ValidationSchema = Yup.object().shape({
 });
 
 export const PaymentForm = () => {
+  const growl = useRef<Growl>(null);
   const [{ user }] = useAuth();
   const [state, dispatch] = usePayments();
   const [loading, setLoading] = useState(false);
@@ -105,16 +108,28 @@ export const PaymentForm = () => {
       setLoading(true);
 
       try {
-        const {
-          data: { id }
-        } = isNil(values.id)
-          ? await paymentsClient.createPayment(values)
-          : await paymentsClient.updatePayment(values.id, values);
+        const { id, ...rest } = values;
+
+        const { data } = isNil(id)
+          ? await paymentsClient.createPayment(rest)
+          : await paymentsClient.updatePayment(id, rest);
+
+        !isNil(growl.current) &&
+          growl.current.show({
+            severity: 'success',
+            summary: isNil(id)
+              ? MESSAGES.CREATE_PAYMENT_SUCCESS
+              : MESSAGES.UPDATE_PAYMENT_SUCCESS,
+            closable: false
+          });
 
         setLoading(false);
-        formik.setFieldValue('id', id);
+        formik.setFieldValue('id', data.id);
         dispatch({ type: PaymentsActionTypes.RELOAD });
-        dispatch({ type: PaymentsActionTypes.SELECT_PAYMENT, payload: id });
+        dispatch({
+          type: PaymentsActionTypes.SELECT_PAYMENT,
+          payload: data.id
+        });
       } catch (error) {
         setLoading(false);
         handleValidationError<PaymentDTO>(error.response.data, formik);
@@ -293,6 +308,7 @@ export const PaymentForm = () => {
 
   return (
     <StyledPaymentForm>
+      <Growl ref={growl} />
       <form autoComplete="off" noValidate onSubmit={formik.handleSubmit}>
         <div className="p-col-12 row">
           <div className="input-wrapper p-float-label">

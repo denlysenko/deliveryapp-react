@@ -49,7 +49,8 @@ function generateOrders() {
       createdAt: new Date(),
       updatedAt: new Date(),
       creatorId: 1,
-      clientId: 1
+      clientId: 1,
+      invoiceId: i + 1
     };
 
     orders.push(order);
