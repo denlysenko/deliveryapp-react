@@ -1,3 +1,13 @@
+export interface UserDTO {
+  email: string;
+  firstName?: string;
+  lastName?: string;
+  company?: string;
+  phone?: string;
+  role: number;
+  password: string;
+}
+
 export interface User {
   id: number;
   email: string;
@@ -6,9 +16,9 @@ export interface User {
   company: string;
   phone: string;
   role: number;
-  address: Address | null;
-  bankDetails: BankDetails | null;
-  createdAt?: string;
+  address?: Address | null;
+  bankDetails?: BankDetails | null;
+  createdAt: string;
 }
 
 export interface Address {

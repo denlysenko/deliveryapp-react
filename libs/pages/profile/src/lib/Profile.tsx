@@ -11,7 +11,7 @@ import { isNil, has, omit } from 'lodash-es';
 import { Roles, ERRORS, MESSAGES } from '@deliveryapp/common';
 import {
   useAuth,
-  User,
+  UserDTO,
   Address,
   BankDetails,
   usersClient,
@@ -25,8 +25,7 @@ import { PasswordForm } from './PasswordForm/PasswordForm';
 import { AddressForm } from './AddressForm/AddressForm';
 import { BankDetailsForm } from './BankDetailsForm/BankDetailsForm';
 
-export interface ProfileFormValues
-  extends Omit<User, 'id' | 'role' | 'address' | 'bankDetails'> {
+export interface ProfileFormValues extends Omit<UserDTO, 'role'> {
   address?: Address;
   bankDetails?: BankDetails;
 }

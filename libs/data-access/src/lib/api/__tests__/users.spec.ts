@@ -1,12 +1,21 @@
 import { apiClient } from '@deliveryapp/core';
-import { user } from '@deliveryapp/testing';
+import { createUserDto, user } from '@deliveryapp/testing';
 
-import { getUser, getUsers, me, updatePassword, updateProfile } from '../users';
+import {
+  createUser,
+  getUser,
+  getUsers,
+  me,
+  updatePassword,
+  updateProfile,
+  updateUser
+} from '../users';
 
 jest.mock('@deliveryapp/core', () => ({
   apiClient: {
     get: jest.fn(() => Promise.resolve(user)),
-    patch: jest.fn()
+    patch: jest.fn(),
+    post: jest.fn()
   }
 }));
 
@@ -30,7 +39,7 @@ describe('API Users', () => {
     beforeEach(() => {
       jest
         .spyOn(apiClient, 'patch')
-        .mockImplementation(() => Promise.resolve(user));
+        .mockImplementation(() => Promise.resolve({ data: { id: user.id } }));
     });
 
     it('should send correct request', () => {
@@ -39,9 +48,9 @@ describe('API Users', () => {
       expect(apiClient.patch).toBeCalledWith('/users/self', profile);
     });
 
-    it('should return user', async () => {
+    it('should return user id', async () => {
       const profile = { firstName: 'test' };
-      expect(await updateProfile(profile)).toEqual(user);
+      expect(await updateProfile(profile)).toEqual({ data: { id: user.id } });
     });
 
     it('should return error', async () => {
@@ -137,6 +146,72 @@ describe('API Users', () => {
 
       try {
         await getUser(1);
+      } catch (err) {
+        expect(err).toEqual(error);
+      }
+    });
+  });
+
+  describe('createUser', () => {
+    beforeEach(() => {
+      jest
+        .spyOn(apiClient, 'post')
+        .mockResolvedValue({ data: { id: user.id } });
+    });
+
+    it('should send POST request', () => {
+      createUser(createUserDto);
+      expect(apiClient.post).toBeCalledWith('/users', createUserDto);
+    });
+
+    it('should return newly created user id', async () => {
+      expect(await createUser(createUserDto)).toEqual({
+        data: { id: user.id }
+      });
+    });
+
+    it('should return error if creation failed', async () => {
+      const error = { message: 'Error' };
+
+      jest
+        .spyOn(apiClient, 'post')
+        .mockImplementationOnce(() => Promise.reject(error));
+
+      try {
+        await createUser(createUserDto);
+      } catch (err) {
+        expect(err).toEqual(error);
+      }
+    });
+  });
+
+  describe('updateUser', () => {
+    beforeEach(() => {
+      jest
+        .spyOn(apiClient, 'patch')
+        .mockResolvedValue({ data: { id: user.id } });
+    });
+
+    it('should send PATCH request', () => {
+      updateUser(1, createUserDto);
+      expect(apiClient.patch).toBeCalledWith('/users/1', createUserDto);
+    });
+
+    it('should return updated user id', async () => {
+      expect(await updateUser(1, createUserDto)).toEqual({
+        data: { id: user.id }
+      });
+    });
+
+    it('should return error if updating failed', async () => {
+      const error = { message: 'Error' };
+
+      jest
+        .spyOn(apiClient, 'patch')
+        .mockImplementationOnce(() => Promise.reject(error));
+
+      try {
+        await updateUser(1, createUserDto);
       } catch (err) {
         expect(err).toEqual(error);
       }
