@@ -4,7 +4,7 @@ export enum Roles {
   ADMIN
 }
 
-export const roleNames = {
+export const roleNames: { [key: string]: string } = {
   [Roles.CLIENT]: 'Client',
   [Roles.MANAGER]: 'Manager',
   [Roles.ADMIN]: 'Admin'

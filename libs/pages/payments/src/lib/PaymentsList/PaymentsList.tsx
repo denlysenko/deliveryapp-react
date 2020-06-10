@@ -45,17 +45,6 @@ const headerGroup = (user: User | null) => (
   </ColumnGroup>
 );
 
-const idTemplate = (rowData: Payment) => (
-  <a
-    href="/"
-    onClick={(e) => {
-      e.preventDefault();
-    }}
-  >
-    {rowData.id}
-  </a>
-);
-
 const methodTemplate = (rowData: Payment) => (
   <span>{paymentMethodNames[rowData.method]}</span>
 );
@@ -85,6 +74,11 @@ const createdAtTemplate = (rowData: Payment) => (
 const clientTemplate = (rowData: Payment) => (
   <a href="/">{rowData.client?.email}</a>
 );
+
+const findSelectedPayment = (
+  payments: Payment[],
+  selectedPayment: number | null
+) => payments.find((payment) => payment.id === selectedPayment);
 
 export const PaymentsList = () => {
   const [{ user }] = useAuth();
@@ -126,11 +120,6 @@ export const PaymentsList = () => {
       payload: id
     });
   };
-
-  const findSelectedPayment = (
-    payments: Payment[],
-    selectedPayment: number | null
-  ) => payments.find((payment) => payment.id === selectedPayment);
 
   useEffect(() => {
     setLoading(true);
@@ -182,7 +171,7 @@ export const PaymentsList = () => {
             sortOrder={getSortOrder(state.paymentsFilter.order)}
             onSort={doSorting}
           >
-            <Column body={(rowData: Payment) => idTemplate(rowData)} />
+            <Column field="id" />
             <Column body={totalTemplate} />
             <Column body={methodTemplate} />
             <Column body={statusTemplate} />

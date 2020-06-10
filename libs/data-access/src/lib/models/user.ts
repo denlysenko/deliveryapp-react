@@ -8,6 +8,7 @@ export interface User {
   role: number;
   address: Address | null;
   bankDetails: BankDetails | null;
+  createdAt?: string;
 }
 
 export interface Address {
