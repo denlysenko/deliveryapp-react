@@ -1,4 +1,4 @@
-type OrderField = 'id' | 'firstName' | 'lastName';
+type OrderField = 'id' | 'firstName' | 'lastName' | 'email';
 
 export interface UsersFilter {
   filter?: {
