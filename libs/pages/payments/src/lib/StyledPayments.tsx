@@ -5,18 +5,4 @@ export const StyledPayments = styled.div`
     margin-bottom: 0;
     height: 100%;
   }
-
-  @media (max-width: 640px) {
-    .ui-g {
-      display: block;
-    }
-
-    .ui-g-12 {
-      padding-left: 0;
-    }
-
-    .ui-lg-9 {
-      margin-top: 8px;
-    }
-  }
 `;

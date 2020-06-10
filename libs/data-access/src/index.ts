@@ -13,6 +13,7 @@ export * from './lib/models/list-response';
 export * from './lib/models/orders-filter';
 export * from './lib/models/payment';
 export * from './lib/models/payments-filter';
+export * from './lib/models/users-filter';
 
 export * from './lib/context/auth';
 export * from './lib/context/orders';
