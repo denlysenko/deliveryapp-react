@@ -4,7 +4,11 @@ import { Redirect, Route, Switch } from 'react-router-dom';
 import { Sidebar } from 'primereact/sidebar';
 
 import { Roles } from '@deliveryapp/common';
-import { OrdersProvider, PaymentsProvider } from '@deliveryapp/data-access';
+import {
+  OrdersProvider,
+  PaymentsProvider,
+  UsersProvider
+} from '@deliveryapp/data-access';
 import { RolesGuard } from '@deliveryapp/guards';
 import { Orders } from '@deliveryapp/pages/orders';
 import { FullPageSpinner } from '@deliveryapp/ui';
@@ -55,29 +59,31 @@ export const Main = () => {
           <Suspense fallback={<FullPageSpinner />}>
             <OrdersProvider>
               <PaymentsProvider>
-                <Switch>
-                  <Route exact path="/">
-                    <Redirect to="/orders" />
-                  </Route>
-                  <Route exact path="/profile">
-                    <Profile />
-                  </Route>
-                  <Route exact path="/orders">
-                    <Orders />
-                  </Route>
-                  <Route exact path="/orders/create">
-                    <CreateOrder />
-                  </Route>
-                  <Route exact path="/orders/:id">
-                    <UpdateOrder />
-                  </Route>
-                  <Route exact path="/payments">
-                    <Payments />
-                  </Route>
-                  <RolesGuard exact roles={[Roles.ADMIN]} path="/users">
-                    <Users />
-                  </RolesGuard>
-                </Switch>
+                <UsersProvider>
+                  <Switch>
+                    <Route exact path="/">
+                      <Redirect to="/orders" />
+                    </Route>
+                    <Route exact path="/profile">
+                      <Profile />
+                    </Route>
+                    <Route exact path="/orders">
+                      <Orders />
+                    </Route>
+                    <Route exact path="/orders/create">
+                      <CreateOrder />
+                    </Route>
+                    <Route exact path="/orders/:id">
+                      <UpdateOrder />
+                    </Route>
+                    <Route exact path="/payments">
+                      <Payments />
+                    </Route>
+                    <RolesGuard exact roles={[Roles.ADMIN]} path="/users">
+                      <Users />
+                    </RolesGuard>
+                  </Switch>
+                </UsersProvider>
               </PaymentsProvider>
             </OrdersProvider>
           </Suspense>

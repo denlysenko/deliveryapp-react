@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { Button } from 'primereact/button';
 import { Column } from 'primereact/column';
@@ -11,8 +11,15 @@ import dayjs from 'dayjs';
 import { isNil } from 'lodash-es';
 
 import { roleNames } from '@deliveryapp/common';
-import { User, UsersFilter as IUsersFilter } from '@deliveryapp/data-access';
+import {
+  User,
+  UsersActionTypes,
+  usersClient,
+  UsersFilter as IUsersFilter,
+  useUsers
+} from '@deliveryapp/data-access';
 import { FullPageSpinner } from '@deliveryapp/ui';
+import { getSortField, getSortOrder } from '@deliveryapp/utils';
 
 import { UsersFilter } from '../UsersFilter/UsersFilter';
 import { StyledUsersList } from './StyledUsersList';
@@ -56,11 +63,20 @@ const createdAtTemplate = (rowData: User) => (
 
 const roleTemplate = (rowData: User) => <span>{roleNames[rowData.role]}</span>;
 
+const findSelectedUser = (users: User[], selectedUser: number | null) =>
+  users.find((user) => user.id === selectedUser);
+
 export const UsersList = () => {
   const [loading, setLoading] = useState(false);
+  const [state, dispatch] = useUsers();
+  const [users, setUsers] = useState<User[]>([]);
+  const [totalRecords, setTotalRecords] = useState(0);
 
   const doFiltering = (usersFilter: IUsersFilter['filter']) => {
-    console.log(usersFilter);
+    dispatch({
+      type: UsersActionTypes.FILTER_CHANGE,
+      payload: usersFilter
+    });
   };
 
   const doSorting = ({
@@ -70,16 +86,37 @@ export const UsersList = () => {
     sortField: string;
     sortOrder: number;
   }) => {
-    console.log('sorting');
+    dispatch({
+      type: UsersActionTypes.SORTING_CHANGE,
+      payload: { [sortField]: sortOrder === 1 ? 'asc' : 'desc' }
+    });
   };
 
   const doPaging = ({ rows, page }: PageState) => {
-    console.log('paging');
+    dispatch({
+      type: UsersActionTypes.PAGE_CHANGE,
+      payload: { limit: rows, offset: rows * page }
+    });
   };
 
   const selectUser = (id: number | null) => {
-    console.log(id);
+    dispatch({
+      type: UsersActionTypes.SELECT_USER,
+      payload: id
+    });
   };
+
+  useEffect(() => {
+    setLoading(true);
+
+    usersClient
+      .getUsers(state.usersFilter)
+      .then(({ data: { rows, count } }) => {
+        setUsers(rows);
+        setTotalRecords(count);
+        setLoading(false);
+      });
+  }, [state.usersFilter]);
 
   return (
     <>
@@ -90,7 +127,7 @@ export const UsersList = () => {
           <div className="topbar p-grid">
             <div className="users-filter p-md-8 p-col-12">
               <UsersFilter
-                // filter={state.paymentsFilter.filter}
+                filter={state.usersFilter.filter}
                 handleFilterChange={doFiltering}
               />
             </div>
@@ -108,13 +145,13 @@ export const UsersList = () => {
           </div>
           <DataTable
             selectionMode="single"
-            // selection={findSelectedPayment(payments, state.selectedPayment)}
+            selection={findSelectedUser(users, state.selectedUser)}
             compareSelectionBy="equals"
-            // onSelectionChange={(e) => selectPayment(e.value.id)}
-            value={[]}
+            onSelectionChange={(e) => selectUser(e.value.id)}
+            value={users}
             headerColumnGroup={headerGroup}
-            sortField={/*getSortField(state.paymentsFilter.order)*/ 'id'}
-            sortOrder={/*getSortOrder(state.paymentsFilter.order)*/ -1}
+            sortField={getSortField(state.usersFilter.order)}
+            sortOrder={getSortOrder(state.usersFilter.order)}
             onSort={doSorting}
           >
             <Column field="id" />
@@ -126,9 +163,9 @@ export const UsersList = () => {
             <Column body={createdAtTemplate} />
           </DataTable>
           <Paginator
-            rows={/*state.paymentsFilter.limit*/ 10}
-            totalRecords={/*totalRecords*/ 0}
-            first={/*state.paymentsFilter.offset*/ 0}
+            rows={state.usersFilter.limit}
+            totalRecords={totalRecords}
+            first={state.usersFilter.offset}
             pageLinkSize={3}
             onPageChange={doPaging}
           />

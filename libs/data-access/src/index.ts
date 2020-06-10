@@ -18,3 +18,4 @@ export * from './lib/models/users-filter';
 export * from './lib/context/auth';
 export * from './lib/context/orders';
 export * from './lib/context/payments';
+export * from './lib/context/users';
