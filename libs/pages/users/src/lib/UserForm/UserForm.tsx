@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 import { useFormik } from 'formik';
 
@@ -9,11 +9,17 @@ import { Growl } from 'primereact/growl';
 import { InputText } from 'primereact/inputtext';
 import { Message } from 'primereact/message';
 
-import { has, isEmpty, omit } from 'lodash-es';
+import { has, isEmpty, isNil, omit } from 'lodash-es';
 import * as Yup from 'yup';
 
-import { ERRORS, roleNames, Roles } from '@deliveryapp/common';
-import { getError } from '@deliveryapp/utils';
+import { ERRORS, MESSAGES, roleNames, Roles } from '@deliveryapp/common';
+import {
+  UserDTO,
+  UsersActionTypes,
+  usersClient,
+  useUsers
+} from '@deliveryapp/data-access';
+import { getError, handleValidationError } from '@deliveryapp/utils';
 
 import { StyledUserForm } from './StyledUserForm';
 
@@ -32,23 +38,23 @@ const ValidationSchema = Yup.object().shape({
   email: Yup.string()
     .nullable()
     .email(ERRORS.INVALID_EMAIL)
-    .required(ERRORS.REQUIRED_FIELD),
-  password: Yup.string().nullable().required(ERRORS.REQUIRED_FIELD)
+    .required(ERRORS.REQUIRED_FIELD)
 });
 
 export const UserForm = () => {
   const growl = useRef<Growl>(null);
+  const [state, dispatch] = useUsers();
   const [loading, setLoading] = useState(false);
 
-  const formik = useFormik<any>({
+  const formik = useFormik<UserDTO>({
     initialValues: {
-      id: null,
-      email: null,
+      id: undefined,
+      email: '',
       phone: null,
       firstName: null,
       lastName: null,
       role: roles[0].value,
-      password: null
+      password: ''
     },
     initialStatus: {
       apiErrors: {}
@@ -58,17 +64,46 @@ export const UserForm = () => {
       if (!isEmpty(formik.status.apiErrors)) {
         return;
       }
-      console.log(values);
+
+      setLoading(true);
+
+      try {
+        const { id, ...rest } = values;
+
+        const { data } = isNil(id)
+          ? await usersClient.createUser(rest)
+          : await usersClient.updateUser(id, rest);
+
+        !isNil(growl.current) &&
+          growl.current.show({
+            severity: 'success',
+            summary: isNil(id)
+              ? MESSAGES.CREATE_USER_SUCCESS
+              : MESSAGES.UPDATE_USER_SUCCESS,
+            closable: false
+          });
+
+        setLoading(false);
+        formik.setFieldValue('id', data.id);
+        dispatch({ type: UsersActionTypes.RELOAD });
+        dispatch({
+          type: UsersActionTypes.SELECT_USER,
+          payload: data.id
+        });
+      } catch (error) {
+        setLoading(false);
+        handleValidationError<UserDTO>(error.response.data, formik);
+      }
     }
   });
 
-  const emailError = getError<any>('email', {
+  const emailError = getError<UserDTO>('email', {
     touched: formik.touched,
     errors: formik.errors,
     apiErrors: formik.status.apiErrors
   });
 
-  const passwordError = getError<any>('password', {
+  const passwordError = getError<UserDTO>('password', {
     touched: formik.touched,
     errors: formik.errors,
     apiErrors: formik.status.apiErrors
@@ -86,6 +121,27 @@ export const UserForm = () => {
 
     formik.handleChange(event);
   };
+
+  useEffect(() => {
+    if (isNil(state.selectedUser)) {
+      formik.resetForm({});
+      formik.registerField('password', {
+        validate: (value: string) =>
+          !value ? ERRORS.REQUIRED_FIELD : undefined
+      });
+      return;
+    }
+
+    if (formik.values.id !== state.selectedUser) {
+      formik.unregisterField('password');
+
+      usersClient.getUser(state.selectedUser).then(({ data }) => {
+        const { company, ...rest } = data;
+        formik.setValues({ ...rest });
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [state.selectedUser]);
 
   return (
     <StyledUserForm>
@@ -178,26 +234,29 @@ export const UserForm = () => {
             <label>Role</label>
           </div>
         </div>
-        <div className="p-col-12 row">
-          <div className="input-wrapper p-float-label">
-            <InputText
-              type="password"
-              id="password"
-              data-testid="password"
-              name="password"
-              value={formik.values.password || ''}
-              onChange={handleChange}
-            />
-            <label htmlFor="password">Password</label>
+        {!formik.values.id && (
+          <div className="p-col-12 row">
+            <div className="input-wrapper p-float-label">
+              <InputText
+                type="password"
+                id="password"
+                data-testid="password"
+                name="password"
+                value={formik.values.password || ''}
+                disabled={!isNil(formik.values.id)}
+                onChange={handleChange}
+              />
+              <label htmlFor="password">Password</label>
+            </div>
+            {passwordError && (
+              <Message
+                id="password-error"
+                severity="error"
+                text={passwordError}
+              ></Message>
+            )}
           </div>
-          {passwordError && (
-            <Message
-              id="password-error"
-              severity="error"
-              text={passwordError}
-            ></Message>
-          )}
-        </div>
+        )}
         <div className="p-col-12 center action">
           <Button
             type="submit"
