@@ -1,4 +1,4 @@
-import { DEFAULT_LIMIT } from '@deliveryapp/common';
+import { DEFAULT_LIMIT, Roles } from '@deliveryapp/common';
 
 import { UsersFilter } from '../../models/users-filter';
 import { UsersAction, UsersActionTypes } from './users.actions';
@@ -16,7 +16,9 @@ export interface UsersState {
 export const initialUsersState: UsersState = {
   selectedUser: null,
   usersFilter: {
-    filter: {},
+    filter: {
+      role: [Roles.MANAGER, Roles.ADMIN]
+    },
     order: {
       id: 'desc'
     },
@@ -41,7 +43,10 @@ export function usersReducer(
         ...state,
         usersFilter: {
           ...state.usersFilter,
-          filter: action.payload,
+          filter: {
+            ...initialUsersState.usersFilter.filter,
+            ...action.payload
+          },
           offset: 0
         }
       };

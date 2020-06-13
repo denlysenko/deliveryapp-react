@@ -56,7 +56,7 @@ export const DestinationForm: React.FC<DestinationFormProps> = ({
       } = await usersClient.getUsers({
         filter: {
           email: searchTerm,
-          role: Roles.CLIENT
+          role: [Roles.CLIENT]
         }
       });
 

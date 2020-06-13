@@ -3,7 +3,7 @@ type OrderField = 'id' | 'firstName' | 'lastName' | 'email';
 export interface UsersFilter {
   filter?: {
     id?: number;
-    role?: number;
+    role?: number[];
     email?: string;
     firstName?: string;
     lastName?: string;

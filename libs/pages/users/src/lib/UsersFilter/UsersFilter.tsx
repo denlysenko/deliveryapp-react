@@ -37,15 +37,25 @@ export const UsersFilter: React.FC<UsersFilterProps> = ({
   filter,
   handleFilterChange
 }) => {
-  const [searchTerm, setSearchTerm] = useState(
-    !isNil(filter) ? Object.values(filter)[0] ?? '' : ''
-  );
+  const [searchTerm, setSearchTerm] = useState(() => {
+    if (isNil(filter)) {
+      return '';
+    }
 
-  const [criteria, setCriteria] = useState(
-    !isNil(filter)
-      ? Object.keys(filter)[0] ?? options[0].value
-      : options[0].value
-  );
+    const { role, ...rest } = filter;
+
+    return Object.values(rest)[0] ?? '';
+  });
+
+  const [criteria, setCriteria] = useState(() => {
+    if (isNil(filter)) {
+      return options[0].value;
+    }
+
+    const { role, ...rest } = filter;
+
+    return Object.keys(rest)[0] ?? options[0].value;
+  });
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const debounceHandleFilterChange = useCallback(

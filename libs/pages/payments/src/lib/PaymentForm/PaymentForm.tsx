@@ -181,7 +181,7 @@ export const PaymentForm = () => {
       } = await usersClient.getUsers({
         filter: {
           email: searchTerm,
-          role: Roles.CLIENT
+          role: [Roles.CLIENT]
         }
       });
 
