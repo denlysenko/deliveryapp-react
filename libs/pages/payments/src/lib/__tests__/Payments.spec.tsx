@@ -31,7 +31,7 @@ describe('Payments', () => {
     );
     await waitFor(() => expect(paymentsClient.getPayments).toBeCalledTimes(1));
 
-    expect(baseElement).toBeDefined();
+    expect(baseElement).toBeTruthy();
   });
 
   describe('selectPayment', () => {
