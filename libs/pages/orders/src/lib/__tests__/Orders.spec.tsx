@@ -220,7 +220,7 @@ describe('Orders Page', () => {
 
       jest.clearAllMocks();
 
-      fireEvent.click(screen.getByText('2'));
+      fireEvent.click(screen.getByText('2', { selector: '.p-paginator-page' }));
 
       await waitFor(() => {
         expect(ordersClient.getOrders).toBeCalledWith({

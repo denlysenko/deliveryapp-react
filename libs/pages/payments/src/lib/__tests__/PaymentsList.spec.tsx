@@ -204,7 +204,7 @@ describe('PaymentsList', () => {
 
       jest.clearAllMocks();
 
-      fireEvent.click(screen.getAllByText('2')[1]);
+      fireEvent.click(screen.getByText('2', { selector: '.p-paginator-page' }));
 
       await waitFor(() => {
         expect(paymentsClient.getPayments).toBeCalledWith({
