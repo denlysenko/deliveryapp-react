@@ -151,7 +151,7 @@ describe('Profile page', () => {
 
       fireEvent.submit(screen.getByTestId('profile-form'));
 
-      const { id, role, ...rest } = user;
+      const { id, role, createdAt, ...rest } = user;
 
       await waitFor(() => {
         expect(usersClient.updateProfile).toBeCalledTimes(1);

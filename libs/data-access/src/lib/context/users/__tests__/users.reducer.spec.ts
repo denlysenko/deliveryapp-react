@@ -1,5 +1,6 @@
 import { UsersAction, UsersActionTypes } from '../users.actions';
 import { initialUsersState, usersReducer } from '../users.reducer';
+import { Roles } from '@deliveryapp/common';
 
 describe('[Users Context] Reducer', () => {
   describe('Unknown type', () => {
@@ -36,7 +37,10 @@ describe('[Users Context] Reducer', () => {
         payload: filter
       };
       const updatedState = usersReducer(initialUsersState, action);
-      expect(updatedState.usersFilter.filter).toEqual(filter);
+      expect(updatedState.usersFilter.filter).toEqual({
+        ...filter,
+        role: [Roles.MANAGER, Roles.ADMIN]
+      });
     });
 
     it('should reset offset to 0', () => {
