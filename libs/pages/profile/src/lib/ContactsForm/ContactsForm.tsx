@@ -42,7 +42,7 @@ export const ContactsForm: React.FC<ContactsFormProps> = ({
               id="firstName"
               data-testid="firstName"
               name="firstName"
-              value={values.firstName}
+              value={values.firstName || ''}
               onChange={handleChange}
             />
             <label htmlFor="firstName">First Name</label>
@@ -55,7 +55,7 @@ export const ContactsForm: React.FC<ContactsFormProps> = ({
               id="lastName"
               data-testid="lastName"
               name="lastName"
-              value={values.lastName}
+              value={values.lastName || ''}
               onChange={handleChange}
             />
             <label htmlFor="lastName">Last Name</label>
@@ -68,7 +68,7 @@ export const ContactsForm: React.FC<ContactsFormProps> = ({
               id="company"
               data-testid="company"
               name="company"
-              value={values.company}
+              value={values.company || ''}
               onChange={handleChange}
             />
             <label htmlFor="company">Company</label>
@@ -102,7 +102,7 @@ export const ContactsForm: React.FC<ContactsFormProps> = ({
               id="phone"
               mask="(999) 999-9999"
               name="phone"
-              value={values.phone}
+              value={values.phone || ''}
               onChange={handleChange}
             />
             <label htmlFor="phone">Phone</label>

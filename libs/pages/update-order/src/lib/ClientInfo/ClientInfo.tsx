@@ -29,7 +29,7 @@ export const ClientInfo: React.FC<ClientInfoProps> = ({ client }) => (
           <InputText
             id="company"
             type="text"
-            defaultValue={client?.company}
+            defaultValue={client?.company || ''}
             readOnly
           />
           <label htmlFor="company">Company</label>
@@ -51,7 +51,7 @@ export const ClientInfo: React.FC<ClientInfoProps> = ({ client }) => (
           <InputText
             id="phone"
             type="text"
-            defaultValue={client?.phone}
+            defaultValue={client?.phone || ''}
             readOnly
           />
           <label htmlFor="phone">Phone</label>

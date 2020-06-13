@@ -25,7 +25,7 @@ import { PasswordForm } from './PasswordForm/PasswordForm';
 import { AddressForm } from './AddressForm/AddressForm';
 import { BankDetailsForm } from './BankDetailsForm/BankDetailsForm';
 
-export interface ProfileFormValues extends Omit<UserDTO, 'role'> {
+export interface ProfileFormValues extends Omit<UserDTO, 'role' | 'password'> {
   address?: Address;
   bankDetails?: BankDetails;
 }
