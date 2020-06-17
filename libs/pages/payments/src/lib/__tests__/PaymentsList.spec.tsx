@@ -13,7 +13,7 @@ import { savedPayment, user } from '@deliveryapp/testing';
 import { PaymentsList } from '../PaymentsList/PaymentsList';
 
 jest.mock('@deliveryapp/data-access', () => ({
-  ...jest.requireActual('@deliveryapp/data-access'),
+  ...jest.requireActual<any>('@deliveryapp/data-access'),
   useAuth: jest.fn().mockImplementation(() => [{ user }, jest.fn()])
 }));
 

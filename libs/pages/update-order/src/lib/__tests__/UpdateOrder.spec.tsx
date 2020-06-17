@@ -13,7 +13,7 @@ jest.mock('react-router-dom', () => ({
 }));
 
 jest.mock('@deliveryapp/data-access', () => ({
-  ...require.requireActual('@deliveryapp/data-access'),
+  ...jest.requireActual<any>('@deliveryapp/data-access'),
   useAuth: jest.fn().mockImplementation(() => [{ user }, jest.fn()])
 }));
 

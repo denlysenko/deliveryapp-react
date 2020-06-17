@@ -5,7 +5,7 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import { options, OrdersFilter } from '../OrdersFilter/OrdersFilter';
 
 jest.mock('lodash', () => ({
-  ...require.requireActual('lodash'),
+  ...jest.requireActual<any>('lodash'),
   debounce: jest.fn((fn) => fn)
 }));
 

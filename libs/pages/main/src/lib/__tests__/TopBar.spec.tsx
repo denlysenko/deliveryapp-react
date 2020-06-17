@@ -7,7 +7,7 @@ import { user, renderWithRouter } from '@deliveryapp/testing';
 import { TopBar } from '../TopBar/TopBar';
 
 jest.mock('@deliveryapp/data-access', () => ({
-  ...require.requireActual('@deliveryapp/data-access'),
+  ...jest.requireActual<any>('@deliveryapp/data-access'),
   useAuth: jest
     .fn()
     .mockImplementation(() => [{ user, isLoggedIn: true }, jest.fn()])

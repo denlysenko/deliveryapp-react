@@ -354,7 +354,6 @@ exports[`CreateOrder CargoForm should render successfully 1`] = `
                       class="p-inputtext p-inputtextarea p-component p-inputtextarea-resizable"
                       name="cargo.comment"
                       rows="5"
-                      style="overflow: hidden;"
                     />
                   </div>
                   <div
@@ -628,7 +627,6 @@ exports[`CreateOrder DestinationForm should render successfully 1`] = `
                       data-testid="additionalData"
                       name="destination.additionalData"
                       rows="5"
-                      style="overflow: hidden;"
                     />
                   </div>
                   <div

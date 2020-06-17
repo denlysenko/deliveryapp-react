@@ -31,7 +31,7 @@ exports[`OrdersFilter should render successfully 1`] = `
           class="p-col-12 p-md-6"
         >
           <div
-            class="p-dropdown p-component"
+            class="p-dropdown p-component p-inputwrapper-filled"
           >
             <div
               class="p-hidden-accessible"

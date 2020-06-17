@@ -8,7 +8,7 @@ import { user } from '@deliveryapp/testing';
 import { Profile } from '../Profile';
 
 jest.mock('@deliveryapp/data-access', () => ({
-  ...require.requireActual('@deliveryapp/data-access'),
+  ...jest.requireActual<any>('@deliveryapp/data-access'),
   useAuth: jest.fn().mockImplementation(() => [{ user }, jest.fn()])
 }));
 

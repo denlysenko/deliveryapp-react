@@ -14,5 +14,8 @@ export const user = {
 export const createUserDto = {
   email: 'test@test.com',
   role: 1,
-  password: 'pwd'
+  password: 'pwd',
+  firstName: '',
+  lastName: '',
+  phone: ''
 };

@@ -76,12 +76,12 @@ jest.mock('react-router-dom', () => ({
 }));
 
 jest.mock('@deliveryapp/data-access', () => ({
-  ...jest.requireActual('@deliveryapp/data-access'),
+  ...jest.requireActual<any>('@deliveryapp/data-access'),
   useAuth: jest.fn().mockImplementation(() => [{ user }, jest.fn()])
 }));
 
 jest.mock('lodash', () => ({
-  ...jest.requireActual('lodash'),
+  ...jest.requireActual<any>('lodash'),
   debounce: jest.fn((fn) => fn)
 }));
 
