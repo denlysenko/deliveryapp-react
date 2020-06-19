@@ -1,5 +1,11 @@
 import styled from 'styled-components';
 
 export const StyledSettings = styled.div`
-  color: pink;
+  .card {
+    height: 100%;
+
+    &.no-margin-bottom {
+      margin-bottom: 0;
+    }
+  }
 `;
