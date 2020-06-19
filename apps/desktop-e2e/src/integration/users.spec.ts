@@ -1,6 +1,6 @@
 import { ERRORS, MESSAGES } from '@deliveryapp/common';
 
-describe('Payments page', () => {
+describe('Users page', () => {
   beforeEach(() => {
     cy.exec('npm run seed:db');
     cy.login('admin@test.com', 'password');
