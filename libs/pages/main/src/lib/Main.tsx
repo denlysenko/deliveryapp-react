@@ -47,6 +47,12 @@ const Users = lazy(() =>
   }))
 );
 
+const Settings = lazy(() =>
+  import('@deliveryapp/pages/settings').then(({ Settings }) => ({
+    default: Settings
+  }))
+);
+
 export const Main = () => {
   const [showMessages, setShowMessages] = useState(false);
 
@@ -81,6 +87,9 @@ export const Main = () => {
                     </Route>
                     <RolesGuard exact roles={[Roles.ADMIN]} path="/users">
                       <Users />
+                    </RolesGuard>
+                    <RolesGuard exact roles={[Roles.ADMIN]} path="/settings">
+                      <Settings />
                     </RolesGuard>
                   </Switch>
                 </UsersProvider>

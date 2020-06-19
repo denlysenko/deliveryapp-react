@@ -70,6 +70,9 @@
     },
     "pages-users": {
       "tags": []
+    },
+    "pages-settings": {
+      "tags": []
     }
   }
 }
