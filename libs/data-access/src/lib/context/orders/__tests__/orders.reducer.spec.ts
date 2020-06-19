@@ -1,3 +1,4 @@
+import { OrdersFilter } from '../../../models/orders-filter';
 import { OrdersAction, OrdersActionTypes } from '../orders.actions';
 import { initialOrdersState, ordersReducer } from '../orders.reducer';
 
@@ -40,8 +41,8 @@ describe('[Orders Context] Reducer', () => {
   });
 
   describe('SORTING_CHANGE', () => {
-    const order = {
-      cargoName: 'desc' as 'desc'
+    const order: OrdersFilter['order'] = {
+      cargoName: 'desc'
     };
 
     it('should update state with new order', () => {

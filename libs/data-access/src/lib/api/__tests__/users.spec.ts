@@ -1,6 +1,7 @@
 import { apiClient } from '@deliveryapp/core';
 import { createUserDto, user } from '@deliveryapp/testing';
 
+import { UsersFilter } from '../../models/users-filter';
 import {
   createUser,
   getUser,
@@ -97,10 +98,10 @@ describe('API Users', () => {
   });
 
   describe('getUsers', () => {
-    const query = {
+    const query: UsersFilter = {
       limit: 10,
       offset: 0,
-      order: { id: 'asc' as 'asc' }
+      order: { id: 'asc' }
     };
 
     beforeEach(() => {

@@ -13,6 +13,7 @@ import { renderWithRouter, savedOrder, user } from '@deliveryapp/testing';
 import { Orders } from '../Orders';
 
 jest.mock('@deliveryapp/data-access', () => ({
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ...jest.requireActual<any>('@deliveryapp/data-access'),
   useAuth: jest.fn().mockImplementation(() => [{ user }, jest.fn()])
 }));

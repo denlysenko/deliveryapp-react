@@ -28,7 +28,7 @@ const ValidationSchema = Yup.object().shape({
     .required(ERRORS.REQUIRED_FIELD)
 });
 
-export const PasswordForm: React.FC<{}> = () => {
+export const PasswordForm = () => {
   const [loading, setLoading] = useState(false);
 
   const formik = useFormik<PasswordFormValues>({

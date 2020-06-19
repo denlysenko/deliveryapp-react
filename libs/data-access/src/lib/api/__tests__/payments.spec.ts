@@ -5,6 +5,7 @@ import {
   updatePaymentDto
 } from '@deliveryapp/testing';
 
+import { PaymentsFilter } from '../../models/payments-filter';
 import {
   createPayment,
   getPayment,
@@ -115,10 +116,10 @@ describe('API Payments', () => {
   });
 
   describe('getPayments', () => {
-    const query = {
+    const query: PaymentsFilter = {
       limit: 10,
       offset: 0,
-      order: { status: 'asc' as 'asc' }
+      order: { status: 'asc' }
     };
 
     beforeEach(() => {

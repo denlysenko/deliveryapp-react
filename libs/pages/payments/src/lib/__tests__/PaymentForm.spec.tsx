@@ -15,11 +15,13 @@ import { savedOrder, savedPayment, user } from '@deliveryapp/testing';
 import { PaymentForm } from '../PaymentForm/PaymentForm';
 
 jest.mock('lodash', () => ({
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ...jest.requireActual<any>('lodash'),
   debounce: jest.fn((fn) => fn)
 }));
 
 jest.mock('@deliveryapp/data-access', () => ({
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ...jest.requireActual<any>('@deliveryapp/data-access'),
   useAuth: jest
     .fn()

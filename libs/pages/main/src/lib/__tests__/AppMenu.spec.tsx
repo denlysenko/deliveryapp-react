@@ -8,6 +8,7 @@ import { renderWithRouter, user } from '@deliveryapp/testing';
 import { AppMenu } from '../AppMenu/AppMenu';
 
 jest.mock('@deliveryapp/data-access', () => ({
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ...jest.requireActual<any>('@deliveryapp/data-access'),
   useAuth: jest
     .fn()

@@ -1,6 +1,8 @@
+import { Roles } from '@deliveryapp/common';
+
+import { UsersFilter } from '../../../models/users-filter';
 import { UsersAction, UsersActionTypes } from '../users.actions';
 import { initialUsersState, usersReducer } from '../users.reducer';
-import { Roles } from '@deliveryapp/common';
 
 describe('[Users Context] Reducer', () => {
   describe('Unknown type', () => {
@@ -60,8 +62,8 @@ describe('[Users Context] Reducer', () => {
   });
 
   describe('SORTING_CHANGE', () => {
-    const order = {
-      email: 'desc' as 'desc'
+    const order: UsersFilter['order'] = {
+      email: 'desc'
     };
 
     it('should update state with new order', () => {

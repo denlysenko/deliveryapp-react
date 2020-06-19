@@ -5,6 +5,7 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import { options, UsersFilter } from '../UsersFilter/UsersFilter';
 
 jest.mock('lodash', () => ({
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ...jest.requireActual<any>('lodash'),
   debounce: jest.fn((fn) => fn)
 }));

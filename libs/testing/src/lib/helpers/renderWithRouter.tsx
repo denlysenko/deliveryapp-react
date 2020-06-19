@@ -6,7 +6,7 @@ import { render } from '@testing-library/react';
 export function renderWithRouter(ui: React.ReactElement) {
   const history = createMemoryHistory();
 
-  const Wrapper: React.FC<{}> = ({ children }) => (
+  const Wrapper: React.FC<unknown> = ({ children }) => (
     <Router history={history}>{children}</Router>
   );
   return {

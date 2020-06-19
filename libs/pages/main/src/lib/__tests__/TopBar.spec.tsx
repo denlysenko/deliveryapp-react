@@ -7,6 +7,7 @@ import { user, renderWithRouter } from '@deliveryapp/testing';
 import { TopBar } from '../TopBar/TopBar';
 
 jest.mock('@deliveryapp/data-access', () => ({
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ...jest.requireActual<any>('@deliveryapp/data-access'),
   useAuth: jest
     .fn()

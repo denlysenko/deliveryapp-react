@@ -13,6 +13,7 @@ import { savedPayment, user } from '@deliveryapp/testing';
 import { PaymentsList } from '../PaymentsList/PaymentsList';
 
 jest.mock('@deliveryapp/data-access', () => ({
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ...jest.requireActual<any>('@deliveryapp/data-access'),
   useAuth: jest.fn().mockImplementation(() => [{ user }, jest.fn()])
 }));

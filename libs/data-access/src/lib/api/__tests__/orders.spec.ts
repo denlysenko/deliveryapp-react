@@ -5,6 +5,7 @@ import {
   updateOrderDto
 } from '@deliveryapp/testing';
 
+import { OrdersFilter } from '../../models/orders-filter';
 import { createOrder, getOrder, getOrders, updateOrder } from '../orders';
 
 describe('API Orders', () => {
@@ -110,10 +111,10 @@ describe('API Orders', () => {
   });
 
   describe('getOrders', () => {
-    const query = {
+    const query: OrdersFilter = {
       limit: 10,
       offset: 0,
-      order: { id: 'asc' as 'asc' }
+      order: { id: 'asc' }
     };
 
     beforeEach(() => {

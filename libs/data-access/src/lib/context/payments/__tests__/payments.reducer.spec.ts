@@ -1,3 +1,4 @@
+import { PaymentsFilter } from '../../../models/payments-filter';
 import { PaymentsAction, PaymentsActionTypes } from '../payments.actions';
 import { initialPaymentsState, paymentsReducer } from '../payments.reducer';
 
@@ -56,8 +57,8 @@ describe('[Payments Context] Reducer', () => {
   });
 
   describe('SORTING_CHANGE', () => {
-    const order = {
-      status: 'desc' as 'desc'
+    const order: PaymentsFilter['order'] = {
+      status: 'desc'
     };
 
     it('should update state with new order', () => {

@@ -13,6 +13,7 @@ jest.mock('react-router-dom', () => ({
 }));
 
 jest.mock('@deliveryapp/data-access', () => ({
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ...jest.requireActual<any>('@deliveryapp/data-access'),
   useAuth: jest.fn().mockImplementation(() => [{ user }, jest.fn()])
 }));
@@ -63,7 +64,7 @@ describe('UpdateOrder', () => {
 
         fireEvent.change(
           // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-          container.querySelector('#cargoWeight')?.querySelector('input')!,
+          container.querySelector('#cargoWeight')!.querySelector('input')!,
           {
             target: {
               value: ''

@@ -47,7 +47,7 @@ const fillCargoForm = (container: HTMLElement) => {
 
   fireEvent.change(
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    container.querySelector('#cargoWeight')?.querySelector('input')!,
+    container.querySelector('#cargoWeight')!.querySelector('input')!,
     {
       target: {
         value: 12
@@ -76,11 +76,13 @@ jest.mock('react-router-dom', () => ({
 }));
 
 jest.mock('@deliveryapp/data-access', () => ({
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ...jest.requireActual<any>('@deliveryapp/data-access'),
   useAuth: jest.fn().mockImplementation(() => [{ user }, jest.fn()])
 }));
 
 jest.mock('lodash', () => ({
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ...jest.requireActual<any>('lodash'),
   debounce: jest.fn((fn) => fn)
 }));
@@ -558,7 +560,7 @@ describe('CreateOrder', () => {
 
           fireEvent.change(
             // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-            container.querySelector('#cargoWeight')?.querySelector('input')!,
+            container.querySelector('#cargoWeight')!.querySelector('input')!,
             {
               target: {
                 value: 12
