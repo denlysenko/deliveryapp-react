@@ -14,7 +14,7 @@ export const Settings = () => {
       <div className="p-grid">
         <div className="p-col-12">
           <div className="card no-margin-bottom">
-            <h2>Company Info</h2>
+            <h2>Company Settings</h2>
           </div>
         </div>
         <div className="p-col-12">
