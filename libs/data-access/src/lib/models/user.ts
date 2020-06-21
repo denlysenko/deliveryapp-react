@@ -1,3 +1,6 @@
+import { Address } from './address';
+import { BankDetails } from './bank-details';
+
 export interface UserDTO {
   id?: number;
   email: string;
@@ -20,20 +23,6 @@ export interface User {
   address?: Address | null;
   bankDetails?: BankDetails | null;
   createdAt: string;
-}
-
-export interface Address {
-  country: string;
-  city: string;
-  street: string;
-  house: string;
-}
-
-export interface BankDetails {
-  name: string;
-  accountNumber: string;
-  bin: string;
-  swift: string;
 }
 
 export interface PasswordPayload {
