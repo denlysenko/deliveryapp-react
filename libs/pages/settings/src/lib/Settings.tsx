@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { TabPanel, TabView } from 'primereact/tabview';
+
+import { settingsClient, Address, BankDetails } from '@deliveryapp/data-access';
 
 import { AddressForm } from './AddressForm/AddressForm';
 import { BankDetailsForm } from './BankDetailsForm/BankDetailsForm';
@@ -8,6 +10,18 @@ import { StyledSettings } from './StyledSettings';
 
 export const Settings = () => {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [address, setAddress] = useState<Address>();
+  const [bankDetails, setBankDetails] = useState<BankDetails>();
+
+  useEffect(() => {
+    Promise.all([
+      settingsClient.getAddress(),
+      settingsClient.getBankDetails()
+    ]).then(([address, bankDetails]) => {
+      setAddress(address.data);
+      setBankDetails(bankDetails.data);
+    });
+  }, []);
 
   return (
     <StyledSettings>
@@ -24,10 +38,10 @@ export const Settings = () => {
               onTabChange={(e) => setActiveIndex(e.index)}
             >
               <TabPanel header="Legal Address">
-                <AddressForm />
+                <AddressForm address={address} />
               </TabPanel>
               <TabPanel header="Bank Details">
-                <BankDetailsForm />
+                <BankDetailsForm bankDetails={bankDetails} />
               </TabPanel>
             </TabView>
           </div>
