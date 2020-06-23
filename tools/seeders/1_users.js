@@ -69,6 +69,10 @@ module.exports = {
   },
 
   down: function (queryInterface) {
-    return queryInterface.bulkDelete('users', {}, {});
+    return Promise.all([
+      queryInterface.bulkDelete('users', {}, {}),
+      queryInterface.bulkDelete('addresses', {}, {}),
+      queryInterface.bulkDelete('bank_details', {}, {})
+    ]);
   }
 };
