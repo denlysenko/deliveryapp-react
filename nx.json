@@ -73,6 +73,9 @@
     },
     "pages-settings": {
       "tags": []
+    },
+    "pages-logs": {
+      "tags": []
     }
   }
 }

@@ -53,6 +53,12 @@ const Settings = lazy(() =>
   }))
 );
 
+const Logs = lazy(() =>
+  import('@deliveryapp/pages/logs').then(({ Logs }) => ({
+    default: Logs
+  }))
+);
+
 export const Main = () => {
   const [showMessages, setShowMessages] = useState(false);
 
@@ -90,6 +96,9 @@ export const Main = () => {
                     </RolesGuard>
                     <RolesGuard exact roles={[Roles.ADMIN]} path="/settings">
                       <Settings />
+                    </RolesGuard>
+                    <RolesGuard exact roles={[Roles.ADMIN]} path="/logs">
+                      <Logs />
                     </RolesGuard>
                   </Switch>
                 </UsersProvider>
