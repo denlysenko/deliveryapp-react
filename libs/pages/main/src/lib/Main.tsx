@@ -5,6 +5,7 @@ import { Sidebar } from 'primereact/sidebar';
 
 import { Roles } from '@deliveryapp/common';
 import {
+  LogsProvider,
   OrdersProvider,
   PaymentsProvider,
   UsersProvider
@@ -72,35 +73,37 @@ export const Main = () => {
             <OrdersProvider>
               <PaymentsProvider>
                 <UsersProvider>
-                  <Switch>
-                    <Route exact path="/">
-                      <Redirect to="/orders" />
-                    </Route>
-                    <Route exact path="/profile">
-                      <Profile />
-                    </Route>
-                    <Route exact path="/orders">
-                      <Orders />
-                    </Route>
-                    <Route exact path="/orders/create">
-                      <CreateOrder />
-                    </Route>
-                    <Route exact path="/orders/:id">
-                      <UpdateOrder />
-                    </Route>
-                    <Route exact path="/payments">
-                      <Payments />
-                    </Route>
-                    <RolesGuard exact roles={[Roles.ADMIN]} path="/users">
-                      <Users />
-                    </RolesGuard>
-                    <RolesGuard exact roles={[Roles.ADMIN]} path="/settings">
-                      <Settings />
-                    </RolesGuard>
-                    <RolesGuard exact roles={[Roles.ADMIN]} path="/logs">
-                      <Logs />
-                    </RolesGuard>
-                  </Switch>
+                  <LogsProvider>
+                    <Switch>
+                      <Route exact path="/">
+                        <Redirect to="/orders" />
+                      </Route>
+                      <Route exact path="/profile">
+                        <Profile />
+                      </Route>
+                      <Route exact path="/orders">
+                        <Orders />
+                      </Route>
+                      <Route exact path="/orders/create">
+                        <CreateOrder />
+                      </Route>
+                      <Route exact path="/orders/:id">
+                        <UpdateOrder />
+                      </Route>
+                      <Route exact path="/payments">
+                        <Payments />
+                      </Route>
+                      <RolesGuard exact roles={[Roles.ADMIN]} path="/users">
+                        <Users />
+                      </RolesGuard>
+                      <RolesGuard exact roles={[Roles.ADMIN]} path="/settings">
+                        <Settings />
+                      </RolesGuard>
+                      <RolesGuard exact roles={[Roles.ADMIN]} path="/logs">
+                        <Logs />
+                      </RolesGuard>
+                    </Switch>
+                  </LogsProvider>
                 </UsersProvider>
               </PaymentsProvider>
             </OrdersProvider>
