@@ -28,7 +28,7 @@
     "api-dev:down": "docker-compose -f \"docker-compose.yml\" down",
     "api-test:up": "docker-compose -f \"docker-compose.test.yml\" --env-file .env.testing up -d",
     "api-test:down": "docker-compose -f \"docker-compose.test.yml\" down",
-    "seed:db": "sequelize db:seed:all",
+    "seed:db": "sequelize db:seed:all && seed -u $(grep MONGO_TEST_URI .env.testing | cut -d '=' -f 2-) --drop-database ./tools/seeders/mongo",
     "clear:db": "sequelize db:seed:undo:all"
   },
   "private": true,
@@ -82,6 +82,7 @@
     "eslint-plugin-react-hooks": "4.0.4",
     "eslint-plugin-testing-library": "^3.3.0",
     "jest": "26.0.1",
+    "mongo-seeding-cli": "^3.4.1",
     "pg": "^8.2.1",
     "prettier": "2.0.5",
     "sequelize": "^5.21.13",

@@ -13,7 +13,13 @@ Cypress.Commands.add('login', (email, password) => {
       email,
       password
     }
-  }).then(response => {
+  }).then((response) => {
     window.localStorage.setItem('daAccessToken', response.body.token);
   });
+});
+
+Cypress.on('uncaught:exception', () => {
+  // returning false here prevents Cypress from
+  // failing the test
+  return false;
 });

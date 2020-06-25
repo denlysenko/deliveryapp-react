@@ -1,0 +1,122 @@
+[
+  {
+    "_id": { "$oid": "5bb39f387c9626039df287aa" },
+    "data": null,
+    "action": { "$numberInt": "11" },
+    "userId": { "$numberInt": "1" },
+    "createdAt": { "$date": { "$numberLong": "1538498360890" } },
+    "__v": { "$numberInt": "0" }
+  },
+  {
+    "_id": { "$oid": "5bb4ff9babc64e00217a0925" },
+    "data": null,
+    "action": { "$numberInt": "1" },
+    "userId": { "$numberInt": "1" },
+    "createdAt": { "$date": { "$numberLong": "1538588571113" } },
+    "__v": { "$numberInt": "0" }
+  },
+  {
+    "_id": { "$oid": "5d0e39be90570f003290a4c5" },
+    "data": null,
+    "action": { "$numberInt": "1" },
+    "userId": { "$numberInt": "1" },
+    "createdAt": { "$date": { "$numberLong": "1561213374288" } },
+    "__v": { "$numberInt": "0" }
+  },
+  {
+    "_id": { "$oid": "5d0e3a2390570f003290a4c7" },
+    "data": { "id": { "$numberInt": "1" } },
+    "action": { "$numberInt": "2" },
+    "userId": { "$numberInt": "1" },
+    "createdAt": { "$date": { "$numberLong": "1561213475494" } },
+    "__v": { "$numberInt": "0" }
+  },
+  {
+    "_id": { "$oid": "5d0e3a6e90570f003290a4c9" },
+    "data": { "id": { "$numberInt": "2" } },
+    "action": { "$numberInt": "2" },
+    "userId": { "$numberInt": "1" },
+    "createdAt": { "$date": { "$numberLong": "1561213550534" } },
+    "__v": { "$numberInt": "0" }
+  },
+  {
+    "_id": { "$oid": "5d0e3ac990570f003290a4ca" },
+    "data": null,
+    "action": { "$numberInt": "3" },
+    "userId": { "$numberInt": "1" },
+    "createdAt": { "$date": { "$numberLong": "1561213641107" } },
+    "__v": { "$numberInt": "0" }
+  },
+  {
+    "_id": { "$oid": "5d0e3ae290570f003290a4cb" },
+    "data": null,
+    "action": { "$numberInt": "4" },
+    "userId": { "$numberInt": "1" },
+    "createdAt": { "$date": { "$numberLong": "1561213666907" } },
+    "__v": { "$numberInt": "0" }
+  },
+  {
+    "_id": { "$oid": "5d0e3b0890570f003290a4cc" },
+    "data": null,
+    "action": { "$numberInt": "4" },
+    "userId": { "$numberInt": "1" },
+    "createdAt": { "$date": { "$numberLong": "1561213704666" } },
+    "__v": { "$numberInt": "0" }
+  },
+  {
+    "_id": { "$oid": "5d0e3b4b90570f003290a4ce" },
+    "data": { "id": { "$numberInt": "1" } },
+    "action": { "$numberInt": "5" },
+    "userId": { "$numberInt": "1" },
+    "createdAt": { "$date": { "$numberLong": "1561213771673" } },
+    "__v": { "$numberInt": "0" }
+  },
+  {
+    "_id": { "$oid": "5d0e3b6a90570f003290a4cf" },
+    "data": null,
+    "action": { "$numberInt": "1" },
+    "userId": { "$numberInt": "2" },
+    "createdAt": { "$date": { "$numberLong": "1561213802564" } },
+    "__v": { "$numberInt": "0" }
+  },
+  {
+    "_id": { "$oid": "5d0e3bca90570f003290a4d1" },
+    "data": { "id": { "$numberInt": "1" } },
+    "action": { "$numberInt": "5" },
+    "userId": { "$numberInt": "2" },
+    "createdAt": { "$date": { "$numberLong": "1561213898187" } },
+    "__v": { "$numberInt": "0" }
+  },
+  {
+    "_id": { "$oid": "5d0e3bf290570f003290a4d3" },
+    "data": { "id": { "$numberInt": "1" } },
+    "action": { "$numberInt": "2" },
+    "userId": { "$numberInt": "2" },
+    "createdAt": { "$date": { "$numberLong": "1561213938043" } },
+    "__v": { "$numberInt": "0" }
+  },
+  {
+    "_id": { "$oid": "5d0e3c0990570f003290a4d5" },
+    "data": { "id": { "$numberInt": "1" } },
+    "action": { "$numberInt": "7" },
+    "userId": { "$numberInt": "2" },
+    "createdAt": { "$date": { "$numberLong": "1561213961788" } },
+    "__v": { "$numberInt": "0" }
+  },
+  {
+    "_id": { "$oid": "5d0e3c0f90570f003290a4d7" },
+    "data": { "id": { "$numberInt": "1" } },
+    "action": { "$numberInt": "7" },
+    "userId": { "$numberInt": "2" },
+    "createdAt": { "$date": { "$numberLong": "1561213967700" } },
+    "__v": { "$numberInt": "0" }
+  },
+  {
+    "_id": { "$oid": "5d0e3c2790570f003290a4d8" },
+    "data": { "id": { "$numberInt": "3" } },
+    "action": { "$numberInt": "8" },
+    "userId": { "$numberInt": "2" },
+    "createdAt": { "$date": { "$numberLong": "1561213991301" } },
+    "__v": { "$numberInt": "0" }
+  }
+]
