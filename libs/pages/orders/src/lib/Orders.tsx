@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import { Button } from 'primereact/button';
@@ -21,7 +21,7 @@ import {
   useOrders,
   User
 } from '@deliveryapp/data-access';
-import { FullPageSpinner } from '@deliveryapp/ui';
+import { FullPageSpinner, UserView } from '@deliveryapp/ui';
 import { getSortField, getSortOrder, toCurrency } from '@deliveryapp/utils';
 
 import { OrdersFilter } from './OrdersFilter/OrdersFilter';
@@ -83,8 +83,24 @@ const deliveryDateTemplate = (rowData: Order) => (
   </span>
 );
 
-const clientTemplate = (rowData: Order) => (
-  <a href="/">{rowData.client?.email}</a>
+const clientTemplate = (userView: React.RefObject<UserView>) => (
+  rowData: Order
+) => (
+  <a
+    href="/"
+    onClick={(e) => {
+      e.preventDefault();
+      if (
+        !isNil(userView.current) &&
+        !isNil(rowData.client) &&
+        !isNil(rowData.client.id)
+      ) {
+        userView.current.open(rowData.client.id);
+      }
+    }}
+  >
+    {rowData.client?.email}
+  </a>
 );
 
 export const Orders = () => {
@@ -93,6 +109,7 @@ export const Orders = () => {
   const [loading, setLoading] = useState(false);
   const [orders, setOrders] = useState<Order[]>([]);
   const [totalRecords, setTotalRecords] = useState(0);
+  const userView = useRef<UserView>(null);
 
   const doFiltering = (ordersFilter: IOrdersFilter['filter']) => {
     dispatch({
@@ -137,6 +154,7 @@ export const Orders = () => {
         <FullPageSpinner />
       ) : (
         <StyledOrders>
+          <UserView ref={userView} />
           <div className="card">
             <div className="p-grid">
               <div className="p-md-8 p-col-12">
@@ -173,7 +191,9 @@ export const Orders = () => {
               <Column body={deliveryDateTemplate} />
               <Column body={statusTemplate} />
               <Column body={paidTemplate} />
-              {user?.role !== Roles.CLIENT && <Column body={clientTemplate} />}
+              {user?.role !== Roles.CLIENT && (
+                <Column body={clientTemplate(userView)} />
+              )}
             </DataTable>
             <Paginator
               rows={ordersFilter.limit}

@@ -151,7 +151,11 @@ body .p-paginator {
 
   @media (min-width: 641px) {
     width: 50%;
-    height: 480px;
+    height: 470px;
+  }
+
+  .p-dialog-content {
+    height: 100%;
   }
 }
 

@@ -4,8 +4,15 @@ exports[`Orders Page should render successfully 1`] = `
 <body>
   <div>
     <div
-      class="sc-AxiKw hqQPL"
+      class="sc-AxhCb dyCIgT"
     >
+      <div
+        class="sc-AxirZ dkfEnX"
+      >
+        <div
+          class="p-dialog-mask p-component-overlay p-dialog-center"
+        />
+      </div>
       <div
         class="card"
       >
@@ -16,7 +23,7 @@ exports[`Orders Page should render successfully 1`] = `
             class="p-md-8 p-col-12"
           >
             <div
-              class="sc-AxirZ fHbvgC"
+              class="sc-AxiKw kwGUfS"
             >
               <div
                 class="order-filter p-grid"

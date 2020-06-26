@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 import { Button } from 'primereact/button';
 import { Column } from 'primereact/column';
@@ -20,7 +20,7 @@ import {
   usePayments,
   User
 } from '@deliveryapp/data-access';
-import { FullPageSpinner } from '@deliveryapp/ui';
+import { FullPageSpinner, UserView } from '@deliveryapp/ui';
 import { getSortField, getSortOrder, toCurrency } from '@deliveryapp/utils';
 
 import { PaymentsFilter } from '../PaymentsFilter/PaymentsFilter';
@@ -71,8 +71,24 @@ const createdAtTemplate = (rowData: Payment) => (
   </span>
 );
 
-const clientTemplate = (rowData: Payment) => (
-  <a href="/">{rowData.client?.email}</a>
+const clientTemplate = (userView: React.RefObject<UserView>) => (
+  rowData: Payment
+) => (
+  <a
+    href="/"
+    onClick={(e) => {
+      e.preventDefault();
+      if (
+        !isNil(userView.current) &&
+        !isNil(rowData.client) &&
+        !isNil(rowData.client.id)
+      ) {
+        userView.current.open(rowData.client.id);
+      }
+    }}
+  >
+    {rowData.client?.email}
+  </a>
 );
 
 const findSelectedPayment = (
@@ -86,6 +102,7 @@ export const PaymentsList = () => {
   const [loading, setLoading] = useState(false);
   const [payments, setPayments] = useState<Payment[]>([]);
   const [totalRecords, setTotalRecords] = useState(0);
+  const userView = useRef<UserView>(null);
 
   const doFiltering = (paymentsFilter: IPaymentsFilter['filter']) => {
     dispatch({
@@ -139,6 +156,7 @@ export const PaymentsList = () => {
         <FullPageSpinner />
       ) : (
         <StyledPaymentsList>
+          <UserView ref={userView} />
           <div className="topbar p-grid">
             <div className="payment-filter p-md-8 p-col-12">
               <PaymentsFilter
@@ -177,7 +195,9 @@ export const PaymentsList = () => {
             <Column body={statusTemplate} />
             <Column body={dueDateTemplate} />
             <Column body={createdAtTemplate} />
-            {user?.role !== Roles.CLIENT && <Column body={clientTemplate} />}
+            {user?.role !== Roles.CLIENT && (
+              <Column body={clientTemplate(userView)} />
+            )}
           </DataTable>
           <Paginator
             rows={state.paymentsFilter.limit}

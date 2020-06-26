@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 import { Column } from 'primereact/column';
 import { ColumnGroup } from 'primereact/columngroup';
@@ -17,7 +17,7 @@ import {
   LogsFilter as ILogsFilter,
   useLogs
 } from '@deliveryapp/data-access';
-import { FullPageSpinner } from '@deliveryapp/ui';
+import { FullPageSpinner, UserView } from '@deliveryapp/ui';
 import { getSortField, getSortOrder } from '@deliveryapp/utils';
 
 import { LogsFilter } from './LogsFilter/LogsFilter';
@@ -51,6 +51,22 @@ const actionTemplate = (rowData: Log) => (
   <span>{actionNames[rowData.action]}</span>
 );
 
+const userIdTemplate = (userView: React.RefObject<UserView>) => (
+  rowData: Log
+) => (
+  <a
+    href="/"
+    onClick={(e) => {
+      e.preventDefault();
+      if (!isNil(userView.current) && !isNil(rowData.userId)) {
+        userView.current.open(rowData.userId);
+      }
+    }}
+  >
+    {rowData.userId}
+  </a>
+);
+
 const additionalDataTemplate = (rowData: Log) => (
   <span>{JSON.stringify(rowData.data)}</span>
 );
@@ -60,6 +76,7 @@ export const Logs = () => {
   const [loading, setLoading] = useState(false);
   const [logs, setLogs] = useState<Log[]>([]);
   const [totalRecords, setTotalRecords] = useState(0);
+  const userView = useRef<UserView>(null);
 
   const doFiltering = (logsFilter: ILogsFilter['filter']) => {
     dispatch({
@@ -104,6 +121,7 @@ export const Logs = () => {
         <FullPageSpinner />
       ) : (
         <StyledLogs>
+          <UserView ref={userView} />
           <div className="card">
             <div className="p-grid">
               <div className="p-col-12">
@@ -122,7 +140,7 @@ export const Logs = () => {
             >
               <Column body={createdAtTemplate} />
               <Column body={actionTemplate} />
-              <Column field="userId" />
+              <Column body={userIdTemplate(userView)} />
               <Column body={additionalDataTemplate} />
             </DataTable>
             <Paginator
