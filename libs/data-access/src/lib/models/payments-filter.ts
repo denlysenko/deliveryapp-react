@@ -1,6 +1,8 @@
+import { BaseFilter } from './base-filter';
+
 type OrderField = 'id' | 'createdAt' | 'total' | 'status';
 
-export interface PaymentsFilter {
+export interface PaymentsFilter extends BaseFilter {
   filter?: {
     id?: number;
   };
@@ -9,6 +11,4 @@ export interface PaymentsFilter {
       [key in OrderField]: 'desc' | 'asc';
     }
   >;
-  offset?: number;
-  limit?: number;
 }

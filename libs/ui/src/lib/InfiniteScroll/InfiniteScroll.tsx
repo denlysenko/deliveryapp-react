@@ -14,7 +14,6 @@ export const InfiniteScroll: React.FC<InfiniteScrollProps> = ({
 
   const callback = useCallback(
     ([entry]) => {
-      console.log(entry.isIntersecting);
       if (entry.isIntersecting) {
         onLoadMore();
       }

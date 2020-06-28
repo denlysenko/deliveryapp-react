@@ -1,6 +1,8 @@
+import { BaseFilter } from './base-filter';
+
 type OrderField = 'createdAt';
 
-export interface LogsFilter {
+export interface LogsFilter extends BaseFilter {
   filter?: {
     userId?: number;
     action?: number;
@@ -10,6 +12,4 @@ export interface LogsFilter {
       [key in OrderField]: 'desc' | 'asc';
     }
   >;
-  offset?: number;
-  limit?: number;
 }

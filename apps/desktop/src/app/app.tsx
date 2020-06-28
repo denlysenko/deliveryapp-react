@@ -3,7 +3,7 @@ import { BrowserRouter, Switch } from 'react-router-dom';
 
 import { Auth } from '@deliveryapp/pages/auth';
 import { apiClient } from '@deliveryapp/core';
-import { AuthProvider } from '@deliveryapp/data-access';
+import { AuthProvider, MessagesProvider } from '@deliveryapp/data-access';
 import { AuthGuard, AnonymousGuard } from '@deliveryapp/guards';
 import { Main } from '@deliveryapp/pages/main';
 
@@ -21,7 +21,9 @@ export const App = () => {
             <Auth />
           </AnonymousGuard>
           <AuthGuard path="/">
-            <Main />
+            <MessagesProvider>
+              <Main />
+            </MessagesProvider>
           </AuthGuard>
         </Switch>
       </BrowserRouter>

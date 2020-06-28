@@ -1,6 +1,8 @@
+import { BaseFilter } from './base-filter';
+
 type OrderField = 'id' | 'firstName' | 'lastName' | 'email';
 
-export interface UsersFilter {
+export interface UsersFilter extends BaseFilter {
   filter?: {
     id?: number;
     role?: number[];
@@ -13,6 +15,4 @@ export interface UsersFilter {
       [key in OrderField]: 'desc' | 'asc';
     }
   >;
-  offset?: number;
-  limit?: number;
 }

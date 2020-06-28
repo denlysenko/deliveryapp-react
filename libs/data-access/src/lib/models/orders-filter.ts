@@ -1,6 +1,8 @@
+import { BaseFilter } from './base-filter';
+
 type OrderField = 'cargoName' | 'cityTo' | 'cityFrom' | 'id';
 
-export interface OrdersFilter {
+export interface OrdersFilter extends BaseFilter {
   filter?: {
     clientId?: number;
     cargoName?: string;
@@ -13,6 +15,4 @@ export interface OrdersFilter {
       [key in OrderField]: 'desc' | 'asc';
     }
   >;
-  offset?: number;
-  limit?: number;
 }

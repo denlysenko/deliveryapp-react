@@ -4,6 +4,7 @@ import * as ordersClient from './lib/api/orders';
 import * as paymentsClient from './lib/api/payments';
 import * as settingsClient from './lib/api/settings';
 import * as logsClient from './lib/api/logs';
+import * as messagesClient from './lib/api/messages';
 
 export {
   authClient,
@@ -11,7 +12,8 @@ export {
   ordersClient,
   paymentsClient,
   settingsClient,
-  logsClient
+  logsClient,
+  messagesClient
 };
 
 export * from './lib/models/auth';
@@ -27,9 +29,11 @@ export * from './lib/models/address';
 export * from './lib/models/bank-details';
 export * from './lib/models/logs-filter';
 export * from './lib/models/log';
+export * from './lib/models/message';
 
 export * from './lib/context/auth';
 export * from './lib/context/orders';
 export * from './lib/context/payments';
 export * from './lib/context/users';
 export * from './lib/context/logs';
+export * from './lib/context/messages';
