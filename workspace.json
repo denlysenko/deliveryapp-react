@@ -15,7 +15,10 @@
             "main": "apps/desktop/src/main.tsx",
             "polyfills": "apps/desktop/src/polyfills.ts",
             "tsConfig": "apps/desktop/tsconfig.app.json",
-            "assets": ["apps/desktop/src/assets"],
+            "assets": [
+              "apps/desktop/src/assets",
+              "apps/desktop/src/firebase-messaging-sw.js"
+            ],
             "styles": [
               "apps/desktop/src/theme.css",
               "node_modules/font-awesome/css/font-awesome.min.css",
