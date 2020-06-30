@@ -2,10 +2,12 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import { ACCESS_TOKEN } from '@deliveryapp/common';
+import { apiClient } from '@deliveryapp/core';
 import {
+  authClient,
   AuthCredentials,
   LoginError,
-  authClient,
+  subscribeToNotifications,
   ValidationError
 } from '@deliveryapp/data-access';
 
@@ -23,7 +25,7 @@ export const Auth: React.FC = () => {
     event: React.MouseEvent<HTMLAnchorElement, MouseEvent>
   ) => {
     event.preventDefault();
-    setIsLoggingIn(loggingIn => !loggingIn);
+    setIsLoggingIn((loggingIn) => !loggingIn);
     setError(null);
   };
 
@@ -39,6 +41,8 @@ export const Auth: React.FC = () => {
         : await authClient.register(credentials);
 
       localStorage.setItem(ACCESS_TOKEN, data.token);
+      apiClient.setAuthHeader(data.token);
+      await subscribeToNotifications();
       history.push('/');
     } catch (err) {
       setLoading(false);

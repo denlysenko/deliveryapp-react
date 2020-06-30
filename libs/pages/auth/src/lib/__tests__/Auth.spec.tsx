@@ -1,14 +1,38 @@
 import React from 'react';
-import { render, fireEvent, screen, waitFor } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 
-import { authPayload, useHistoryMock } from '@deliveryapp/testing';
 import { ACCESS_TOKEN } from '@deliveryapp/common';
+import { apiClient } from '@deliveryapp/core';
 import { authClient } from '@deliveryapp/data-access';
+import { authPayload, useHistoryMock } from '@deliveryapp/testing';
 
 import { Auth } from '../Auth';
 
+jest.mock('@deliveryapp/core', () => ({
+  apiClient: {
+    setAuthHeader: jest.fn(),
+    post: jest.fn().mockResolvedValue({})
+  },
+  fcmMessaging: {
+    getToken: jest.fn().mockResolvedValue('socketId'),
+    messaging: {
+      deleteToken: jest.fn().mockResolvedValue({})
+    },
+    unsubscribe: jest.fn()
+  }
+}));
+
 const email = 'test@test.com';
 const password = 'password';
+const socketId = 'socketId';
+
+// eslint-disable-next-line @typescript-eslint/no-empty-function
+function MockNotification() {}
+
+MockNotification.requestPermission = jest.fn().mockResolvedValue('granted');
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+(window as any).Notification = MockNotification;
 
 const fillForm = () => {
   fireEvent.change(screen.getByTestId('email'), {
@@ -130,6 +154,22 @@ describe('Auth Page', () => {
       });
 
       expect(localStorageSpy).toBeCalledWith(ACCESS_TOKEN, authPayload.token);
+    });
+
+    it('should set auth header and subscribe to notifications', async () => {
+      render(<Auth />);
+
+      fillForm();
+
+      fireEvent.click(screen.getByTestId('submit'));
+
+      await waitFor(() => {
+        expect(apiClient.setAuthHeader).toBeCalledTimes(1);
+      });
+
+      expect(apiClient.post).toBeCalledWith('/messages/subscribe', {
+        socketId
+      });
     });
 
     it('should redirect to /', async () => {
