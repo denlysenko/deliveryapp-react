@@ -1,8 +1,14 @@
 import React from 'react';
-import { cleanup, fireEvent } from '@testing-library/react';
 
-import { AuthProvider, useAuth } from '@deliveryapp/data-access';
-import { user, renderWithRouter } from '@deliveryapp/testing';
+import { fireEvent, screen, waitFor } from '@testing-library/react';
+
+import { apiClient } from '@deliveryapp/core';
+import {
+  AuthProvider,
+  MessagesProvider,
+  useAuth
+} from '@deliveryapp/data-access';
+import { renderWithRouter, user } from '@deliveryapp/testing';
 
 import { TopBar } from '../TopBar/TopBar';
 
@@ -11,30 +17,60 @@ jest.mock('@deliveryapp/data-access', () => ({
   ...jest.requireActual<any>('@deliveryapp/data-access'),
   useAuth: jest
     .fn()
-    .mockImplementation(() => [{ user, isLoggedIn: true }, jest.fn()])
+    .mockImplementation(() => [{ user, isLoggedIn: true }, jest.fn()]),
+  useMessages: jest.fn().mockImplementation(() => [{ unread: 1 }])
+}));
+
+jest.mock('@deliveryapp/core', () => ({
+  apiClient: {
+    removeAuthHeader: jest.fn(),
+    post: jest.fn().mockResolvedValue({})
+  },
+  fcmMessaging: {
+    getToken: jest.fn().mockResolvedValue('socketId'),
+    messaging: {
+      deleteToken: jest.fn().mockResolvedValue({})
+    },
+    unsubscribe: jest.fn()
+  }
 }));
 
 const showMessages = jest.fn();
 
 describe('TopBar', () => {
   afterEach(() => {
-    cleanup();
     jest.clearAllMocks();
   });
 
   it('should render successfully', () => {
     const { baseElement } = renderWithRouter(
       <AuthProvider>
-        <TopBar showMessages={showMessages} />
+        <MessagesProvider>
+          <TopBar showMessages={showMessages} />
+        </MessagesProvider>
       </AuthProvider>
     );
-    expect(baseElement).toMatchSnapshot();
+    expect(baseElement).toBeTruthy();
+  });
+
+  it('should unread count', () => {
+    renderWithRouter(
+      <AuthProvider>
+        <MessagesProvider>
+          <TopBar showMessages={showMessages} />
+        </MessagesProvider>
+      </AuthProvider>
+    );
+
+    expect(screen.getByTestId('unread').innerHTML).toBe('1');
   });
 
   it('should display firstName and lastName if exists', () => {
     const { queryByText } = renderWithRouter(
       <AuthProvider>
-        <TopBar showMessages={showMessages} />
+        <MessagesProvider>
+          <TopBar showMessages={showMessages} />
+        </MessagesProvider>
       </AuthProvider>
     );
 
@@ -52,7 +88,9 @@ describe('TopBar', () => {
 
     const { queryByText } = renderWithRouter(
       <AuthProvider>
-        <TopBar showMessages={showMessages} />
+        <MessagesProvider>
+          <TopBar showMessages={showMessages} />
+        </MessagesProvider>
       </AuthProvider>
     );
 
@@ -64,7 +102,9 @@ describe('TopBar', () => {
   it('should navigate to profile', () => {
     const { getByText, getByTestId, history } = renderWithRouter(
       <AuthProvider>
-        <TopBar showMessages={showMessages} />
+        <MessagesProvider>
+          <TopBar showMessages={showMessages} />
+        </MessagesProvider>
       </AuthProvider>
     );
 
@@ -74,15 +114,21 @@ describe('TopBar', () => {
     expect(history.location.pathname).toEqual('/profile');
   });
 
-  it('should logout', () => {
+  it('should logout', async () => {
     const { getByText, getByTestId, history } = renderWithRouter(
       <AuthProvider>
-        <TopBar showMessages={showMessages} />
+        <MessagesProvider>
+          <TopBar showMessages={showMessages} />
+        </MessagesProvider>
       </AuthProvider>
     );
 
     fireEvent.click(getByTestId('menu'));
     fireEvent.click(getByText('Logout'));
+
+    await waitFor(() => {
+      expect(apiClient.post).toBeCalledTimes(1);
+    });
 
     expect(history.location.pathname).toEqual('/auth');
   });
