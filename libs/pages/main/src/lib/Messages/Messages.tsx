@@ -31,7 +31,7 @@ export const Messages: React.FC<MessagesProps> = ({
 
   return (
     <StyledMessages>
-      <div className="card">
+      <div className="card" data-testid="messages-list">
         <InfiniteScroll onLoadMore={loadMore}>
           {messages.length > 0 ? (
             <>

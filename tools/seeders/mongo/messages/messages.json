@@ -1,0 +1,146 @@
+[
+  {
+    "_id": {
+      "$oid": "5d0e3a2390570f003290a4c6"
+    },
+    "forEmployee": true,
+    "read": false,
+    "text": "New order # 1 created by client 1",
+    "createdAt": {
+      "$date": "2019-06-22T14:24:35.480Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "5d0e3a6e90570f003290a4c8"
+    },
+    "forEmployee": true,
+    "read": true,
+    "text": "New order # 2 created by client 1",
+    "createdAt": {
+      "$date": "2019-06-22T14:25:50.531Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "5d0e3b4b90570f003290a4cd"
+    },
+    "forEmployee": true,
+    "read": false,
+    "text": "Order # 1 has been updated",
+    "createdAt": {
+      "$date": "2019-06-22T14:29:31.664Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "5d0e3bca90570f003290a4d0"
+    },
+    "forEmployee": true,
+    "read": true,
+    "text": "Order # 1 has been updated",
+    "createdAt": {
+      "$date": "2019-06-22T14:31:38.179Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "5d0e3bf290570f003290a4d2"
+    },
+    "forEmployee": true,
+    "read": true,
+    "text": "New invoice created # 1",
+    "createdAt": {
+      "$date": "2019-06-22T14:32:18.033Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "5d0e3c0990570f003290a4d4"
+    },
+    "forEmployee": true,
+    "read": true,
+    "text": "Invoice # 1 has been updated",
+    "createdAt": {
+      "$date": "2019-06-22T14:32:41.769Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "5d0e3c0f90570f003290a4d6"
+    },
+    "forEmployee": true,
+    "read": true,
+    "text": "Invoice # 1 has been updated",
+    "createdAt": {
+      "$date": "2019-06-22T14:32:47.689Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "5d0e3cff90570f003290a4da"
+    },
+    "forEmployee": true,
+    "read": true,
+    "text": "Order # 1 has been updated",
+    "createdAt": {
+      "$date": "2019-06-22T14:36:47.658Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "5d15f8d04c41d600837138b7"
+    },
+    "forEmployee": true,
+    "read": false,
+    "text": "New order # 1 created by client 1",
+    "createdAt": {
+      "$date": "2019-06-28T11:24:00.079Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "5d15f973abce60009039034e"
+    },
+    "forEmployee": true,
+    "read": true,
+    "text": "Order # 1 has been updated",
+    "createdAt": {
+      "$date": "2019-06-28T11:26:43.366Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "5d15f9c89913a1009d48c67e"
+    },
+    "forEmployee": true,
+    "read": true,
+    "text": "Order # 1 has been updated",
+    "createdAt": {
+      "$date": "2019-06-28T11:28:08.300Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "5d15fa3baabafb00aa97c80e"
+    },
+    "forEmployee": true,
+    "read": true,
+    "text": "Order # 1 has been updated",
+    "createdAt": {
+      "$date": "2019-06-28T11:30:03.831Z"
+    },
+    "__v": 0
+  }
+]

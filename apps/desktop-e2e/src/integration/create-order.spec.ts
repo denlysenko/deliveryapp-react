@@ -155,7 +155,10 @@ describe('Create order page', () => {
       cy.get('[data-testid=create]').click();
 
       cy.get('.p-steps-current').should('contain.html', 'Destination');
-      cy.get('.p-growl').should('contain.html', ERRORS.CREATE_ORDER_FAILED);
+      cy.get('.content .p-growl').should(
+        'contain.html',
+        ERRORS.CREATE_ORDER_FAILED
+      );
     });
   });
 });
