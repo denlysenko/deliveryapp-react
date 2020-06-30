@@ -9,4 +9,8 @@ export const StyledMain = styled.div`
       margin-left: 0;
     }
   }
+
+  .p-sidebar {
+    background-color: #f2f8fa;
+  }
 `;
