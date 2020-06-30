@@ -8,6 +8,7 @@ import { AuthGuard, AnonymousGuard } from '@deliveryapp/guards';
 import { Main } from '@deliveryapp/pages/main';
 
 import { environment } from '../environments/environment';
+
 import './app.scss';
 
 apiClient.setBaseUrl(environment.apiUrl);
