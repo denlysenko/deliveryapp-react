@@ -1,22 +1,27 @@
 import { ACCESS_TOKEN } from '@deliveryapp/common';
-import { apiClient } from '@deliveryapp/core';
+import { apiClient, fcmMessaging } from '@deliveryapp/core';
 import { user } from '@deliveryapp/testing';
 
-import { me } from '../../../api/users';
 import { AuthActionTypes, loadSelf } from '../auth.actions';
 
 const dispatch = jest.fn();
 const history = {
   push: jest.fn()
 };
-
-jest.mock('../../../api/users', () => ({
-  me: jest.fn(() => Promise.resolve({ data: user }))
-}));
+const socketId = 'socketId';
 
 jest.mock('@deliveryapp/core', () => ({
   apiClient: {
-    removeAuthHeader: jest.fn()
+    removeAuthHeader: jest.fn(),
+    get: jest.fn(() => Promise.resolve({ data: user })),
+    post: jest.fn().mockResolvedValue({})
+  },
+  fcmMessaging: {
+    getToken: jest.fn().mockResolvedValue('socketId'),
+    messaging: {
+      deleteToken: jest.fn().mockResolvedValue({})
+    },
+    unsubscribe: jest.fn()
   }
 }));
 
@@ -25,7 +30,13 @@ afterEach(() => {
 });
 
 describe('[Auth Context] Actions', () => {
-  describe('loadMe', () => {
+  let localStorageSpy: jest.SpyInstance;
+
+  beforeEach(() => {
+    localStorageSpy = jest.spyOn(window.localStorage.__proto__, 'removeItem');
+  });
+
+  describe('loadSelf', () => {
     describe('success', () => {
       it('should dispatch LOAD_SUCCESS', async () => {
         await loadSelf(dispatch, history);
@@ -38,24 +49,19 @@ describe('[Auth Context] Actions', () => {
 
     describe('fail/logout', () => {
       beforeEach(() => {
-        (me as jest.MockedFunction<typeof me>).mockImplementationOnce(() =>
-          Promise.reject({})
-        );
+        jest.spyOn(apiClient, 'get').mockRejectedValueOnce({});
       });
 
-      it('should dispatch LOGOUT', async () => {
+      it('should unsubscribe from notifications', async () => {
         await loadSelf(dispatch, history);
-        expect(dispatch).toBeCalledWith({
-          type: AuthActionTypes.LOGOUT
+        expect(apiClient.post).toBeCalledWith('/messages/unsubscribe', {
+          socketId
         });
+        expect(fcmMessaging.messaging?.deleteToken).toBeCalledWith(socketId);
+        expect(fcmMessaging.unsubscribe).toBeCalledTimes(1);
       });
 
       it('should remove ACCESS_TOKEN from localStorage', async () => {
-        const localStorageSpy = jest.spyOn(
-          window.localStorage.__proto__,
-          'removeItem'
-        );
-
         await loadSelf(dispatch, history);
         expect(localStorageSpy).toBeCalledWith(ACCESS_TOKEN);
       });
@@ -63,6 +69,13 @@ describe('[Auth Context] Actions', () => {
       it('should remove auth header', async () => {
         await loadSelf(dispatch, history);
         expect(apiClient.removeAuthHeader).toBeCalledTimes(1);
+      });
+
+      it('should dispatch LOGOUT', async () => {
+        await loadSelf(dispatch, history);
+        expect(dispatch).toBeCalledWith({
+          type: AuthActionTypes.LOGOUT
+        });
       });
 
       it('should redirect to auth', async () => {

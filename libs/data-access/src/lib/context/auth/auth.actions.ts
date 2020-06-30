@@ -1,8 +1,9 @@
-import { apiClient } from '@deliveryapp/core';
 import { ACCESS_TOKEN } from '@deliveryapp/common';
+import { apiClient } from '@deliveryapp/core';
 
 import { me } from '../../api/users';
 import { User } from '../../models/user';
+import { unsubscribeFromNotifications } from '../messages/messages.actions';
 
 export enum AuthActionTypes {
   USER_LOADED = '[Auth] User Loaded',
@@ -26,12 +27,11 @@ export type AuthAction = UserLoadedAction | LogoutAction;
 
 export type AuthDispatch = (action: AuthAction) => void;
 
-export const logout = (dispatch: AuthDispatch, history: History) => {
-  dispatch({
-    type: AuthActionTypes.LOGOUT
-  });
+export const logout = async (dispatch: AuthDispatch, history: History) => {
+  await unsubscribeFromNotifications();
   localStorage.removeItem(ACCESS_TOKEN);
   apiClient.removeAuthHeader();
+  dispatch({ type: AuthActionTypes.LOGOUT });
   history.push('/auth');
 };
 
@@ -43,6 +43,6 @@ export const loadSelf = async (dispatch: AuthDispatch, history: History) => {
       payload: data
     });
   } catch {
-    logout(dispatch, history);
+    await logout(dispatch, history);
   }
 };

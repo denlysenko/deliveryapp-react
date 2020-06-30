@@ -1,3 +1,9 @@
+import { fcmMessaging } from '@deliveryapp/core';
+
+import {
+  subscribeToMessages,
+  unsubscribeFromMessages
+} from '../../api/messages';
 import { ListResponse } from '../../models/list-response';
 import { Message } from '../../models/message';
 
@@ -28,3 +34,28 @@ export type MessagesAction =
   | MarkedAsReadAction;
 
 export type MessagesDispatch = (action: MessagesAction) => void;
+
+export const subscribeToNotifications = async () => {
+  const permission = await Notification.requestPermission();
+
+  if (permission === 'granted') {
+    const token = await fcmMessaging.getToken();
+
+    if (token) {
+      await subscribeToMessages(token);
+    }
+  }
+};
+
+export const unsubscribeFromNotifications = async () => {
+  const token = await fcmMessaging.getToken();
+
+  if (token) {
+    await unsubscribeFromMessages(token);
+    await fcmMessaging.messaging?.deleteToken(token);
+
+    if (fcmMessaging.unsubscribe) {
+      fcmMessaging.unsubscribe();
+    }
+  }
+};
