@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  apiUrl: '',
+  apiUrl: 'https://sheltered-escarpment-55326.herokuapp.com',
   firebaseAppId: '1:910231972624:web:a6d5902a751779b2',
   firebaseApiKey: 'AIzaSyAGqgHQTL4xUrBLO5566X35vRKN0pE56-s',
   firebaseProjectId: 'delivery-app-b63cc',
