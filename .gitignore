@@ -41,3 +41,5 @@ Thumbs.db
 .sequelizerc
 .env
 .env.testing
+# Local Netlify folder
+.netlify
