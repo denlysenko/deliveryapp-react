@@ -17,7 +17,8 @@
             "tsConfig": "apps/desktop/tsconfig.app.json",
             "assets": [
               "apps/desktop/src/assets",
-              "apps/desktop/src/firebase-messaging-sw.js"
+              "apps/desktop/src/firebase-messaging-sw.js",
+              "apps/desktop/src/_redirects"
             ],
             "styles": [
               "apps/desktop/src/theme.css",
